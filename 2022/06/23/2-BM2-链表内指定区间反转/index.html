@@ -5,19 +5,19 @@
   
 
   
-  <title>hexo常用命令 | Hexo</title>
+  <title>2. BM2 链表内指定区间反转 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言方便查阅，将本人常用指令汇总 常用指令由于设置了github多设备同步博客，因此在使用博客之前需要进行拉取同步 1git pull  新建文章 1hexo n &quot;文章名&quot;  文章上传服务器 12# 清除缓存&amp;&amp;生成静态网页&amp;&amp;将本地数据部署到服务器hexo clean &amp;&amp; hexo g &amp;&amp; hexo d">
+  <meta name="description" content="描述将一个节点数为 size 链表 m 位置到 n 位置之间的区间反转，要求时间复杂度 O(n)O(n)，空间复杂度 O(1)O(1)。例如：给出的链表为 1→2→3→4→5→NULL, m&#x3D;2,n&#x3D;4返回1→4→3→2→5→NULL. 数据范围： 链表长度0&lt;size≤1000，0&lt;m≤n≤size，链表中每个节点的值满足∣val∣≤1000 要求：时间复杂度 O(n)，空间复杂度">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo常用命令">
-<meta property="og:url" content="http://example.com/2022/06/22/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:title" content="2. BM2 链表内指定区间反转">
+<meta property="og:url" content="http://example.com/2022/06/23/2-BM2-%E9%93%BE%E8%A1%A8%E5%86%85%E6%8C%87%E5%AE%9A%E5%8C%BA%E9%97%B4%E5%8F%8D%E8%BD%AC/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="前言方便查阅，将本人常用指令汇总 常用指令由于设置了github多设备同步博客，因此在使用博客之前需要进行拉取同步 1git pull  新建文章 1hexo n &quot;文章名&quot;  文章上传服务器 12# 清除缓存&amp;&amp;生成静态网页&amp;&amp;将本地数据部署到服务器hexo clean &amp;&amp; hexo g &amp;&amp; hexo d">
+<meta property="og:description" content="描述将一个节点数为 size 链表 m 位置到 n 位置之间的区间反转，要求时间复杂度 O(n)O(n)，空间复杂度 O(1)O(1)。例如：给出的链表为 1→2→3→4→5→NULL, m&#x3D;2,n&#x3D;4返回1→4→3→2→5→NULL. 数据范围： 链表长度0&lt;size≤1000，0&lt;m≤n≤size，链表中每个节点的值满足∣val∣≤1000 要求：时间复杂度 O(n)，空间复杂度">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-06-22T03:02:00.000Z">
-<meta property="article:modified_time" content="2022-06-24T07:57:38.794Z">
+<meta property="article:published_time" content="2022-06-23T01:47:51.000Z">
+<meta property="article:modified_time" content="2022-06-29T07:29:48.171Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="hexo">
+<meta property="article:tag" content="中等">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -67,14 +67,14 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-hexo常用命令" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-2-BM2-链表内指定区间反转" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2022/06/22/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="article-date">
-  <time datetime="2022-06-22T03:02:00.000Z" itemprop="datePublished">2022-06-22</time>
+    <a href="/2022/06/23/2-BM2-%E9%93%BE%E8%A1%A8%E5%86%85%E6%8C%87%E5%AE%9A%E5%8C%BA%E9%97%B4%E5%8F%8D%E8%BD%AC/" class="article-date">
+  <time datetime="2022-06-23T01:47:51.000Z" itemprop="datePublished">2022-06-23</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%8A%80%E5%B7%A7%E5%B0%8F%E7%9F%A5%E8%AF%86/">技巧小知识</a>
+    <a class="article-category-link" href="/categories/%E7%89%9B%E5%AE%A2%E5%88%B7%E9%A2%98/">牛客刷题</a>
   </div>
 
   </div>
@@ -85,7 +85,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      hexo常用命令
+      2. BM2 链表内指定区间反转
     </h1>
   
 
@@ -93,22 +93,53 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>方便查阅，将本人常用指令汇总</p>
-<h2 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h2><p>由于设置了github多设备同步博客，因此在使用博客之前需要进行拉取同步</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull</span><br></pre></td></tr></table></figure>
+        <h2 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h2><p>将一个节点数为 size 链表 m 位置到 n 位置之间的区间反转，要求时间复杂度 O(n)<em>O</em>(<em>n</em>)，空间复杂度 O(1)<em>O</em>(1)。<br>例如：<br>给出的链表为 1→2→3→4→5→<em>N<strong>U</strong>LL</em>, m=2,n=4<br>返回1→4→3→2→5→<em>N<strong>U</strong>LL</em>.</p>
+<p>数据范围： 链表长度0&lt;<em>s<strong>i</strong>ze</em>≤1000，0&lt;<em>m</em>≤<em>n</em>≤<em>s<strong>i</strong>ze</em>，链表中每个节点的值满足∣<em>v<strong>a</strong>l</em>∣≤1000</p>
+<p>要求：时间复杂度 O(n)，空间复杂度 O(n)</p>
+<p>进阶：时间复杂度 O(n)，空间复杂度 O(1)</p>
+<h2 id="示例1"><a href="#示例1" class="headerlink" title="示例1"></a>示例1</h2><p>输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;1,2,3,4,5&#125;,2,4</span><br></pre></td></tr></table></figure>
 
-<p>新建文章</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo n &quot;文章名&quot;</span><br></pre></td></tr></table></figure>
+<p>返回值：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;1,4,3,2,5&#125;</span><br></pre></td></tr></table></figure>
 
-<p>文章上传服务器</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 清除缓存&amp;&amp;生成静态网页&amp;&amp;将本地数据部署到服务器</span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
+<h2 id="示例2"><a href="#示例2" class="headerlink" title="示例2"></a>示例2</h2><p>输入：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;5&#125;,1,1</span><br></pre></td></tr></table></figure>
+
+<p>返回值：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;5&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><ol>
+<li><p>如果m == n：返回原链表头节点</p>
+</li>
+<li><p>如果 m ！= n: </p>
+<ol>
+<li><p>比如1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;6 反转后 1-&gt;5-&gt;4-&gt;3-&gt;2-&gt;6 </p>
+</li>
+<li><p>先反转部分链表 2-&gt;3-&gt;4-&gt;5 变成 5-&gt;4-&gt;3-&gt;2 </p>
+<ol>
+<li>pre/cur/post记录待反转节点 pre=2，cur=3，post=4</li>
+<li>反转 cur.next=pre;pre=cur;cur=post;post=post.next;</li>
+<li>如果pre=5代表部分反转完成</li>
+</ol>
+</li>
+<li><p>再收尾连接</p>
+<ol>
+<li>phead 记录 需要连接到反转链表头部的指针 p1 指向 1</li>
+<li>ptail 记录 需要连接到反转链表尾部的指针  p2 指向 6</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/22/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" data-id="cl59rduwq000b4cv06zr1ab3v" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/06/23/2-BM2-%E9%93%BE%E8%A1%A8%E5%86%85%E6%8C%87%E5%AE%9A%E5%8C%BA%E9%97%B4%E5%8F%8D%E8%BD%AC/" data-id="cl59rduwi00014cv0d3y27yn4" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%B8%AD%E7%AD%89/" rel="tag">中等</a></li></ul>
 
     </footer>
   </div>
@@ -116,19 +147,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2022/06/22/1-NC78-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2022/06/23/JavaScript%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          1. NC78 反转链表
+          JavaScript基础语法
         
       </div>
     </a>
   
   
-    <a href="/2022/06/14/%E5%8D%8E%E4%B8%BA2016%E6%A0%A1%E5%9B%AD%E6%8B%9B%E8%81%98%E4%B8%8A%E6%9C%BA%E7%AC%94%E8%AF%95%E9%A2%98/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2022/06/22/1-NC78-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">华为2016校园招聘上机笔试题</div>
+      <div class="article-nav-title">1. NC78 反转链表</div>
     </a>
   
 </nav>
