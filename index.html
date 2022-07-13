@@ -64,6 +64,97 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-vue-父组件清除子组件的表单校验无效问题-表单初始值-nextTick" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/07/13/vue-%E7%88%B6%E7%BB%84%E4%BB%B6%E6%B8%85%E9%99%A4%E5%AD%90%E7%BB%84%E4%BB%B6%E7%9A%84%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C%E6%97%A0%E6%95%88%E9%97%AE%E9%A2%98-%E8%A1%A8%E5%8D%95%E5%88%9D%E5%A7%8B%E5%80%BC-nextTick/" class="article-date">
+  <time datetime="2022-07-13T03:59:31.000Z" itemprop="datePublished">2022-07-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/07/13/vue-%E7%88%B6%E7%BB%84%E4%BB%B6%E6%B8%85%E9%99%A4%E5%AD%90%E7%BB%84%E4%BB%B6%E7%9A%84%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C%E6%97%A0%E6%95%88%E9%97%AE%E9%A2%98-%E8%A1%A8%E5%8D%95%E5%88%9D%E5%A7%8B%E5%80%BC-nextTick/">vue - 父组件清除子组件的表单校验无效问题 表单初始值 nextTick()</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><p>父组件 father.vue 里面有一个ref.dialog的子组件对话框</p>
+<p>子组件 add-dialog.vue 里面有一个ref=form的表单</p>
+<p>父组件调用子组件中的表单对象，使用表单对象的清除校验方法？</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">$refs</span>.<span class="property">dialog</span>.<span class="property">$refs</span>.<span class="property">form</span>.<span class="title function_">resetFields</span>()</span><br></pre></td></tr></table></figure>
+
+<h3 id="坑1"><a href="#坑1" class="headerlink" title="坑1"></a>坑1</h3><p>ref获取dom对象的前提，对象要已经挂载到页面上，否则获取不到。</p>
+<p>解决：在每次使用$refs使用dom对象前，先打印看看这个对象在这一执行步骤时是否存在了。</p>
+<h3 id="坑2"><a href="#坑2" class="headerlink" title="坑2"></a>坑2</h3><p>resetFields方法的作用</p>
+<ol>
+<li>清除表单校验规则（红色警告字体），避免下次一打开表单就显示警告</li>
+<li>恢复表单数据到初始值（mounted之前的数据为表单初始值）因此，如果在做表单数据回显时，直接将数据赋值给表单对象，那么该数据就会在挂载前赋值上去，导致表单初始值变成当前的数据对象。可以使用$nextTIck(()=&gt;{})，等数据和dom都挂载完成后，在执行数据回显操作</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 数据回显放入$nextTIck中执行</span></span><br><span class="line"> <span class="comment">// 在表单mounted之后再赋值，避免重置表单失败（重置表单-&gt;恢复mounted之前的初始值)</span></span><br><span class="line"><span class="variable language_">this</span>.$nextTick(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">form</span> = &#123;</span><br><span class="line">        <span class="attr">pc_code</span>: row.<span class="property">province_control_pc</span>,</span><br><span class="line">        <span class="attr">zslx_code</span>: row.<span class="property">province_control_zslx</span>,</span><br><span class="line">        <span class="attr">year</span>: row.<span class="property">province_control_year</span>,</span><br><span class="line">        <span class="attr">province_code</span>: row.<span class="property">province_control_province</span>,</span><br><span class="line">        <span class="attr">province_score</span>: row.<span class="property">province_control_score</span>,</span><br><span class="line">        <span class="attr">province_majorScore</span>: row.<span class="property">province_control_majorScore</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="nextTick-方法理解"><a href="#nextTick-方法理解" class="headerlink" title="nextTick()方法理解"></a>nextTick()方法理解</h2><p><em>将回调函数延迟执行。简单理解：当数据更新了，在dom中渲染后，自动执行该函数</em></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/07/13/vue-%E7%88%B6%E7%BB%84%E4%BB%B6%E6%B8%85%E9%99%A4%E5%AD%90%E7%BB%84%E4%BB%B6%E7%9A%84%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C%E6%97%A0%E6%95%88%E9%97%AE%E9%A2%98-%E8%A1%A8%E5%8D%95%E5%88%9D%E5%A7%8B%E5%80%BC-nextTick/" data-id="cl5j3h77n000lqsv0byd85h8d" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF-vue/" rel="tag">前端 vue</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-vue-深度监听对象和计算属性的使用" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/07/13/vue-%E6%B7%B1%E5%BA%A6%E7%9B%91%E5%90%AC%E5%AF%B9%E8%B1%A1%E5%92%8C%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7%E7%9A%84%E4%BD%BF%E7%94%A8/" class="article-date">
+  <time datetime="2022-07-13T03:58:35.000Z" itemprop="datePublished">2022-07-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/07/13/vue-%E6%B7%B1%E5%BA%A6%E7%9B%91%E5%90%AC%E5%AF%B9%E8%B1%A1%E5%92%8C%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7%E7%9A%84%E4%BD%BF%E7%94%A8/">vue - 深度监听对象和计算属性的使用</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/07/13/vue-%E6%B7%B1%E5%BA%A6%E7%9B%91%E5%90%AC%E5%AF%B9%E8%B1%A1%E5%92%8C%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7%E7%9A%84%E4%BD%BF%E7%94%A8/" data-id="cl5j3h77k000hqsv03a12499v" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-项目公用框架组件-tablelist" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2022/07/06/%E9%A1%B9%E7%9B%AE%E5%85%AC%E7%94%A8%E6%A1%86%E6%9E%B6%E7%BB%84%E4%BB%B6-tablelist/" class="article-date">
@@ -107,7 +198,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/07/06/%E9%A1%B9%E7%9B%AE%E5%85%AC%E7%94%A8%E6%A1%86%E6%9E%B6%E7%BB%84%E4%BB%B6-tablelist/" data-id="cl59rdux000154cv026en0rru" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/07/06/%E9%A1%B9%E7%9B%AE%E5%85%AC%E7%94%A8%E6%A1%86%E6%9E%B6%E7%BB%84%E4%BB%B6-tablelist/" data-id="cl5j3h77y001bqsv05p26bfna" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E3%80%81%E9%A1%B9%E7%9B%AE/" rel="tag">前端、项目</a></li></ul>
@@ -191,7 +282,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/29/%E5%89%8D%E7%AB%AF%E7%BC%96%E7%A0%81%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/" data-id="cl59rduwu000l4cv0h38d4fb4" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/06/29/%E5%89%8D%E7%AB%AF%E7%BC%96%E7%A0%81%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/" data-id="cl5j3h77p000rqsv018yjgo47" class="article-share-link">Share</a>
       
       
     </footer>
@@ -277,7 +368,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/27/elementui-form%E8%A1%A8%E5%8D%95/" data-id="cl59rduwn00064cv037d430ml" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/06/27/elementui-form%E8%A1%A8%E5%8D%95/" data-id="cl5j3h77f0006qsv01s2xcj7i" class="article-share-link">Share</a>
       
       
     </footer>
@@ -345,7 +436,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/27/1-%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9Acookie%E3%80%81session%E3%80%81tokenz%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8C%E5%8C%BA%E5%88%AB/" data-id="cl59rduwl00044cv0fbtkhz5z" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/06/27/1-%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9Acookie%E3%80%81session%E3%80%81tokenz%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8C%E5%8C%BA%E5%88%AB/" data-id="cl5j3h7790001qsv0bzk53pbl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cookie/" rel="tag">cookie</a></li></ul>
@@ -426,7 +517,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/24/%E5%88%86%E9%A1%B5%E7%BB%84%E4%BB%B6el-pagination/" data-id="cl59rduws000h4cv0g08w7xd6" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/06/24/%E5%88%86%E9%A1%B5%E7%BB%84%E4%BB%B6el-pagination/" data-id="cl5j3h77o000nqsv0d9tceykp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%86%E9%A1%B5%E7%BB%84%E4%BB%B6/" rel="tag">分页组件</a></li></ul>
@@ -469,7 +560,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/23/JavaScript%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" data-id="cl59rduwn00054cv02nxddndb" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/06/23/JavaScript%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" data-id="cl5j3h77e0005qsv0bwj93lnq" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li></ul>
@@ -550,7 +641,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/23/2-BM2-%E9%93%BE%E8%A1%A8%E5%86%85%E6%8C%87%E5%AE%9A%E5%8C%BA%E9%97%B4%E5%8F%8D%E8%BD%AC/" data-id="cl59rduwi00014cv0d3y27yn4" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/06/23/2-BM2-%E9%93%BE%E8%A1%A8%E5%86%85%E6%8C%87%E5%AE%9A%E5%8C%BA%E9%97%B4%E5%8F%8D%E8%BD%AC/" data-id="cl5j3h77d0004qsv02au38c9q" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%B8%AD%E7%AD%89/" rel="tag">中等</a></li></ul>
@@ -627,126 +718,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/22/1-NC78-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" data-id="cl59rduwe00004cv0cznjeu0j" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/06/22/1-NC78-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" data-id="cl5j3h7750000qsv038cz7sqp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%80%E5%8D%95/" rel="tag">简单</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hexo常用命令" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2022/06/22/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="article-date">
-  <time datetime="2022-06-22T03:02:00.000Z" itemprop="datePublished">2022-06-22</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%8A%80%E5%B7%A7%E5%B0%8F%E7%9F%A5%E8%AF%86/">技巧小知识</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/06/22/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">hexo常用命令</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>方便查阅，将本人常用指令汇总</p>
-<h2 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h2><p>由于设置了github多设备同步博客，因此在使用博客之前需要进行拉取同步</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull</span><br></pre></td></tr></table></figure>
-
-<p>新建文章</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo n &quot;文章名&quot;</span><br></pre></td></tr></table></figure>
-
-<p>文章上传服务器</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 清除缓存&amp;&amp;生成静态网页&amp;&amp;将本地数据部署到服务器</span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/22/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" data-id="cl59rduwq000b4cv06zr1ab3v" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-华为2016校园招聘上机笔试题" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2022/06/14/%E5%8D%8E%E4%B8%BA2016%E6%A0%A1%E5%9B%AD%E6%8B%9B%E8%81%98%E4%B8%8A%E6%9C%BA%E7%AC%94%E8%AF%95%E9%A2%98/" class="article-date">
-  <time datetime="2022-06-14T09:46:07.000Z" itemprop="datePublished">2022-06-14</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%89%9B%E5%AE%A2%E5%88%B7%E9%A2%98/">牛客刷题</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2022/06/14/%E5%8D%8E%E4%B8%BA2016%E6%A0%A1%E5%9B%AD%E6%8B%9B%E8%81%98%E4%B8%8A%E6%9C%BA%E7%AC%94%E8%AF%95%E9%A2%98/">华为2016校园招聘上机笔试题</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>题目一：老师想知道从某某同学当中，分数最高的是多少，现在请你编程模拟老师的询问。当然，老师有时候需要更新某位同学的成绩.</p>
-<p>反思：题目不难可以用暴力解法，不熟悉 while (sc.hasNext()) 导致一直运行失败。</p>
-<p>学会了什么：以后要把写的代码框在while (sc.hasNext()) {} 中</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">import java.util.*;</span><br><span class="line">public class Main &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        // 1. 初始化</span><br><span class="line">        Scanner sc = new Scanner(System.in);</span><br><span class="line">        // 不加这一句while 运行不通过，加了以后运行通过</span><br><span class="line">        while (sc.hasNext()) &#123;</span><br><span class="line">            int N = sc.nextInt();</span><br><span class="line">            int M = sc.nextInt();</span><br><span class="line">            int[] grades = new int[N+1];</span><br><span class="line">            grades[0] = -1;</span><br><span class="line">            for (int i = 1; i &lt;= N; i++) &#123;</span><br><span class="line">                grades[i] = sc.nextInt();</span><br><span class="line">            &#125;</span><br><span class="line">            sc.nextLine();</span><br><span class="line">            int[][] operator = new int[M][3];</span><br><span class="line">            for (int i = 0; i &lt; M; i++) &#123;</span><br><span class="line">                String line = sc.nextLine();</span><br><span class="line">                String opera = line.split(&quot; &quot;)[0];</span><br><span class="line">                int b = Integer.valueOf(line.split(&quot; &quot;)[1]);</span><br><span class="line">                int c = Integer.valueOf(line.split(&quot; &quot;)[2]);</span><br><span class="line">                if (opera.equals(&quot;Q&quot;)) &#123;</span><br><span class="line">                    System.out.println(getMax(grades, b, c));</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    grades[b] = c;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            &#125; </span><br><span class="line">            sc.close();</span><br><span class="line">    &#125;</span><br><span class="line">      </span><br><span class="line">    public static int getMax(int[] grades, int start, int end) &#123;</span><br><span class="line">        if (start == end) return grades[start];</span><br><span class="line">        if (start &gt; end) &#123;</span><br><span class="line">            int temp = end;</span><br><span class="line">            end = start;</span><br><span class="line">            start = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        int max = grades[start];</span><br><span class="line">        for (int i = start; i &lt;= end; i++) &#123;</span><br><span class="line">            max = Math.max(max, grades[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        return max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>题目二：开发一个简单错误记录功能小模块，能够记录出错的代码所在的文件名称和行号。</p>
-<p>反思：着急了题目没读懂。</p>
-<p>输入多行数据，每一行数据表示该文件的错误行数，可能存在一个文件有多个行错误，故匹配多行输入，对于文件名和行数完全相同的记录，最后输出合并为一行，错误次数++</p>
-<p>只记录最后的八条错误记录（输入的最后八行）</p>
-<p>输出中不包含文件路径，如果文件名大于16字符，则截取最后的16字符。</p>
-<p>学到了什么：还没有解决完，不会排序！！！</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">sc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        HashMap&lt;String,Integer&gt; map = <span class="keyword">new</span> <span class="title class_">LinkedHashMap</span>&lt;&gt;(); </span><br><span class="line">        <span class="keyword">while</span> (sc.hasNext()) &#123;</span><br><span class="line">            String[] arr = sc.nextLine().split(<span class="string">&quot;\\\\&quot;</span>);</span><br><span class="line">            <span class="type">String</span> <span class="variable">nameAndLine</span> <span class="operator">=</span> arr[arr.length - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span> (map.containsKey(nameAndLine)) &#123;</span><br><span class="line">                map.put(nameAndLine, map.get(nameAndLine) + <span class="number">1</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                map.put(nameAndLine, <span class="number">1</span>);</span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;</span><br><span class="line">        sc.close();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取最后八位元素</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (String key: map.keySet()) &#123;</span><br><span class="line">            count++;</span><br><span class="line">            <span class="keyword">if</span> (count &gt; map.keySet().size() - <span class="number">8</span>) &#123;</span><br><span class="line">                <span class="type">String</span> <span class="variable">fileName</span> <span class="operator">=</span> key.split(<span class="string">&quot; &quot;</span>)[<span class="number">0</span>];</span><br><span class="line">                <span class="type">String</span> <span class="variable">lineNum</span> <span class="operator">=</span> key.split(<span class="string">&quot; &quot;</span>)[<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">if</span> (fileName.length() &gt; <span class="number">16</span>)&#123;</span><br><span class="line">                    <span class="comment">// 从 key.length() - 16 的后一个元素开始，截取所有字符</span></span><br><span class="line">                    fileName = fileName.substring(key.length() - <span class="number">16</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(fileName + <span class="string">&quot; &quot;</span> + lineNum + <span class="string">&quot; &quot;</span> + map.get(key));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>题目三：扑克牌游戏大家应该都比较熟悉了，一副牌由54张组成，含3~A，2各4张，小王1张，大王1张。牌面从小到大用如下字符和字符串表示（其中，小写joker表示小王，大写JOKER表示大王）3 4 5 6 7 8 9 10 J Q K A 2 joker JOKER</p>
-<p>反思：拿到题目的第一感觉是复杂，需要很多if else，做题时的思绪也是很乱的理不清楚。不能完全沉下心思，浮躁觉得自己不行就得看答案才能解答。总觉得复杂方法用暴力解法就不对，其实没有不对，暴力是最基本的，在暴力之上再考虑其他方法，连暴力都做不出来和谈技巧呢？最后看到答案觉得很简单，除了复杂以外没有其他技巧，按道理来说是能做出来的题目。</p>
-<p>学到了什么：复杂的题目先理清思路，一点点写下来，就算代码敲出来不对了也可以跟答案比较哪一步想错了、哪一步漏掉了，从而提升思维能力，复杂的题目可以分成几个小模块，分别构造辅助函数实现。</p>
-<p>[^思路理清： ]: </p>
-<ol>
-<li>针对两个手牌，需要判断它们的类型（单张、对子、三张、四张牌的炸弹、五张牌的顺子、大小王），如果它们的类型不同，进入操作2</li>
-<li>类型不同时只有炸弹才能比较出大小–通过类型判断（大小王、四张炸弹），否则无法比较大小返回Error</li>
-<li>类型相同时都可以通过第一张牌来比较大小，针对JQKA2jokerJOKER的情况转换成10以后的数字，通过数字比较大小</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">sc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        <span class="keyword">while</span> (sc.hasNext()) &#123;</span><br><span class="line">            String[] card = sc.nextLine().split(<span class="string">&quot;-&quot;</span>);</span><br><span class="line">            <span class="type">String</span> <span class="variable">card1</span> <span class="operator">=</span> card[<span class="number">0</span>];</span><br><span class="line">            <span class="type">String</span> <span class="variable">card2</span> <span class="operator">=</span> card[<span class="number">1</span>];</span><br><span class="line">            String[] cards1 = card1.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">            String[] cards2 = card2.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">            <span class="type">String</span> <span class="variable">card1Type</span> <span class="operator">=</span> checkType(cards1);</span><br><span class="line">            <span class="type">String</span> <span class="variable">card2Type</span> <span class="operator">=</span> checkType(cards2);</span><br><span class="line">            <span class="type">String</span> <span class="variable">res</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">            <span class="keyword">if</span> (!card1Type.equals(card2Type)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (card1Type.equals(<span class="string">&quot;jokers&quot;</span>)) &#123;</span><br><span class="line">                    res = card1;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (card2Type.equals(<span class="string">&quot;jokers&quot;</span>)) &#123;</span><br><span class="line">                    res = card2;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (card1Type.equals(<span class="string">&quot;bomb&quot;</span>)) &#123;</span><br><span class="line">                    res = card1;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (card2Type.equals(<span class="string">&quot;bomb&quot;</span>)) &#123;</span><br><span class="line">                    res = card2;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    res = <span class="string">&quot;ERROR&quot;</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (getNumber(cards1[<span class="number">0</span>]) &gt; getNumber(cards2[<span class="number">0</span>])) &#123;</span><br><span class="line">                    res = card1;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    res = card2;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(res);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">getNumber</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (s.matches(<span class="string">&quot;[3-9]&quot;</span>) || s.matches(<span class="string">&quot;10&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> Integer.valueOf(s);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (s.equals(<span class="string">&quot;J&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">11</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (s.equals(<span class="string">&quot;Q&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">12</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (s.equals(<span class="string">&quot;K&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">13</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (s.equals(<span class="string">&quot;A&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">14</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (s.equals(<span class="string">&quot;2&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">15</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (s.equals(<span class="string">&quot;joker&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">16</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (s.equals(<span class="string">&quot;JOKER&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">17</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">checkType</span><span class="params">(String[] card)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> card.length;</span><br><span class="line">        <span class="type">String</span> <span class="variable">res</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">if</span> (len == <span class="number">1</span>) &#123;</span><br><span class="line">            res = <span class="string">&quot;single&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (len == <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (card[<span class="number">0</span>].toLowerCase().matches(<span class="string">&quot;joker&quot;</span>) &amp;&amp; card[<span class="number">1</span>].toLowerCase().matches(<span class="string">&quot;joker&quot;</span>)) &#123;</span><br><span class="line">                res = <span class="string">&quot;jokers&quot;</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                res = <span class="string">&quot;double&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (len == <span class="number">3</span>) &#123;</span><br><span class="line">            res = <span class="string">&quot;triple&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (len == <span class="number">4</span>) &#123;</span><br><span class="line">            res = <span class="string">&quot;bomb&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            res = <span class="string">&quot;shunzi&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/06/14/%E5%8D%8E%E4%B8%BA2016%E6%A0%A1%E5%9B%AD%E6%8B%9B%E8%81%98%E4%B8%8A%E6%9C%BA%E7%AC%94%E8%AF%95%E9%A2%98/" data-id="cl59rduwz00124cv0aypn51ny" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%B7%E9%A2%98/" rel="tag">刷题</a></li></ul>
 
     </footer>
   </div>
@@ -780,7 +755,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cookie/" rel="tag">cookie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E7%AD%89/" rel="tag">中等</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E9%A1%B5%E7%BB%84%E4%BB%B6/" rel="tag">分页组件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%B7%E9%A2%98/" rel="tag">刷题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E3%80%81%E9%A1%B9%E7%9B%AE/" rel="tag">前端、项目</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%80%E5%8D%95/" rel="tag">简单</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaScript/" rel="tag">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/cookie/" rel="tag">cookie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%B8%AD%E7%AD%89/" rel="tag">中等</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%86%E9%A1%B5%E7%BB%84%E4%BB%B6/" rel="tag">分页组件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%B7%E9%A2%98/" rel="tag">刷题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF-vue/" rel="tag">前端 vue</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E3%80%81%E9%A1%B9%E7%9B%AE/" rel="tag">前端、项目</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%80%E5%8D%95/" rel="tag">简单</a></li></ul>
     </div>
   </div>
 
@@ -790,7 +765,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/cookie/" style="font-size: 10px;">cookie</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/%E4%B8%AD%E7%AD%89/" style="font-size: 10px;">中等</a> <a href="/tags/%E5%88%86%E9%A1%B5%E7%BB%84%E4%BB%B6/" style="font-size: 10px;">分页组件</a> <a href="/tags/%E5%88%B7%E9%A2%98/" style="font-size: 10px;">刷题</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E3%80%81%E9%A1%B9%E7%9B%AE/" style="font-size: 10px;">前端、项目</a> <a href="/tags/%E7%AE%80%E5%8D%95/" style="font-size: 10px;">简单</a>
+      <a href="/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/tags/cookie/" style="font-size: 10px;">cookie</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/%E4%B8%AD%E7%AD%89/" style="font-size: 10px;">中等</a> <a href="/tags/%E5%88%86%E9%A1%B5%E7%BB%84%E4%BB%B6/" style="font-size: 10px;">分页组件</a> <a href="/tags/%E5%88%B7%E9%A2%98/" style="font-size: 10px;">刷题</a> <a href="/tags/%E5%89%8D%E7%AB%AF-vue/" style="font-size: 10px;">前端 vue</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E3%80%81%E9%A1%B9%E7%9B%AE/" style="font-size: 10px;">前端、项目</a> <a href="/tags/%E7%AE%80%E5%8D%95/" style="font-size: 10px;">简单</a>
     </div>
   </div>
 
@@ -812,6 +787,14 @@
       <ul>
         
           <li>
+            <a href="/2022/07/13/vue-%E7%88%B6%E7%BB%84%E4%BB%B6%E6%B8%85%E9%99%A4%E5%AD%90%E7%BB%84%E4%BB%B6%E7%9A%84%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C%E6%97%A0%E6%95%88%E9%97%AE%E9%A2%98-%E8%A1%A8%E5%8D%95%E5%88%9D%E5%A7%8B%E5%80%BC-nextTick/">vue - 父组件清除子组件的表单校验无效问题 表单初始值 nextTick()</a>
+          </li>
+        
+          <li>
+            <a href="/2022/07/13/vue-%E6%B7%B1%E5%BA%A6%E7%9B%91%E5%90%AC%E5%AF%B9%E8%B1%A1%E5%92%8C%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7%E7%9A%84%E4%BD%BF%E7%94%A8/">vue - 深度监听对象和计算属性的使用</a>
+          </li>
+        
+          <li>
             <a href="/2022/07/06/%E9%A1%B9%E7%9B%AE%E5%85%AC%E7%94%A8%E6%A1%86%E6%9E%B6%E7%BB%84%E4%BB%B6-tablelist/">项目公用框架组件-tablelist</a>
           </li>
         
@@ -821,14 +804,6 @@
         
           <li>
             <a href="/2022/06/27/elementui-form%E8%A1%A8%E5%8D%95/">elementui - form表单</a>
-          </li>
-        
-          <li>
-            <a href="/2022/06/27/1-%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9Acookie%E3%80%81session%E3%80%81tokenz%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8C%E5%8C%BA%E5%88%AB/">1 面试题：cookie、session、tokenz的作用和区别</a>
-          </li>
-        
-          <li>
-            <a href="/2022/06/24/%E5%88%86%E9%A1%B5%E7%BB%84%E4%BB%B6el-pagination/">分页组件el-pagination</a>
           </li>
         
       </ul>
