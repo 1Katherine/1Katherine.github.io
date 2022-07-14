@@ -77,6 +77,24 @@ categories: element-ui
 
 注：测试发现，此处使用created也能实现效果。
 
+最终解决方法：通过getDataList()函数获取数据，将数据赋值给datalist，在created中调用datalist。
+
+~~~javascript
+    getSchoolList() { // 根据页码获取当前所有数据
+      this.page.total = tableList.length // 修改分页组件的总数居数量
+      this.datalist = tableList.slice((this.page.page - 1) * this.page.size,
+        this.page.page * this.page.size) // 为表格附上该页面的数据
+    },
+~~~
+
+~~~javascript
+  created() {
+    this.getSchoolList() // 获取所有数据
+  },
+~~~
+
+
+
 #### 函数
 
 **@current-change="handleCurrentChange"** 
@@ -95,7 +113,8 @@ getPageList() {
             (this.page.page - 1) * this.page.size,
         this.page.page * this.page.size
         )
-    },
+    }
+// 将获取数据单独放在一个函数中，方便编辑数据、新增数据、删除数据后重新调用获取数据的函数，重新渲染页面数据。
 ```
 
 #### **踩坑2！**
