@@ -25,3 +25,36 @@ a深度‘
 
 
 ## 监听计算属性
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+备份
+
+~~~vue
+  watch: {
+    // newValue 新数据（本次父组件传递的数据）
+    // oldValue 旧数据（上一次父组件传递的数据）
+    allprovinces(newValue, oldValue) {
+      if (newValue) {
+        this.getCitiesByPage()
+        this.allprovinces_total = newValue
+        // this.loading = false // 数据获取完毕，关闭表单加载
+      }
+    }
+  },
+~~~
+
