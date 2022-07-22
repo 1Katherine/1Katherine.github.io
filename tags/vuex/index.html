@@ -5,19 +5,14 @@
   
 
   
-  <title>vue - 父组件清除子组件的表单校验无效问题 表单初始值 nextTick() | Hexo</title>
+  <title>Tag: vuex | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前置知识父组件 father.vue 里面有一个ref.dialog的子组件对话框 子组件 add-dialog.vue 里面有一个ref&#x3D;form的表单 父组件调用子组件中的表单对象，使用表单对象的清除校验方法？ 1this.$refs.dialog.$refs.form.resetFields()  坑1ref获取dom对象的前提，对象要已经挂载到页面上，否则获取不到。 解决：在每次使用$re">
-<meta property="og:type" content="article">
-<meta property="og:title" content="vue - 父组件清除子组件的表单校验无效问题 表单初始值 nextTick()">
-<meta property="og:url" content="http://example.com/2022/07/13/vue-%E7%88%B6%E7%BB%84%E4%BB%B6%E6%B8%85%E9%99%A4%E5%AD%90%E7%BB%84%E4%BB%B6%E7%9A%84%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C%E6%97%A0%E6%95%88%E9%97%AE%E9%A2%98-%E8%A1%A8%E5%8D%95%E5%88%9D%E5%A7%8B%E5%80%BC-nextTick/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/tags/vuex/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="前置知识父组件 father.vue 里面有一个ref.dialog的子组件对话框 子组件 add-dialog.vue 里面有一个ref&#x3D;form的表单 父组件调用子组件中的表单对象，使用表单对象的清除校验方法？ 1this.$refs.dialog.$refs.form.resetFields()  坑1ref获取dom对象的前提，对象要已经挂载到页面上，否则获取不到。 解决：在每次使用$re">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-07-13T03:59:31.000Z">
-<meta property="article:modified_time" content="2022-07-13T06:51:20.187Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="前端 vue">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -67,80 +62,40 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-vue-父组件清除子组件的表单校验无效问题-表单初始值-nextTick" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2022/07/13/vue-%E7%88%B6%E7%BB%84%E4%BB%B6%E6%B8%85%E9%99%A4%E5%AD%90%E7%BB%84%E4%BB%B6%E7%9A%84%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C%E6%97%A0%E6%95%88%E9%97%AE%E9%A2%98-%E8%A1%A8%E5%8D%95%E5%88%9D%E5%A7%8B%E5%80%BC-nextTick/" class="article-date">
-  <time datetime="2022-07-13T03:59:31.000Z" itemprop="datePublished">2022-07-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+        <section id="main">
   
-    <h1 class="article-title" itemprop="name">
-      vue - 父组件清除子组件的表单校验无效问题 表单初始值 nextTick()
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2022" class="archive-year">2022</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2022/07/14/%E9%A1%B9%E7%9B%AE%E7%9F%A5%E8%AF%862-vuex%E7%9A%84%E4%BD%BF%E7%94%A8%E3%80%81action%E5%92%8Cmutation%E7%9A%84%E5%8C%BA%E5%88%AB/" class="archive-article-date">
+  <time datetime="2022-07-14T13:02:08.000Z" itemprop="datePublished">Jul 14</time>
+</a>
+      
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2022/07/14/%E9%A1%B9%E7%9B%AE%E7%9F%A5%E8%AF%862-vuex%E7%9A%84%E4%BD%BF%E7%94%A8%E3%80%81action%E5%92%8Cmutation%E7%9A%84%E5%8C%BA%E5%88%AB/">项目知识2 - vuex的使用、action和mutation的区别</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><p>父组件 father.vue 里面有一个ref.dialog的子组件对话框</p>
-<p>子组件 add-dialog.vue 里面有一个ref=form的表单</p>
-<p>父组件调用子组件中的表单对象，使用表单对象的清除校验方法？</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">$refs</span>.<span class="property">dialog</span>.<span class="property">$refs</span>.<span class="property">form</span>.<span class="title function_">resetFields</span>()</span><br></pre></td></tr></table></figure>
-
-<h3 id="坑1"><a href="#坑1" class="headerlink" title="坑1"></a>坑1</h3><p>ref获取dom对象的前提，对象要已经挂载到页面上，否则获取不到。</p>
-<p>解决：在每次使用$refs使用dom对象前，先打印看看这个对象在这一执行步骤时是否存在了。</p>
-<h3 id="坑2"><a href="#坑2" class="headerlink" title="坑2"></a>坑2</h3><p>resetFields方法的作用</p>
-<ol>
-<li>清除表单校验规则（红色警告字体），避免下次一打开表单就显示警告</li>
-<li>恢复表单数据到初始值（mounted之前的数据为表单初始值）因此，如果在做表单数据回显时，直接将数据赋值给表单对象，那么该数据就会在挂载前赋值上去，导致表单初始值变成当前的数据对象。可以使用$nextTIck(()=&gt;{})，等数据和dom都挂载完成后，在执行数据回显操作</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 数据回显放入$nextTIck中执行</span></span><br><span class="line"> <span class="comment">// 在表单mounted之后再赋值，避免重置表单失败（重置表单-&gt;恢复mounted之前的初始值)</span></span><br><span class="line"><span class="variable language_">this</span>.$nextTick(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">form</span> = &#123;</span><br><span class="line">        <span class="attr">pc_code</span>: row.<span class="property">province_control_pc</span>,</span><br><span class="line">        <span class="attr">zslx_code</span>: row.<span class="property">province_control_zslx</span>,</span><br><span class="line">        <span class="attr">year</span>: row.<span class="property">province_control_year</span>,</span><br><span class="line">        <span class="attr">province_code</span>: row.<span class="property">province_control_province</span>,</span><br><span class="line">        <span class="attr">province_score</span>: row.<span class="property">province_control_score</span>,</span><br><span class="line">        <span class="attr">province_majorScore</span>: row.<span class="property">province_control_majorScore</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="nextTick-方法理解"><a href="#nextTick-方法理解" class="headerlink" title="nextTick()方法理解"></a>nextTick()方法理解</h2><p><em>将回调函数延迟执行。简单理解：当数据更新了，在dom中渲染后，自动执行该函数</em></p>
-<h2 id="经验"><a href="#经验" class="headerlink" title="经验"></a>经验</h2><p>表单数据回显都放在nextTick中赋值，避免表单清除校验时无法清除数据。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2022/07/13/vue-%E7%88%B6%E7%BB%84%E4%BB%B6%E6%B8%85%E9%99%A4%E5%AD%90%E7%BB%84%E4%BB%B6%E7%9A%84%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C%E6%97%A0%E6%95%88%E9%97%AE%E9%A2%98-%E8%A1%A8%E5%8D%95%E5%88%9D%E5%A7%8B%E5%80%BC-nextTick/" data-id="cl5vwo8x8000licv0ab8n8vph" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF-vue/" rel="tag">前端 vue</a></li></ul>
-
-    </footer>
+    </header>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2022/07/14/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A01-%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B7%A8%E5%9F%9F/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          前端面试学习1 - 浏览器跨域
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2022/07/06/%E9%A1%B9%E7%9B%AE%E5%85%AC%E7%94%A8%E6%A1%86%E6%9E%B6%E7%BB%84%E4%BB%B6-tablelist/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">项目公用框架组件-tablelist</div>
-    </a>
-  
-</nav>
-
-  
 </article>
+  
+  
+    </div></section>
+  
+
 
 </section>
         

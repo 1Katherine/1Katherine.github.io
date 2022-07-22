@@ -5,19 +5,19 @@
   
 
   
-  <title>vue - 父组件清除子组件的表单校验无效问题 表单初始值 nextTick() | Hexo</title>
+  <title>项目知识2 - vuex的使用、action和mutation的区别 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前置知识父组件 father.vue 里面有一个ref.dialog的子组件对话框 子组件 add-dialog.vue 里面有一个ref&#x3D;form的表单 父组件调用子组件中的表单对象，使用表单对象的清除校验方法？ 1this.$refs.dialog.$refs.form.resetFields()  坑1ref获取dom对象的前提，对象要已经挂载到页面上，否则获取不到。 解决：在每次使用$re">
+  <meta name="description" content="vuex的使用、action和mutation的区别参考资料 action和mutation区别 [https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;f9213af4bcb1]  action和mutation的区别 action中处理业务代码、异步请求。不能操作State mutation专注于修改State，理论上是修改State的唯一途径。必须同步执行  实现定义action 123456">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vue - 父组件清除子组件的表单校验无效问题 表单初始值 nextTick()">
-<meta property="og:url" content="http://example.com/2022/07/13/vue-%E7%88%B6%E7%BB%84%E4%BB%B6%E6%B8%85%E9%99%A4%E5%AD%90%E7%BB%84%E4%BB%B6%E7%9A%84%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C%E6%97%A0%E6%95%88%E9%97%AE%E9%A2%98-%E8%A1%A8%E5%8D%95%E5%88%9D%E5%A7%8B%E5%80%BC-nextTick/index.html">
+<meta property="og:title" content="项目知识2 - vuex的使用、action和mutation的区别">
+<meta property="og:url" content="http://example.com/2022/07/14/%E9%A1%B9%E7%9B%AE%E7%9F%A5%E8%AF%862-vuex%E7%9A%84%E4%BD%BF%E7%94%A8%E3%80%81action%E5%92%8Cmutation%E7%9A%84%E5%8C%BA%E5%88%AB/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="前置知识父组件 father.vue 里面有一个ref.dialog的子组件对话框 子组件 add-dialog.vue 里面有一个ref&#x3D;form的表单 父组件调用子组件中的表单对象，使用表单对象的清除校验方法？ 1this.$refs.dialog.$refs.form.resetFields()  坑1ref获取dom对象的前提，对象要已经挂载到页面上，否则获取不到。 解决：在每次使用$re">
+<meta property="og:description" content="vuex的使用、action和mutation的区别参考资料 action和mutation区别 [https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;f9213af4bcb1]  action和mutation的区别 action中处理业务代码、异步请求。不能操作State mutation专注于修改State，理论上是修改State的唯一途径。必须同步执行  实现定义action 123456">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2022-07-13T03:59:31.000Z">
-<meta property="article:modified_time" content="2022-07-13T06:51:20.187Z">
+<meta property="article:published_time" content="2022-07-14T13:02:08.000Z">
+<meta property="article:modified_time" content="2022-07-22T03:26:27.376Z">
 <meta property="article:author" content="John Doe">
-<meta property="article:tag" content="前端 vue">
+<meta property="article:tag" content="vuex">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -67,12 +67,16 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-vue-父组件清除子组件的表单校验无效问题-表单初始值-nextTick" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-项目知识2-vuex的使用、action和mutation的区别" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2022/07/13/vue-%E7%88%B6%E7%BB%84%E4%BB%B6%E6%B8%85%E9%99%A4%E5%AD%90%E7%BB%84%E4%BB%B6%E7%9A%84%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C%E6%97%A0%E6%95%88%E9%97%AE%E9%A2%98-%E8%A1%A8%E5%8D%95%E5%88%9D%E5%A7%8B%E5%80%BC-nextTick/" class="article-date">
-  <time datetime="2022-07-13T03:59:31.000Z" itemprop="datePublished">2022-07-13</time>
+    <a href="/2022/07/14/%E9%A1%B9%E7%9B%AE%E7%9F%A5%E8%AF%862-vuex%E7%9A%84%E4%BD%BF%E7%94%A8%E3%80%81action%E5%92%8Cmutation%E7%9A%84%E5%8C%BA%E5%88%AB/" class="article-date">
+  <time datetime="2022-07-14T13:02:08.000Z" itemprop="datePublished">2022-07-14</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E9%A1%B9%E7%9B%AE%E6%9F%A5%E6%BC%8F%E8%A1%A5%E7%BC%BA/">项目查漏补缺</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -81,7 +85,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      vue - 父组件清除子组件的表单校验无效问题 表单初始值 nextTick()
+      项目知识2 - vuex的使用、action和mutation的区别
     </h1>
   
 
@@ -89,32 +93,49 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><p>父组件 father.vue 里面有一个ref.dialog的子组件对话框</p>
-<p>子组件 add-dialog.vue 里面有一个ref=form的表单</p>
-<p>父组件调用子组件中的表单对象，使用表单对象的清除校验方法？</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">$refs</span>.<span class="property">dialog</span>.<span class="property">$refs</span>.<span class="property">form</span>.<span class="title function_">resetFields</span>()</span><br></pre></td></tr></table></figure>
-
-<h3 id="坑1"><a href="#坑1" class="headerlink" title="坑1"></a>坑1</h3><p>ref获取dom对象的前提，对象要已经挂载到页面上，否则获取不到。</p>
-<p>解决：在每次使用$refs使用dom对象前，先打印看看这个对象在这一执行步骤时是否存在了。</p>
-<h3 id="坑2"><a href="#坑2" class="headerlink" title="坑2"></a>坑2</h3><p>resetFields方法的作用</p>
-<ol>
-<li>清除表单校验规则（红色警告字体），避免下次一打开表单就显示警告</li>
-<li>恢复表单数据到初始值（mounted之前的数据为表单初始值）因此，如果在做表单数据回显时，直接将数据赋值给表单对象，那么该数据就会在挂载前赋值上去，导致表单初始值变成当前的数据对象。可以使用$nextTIck(()=&gt;{})，等数据和dom都挂载完成后，在执行数据回显操作</li>
+        <h1 id="vuex的使用、action和mutation的区别"><a href="#vuex的使用、action和mutation的区别" class="headerlink" title="vuex的使用、action和mutation的区别"></a>vuex的使用、action和mutation的区别</h1><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li>action和mutation区别 [<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/f9213af4bcb1]">https://www.jianshu.com/p/f9213af4bcb1]</a></li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 数据回显放入$nextTIck中执行</span></span><br><span class="line"> <span class="comment">// 在表单mounted之后再赋值，避免重置表单失败（重置表单-&gt;恢复mounted之前的初始值)</span></span><br><span class="line"><span class="variable language_">this</span>.$nextTick(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">form</span> = &#123;</span><br><span class="line">        <span class="attr">pc_code</span>: row.<span class="property">province_control_pc</span>,</span><br><span class="line">        <span class="attr">zslx_code</span>: row.<span class="property">province_control_zslx</span>,</span><br><span class="line">        <span class="attr">year</span>: row.<span class="property">province_control_year</span>,</span><br><span class="line">        <span class="attr">province_code</span>: row.<span class="property">province_control_province</span>,</span><br><span class="line">        <span class="attr">province_score</span>: row.<span class="property">province_control_score</span>,</span><br><span class="line">        <span class="attr">province_majorScore</span>: row.<span class="property">province_control_majorScore</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="action和mutation的区别"><a href="#action和mutation的区别" class="headerlink" title="action和mutation的区别"></a>action和mutation的区别</h2><blockquote>
+<p>action中处理业务代码、异步请求。不能操作State</p>
+<p>mutation专注于修改State，理论上是修改State的唯一途径。必须同步执行</p>
+</blockquote>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>定义action</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">actions</span>: &#123;</span><br><span class="line">  <span class="comment">//  获取异步的数据 context表示当前的store的实例 可以通过 context.state 获取状态 也可以通过context.commit 来提交mutations， 也可以 context.diapatch调用其他的action</span></span><br><span class="line">    getAsyncCount (context) &#123;</span><br><span class="line">      <span class="built_in">setTimeout</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="comment">// 一秒钟之后 要给一个数 去修改state</span></span><br><span class="line">        context.<span class="title function_">commit</span>(<span class="string">&#x27;addCount&#x27;</span>, <span class="number">123</span>)</span><br><span class="line">      &#125;, <span class="number">1000</span>)</span><br><span class="line">    &#125;</span><br><span class="line"> &#125; </span><br></pre></td></tr></table></figure>
 
 
 
-<h2 id="nextTick-方法理解"><a href="#nextTick-方法理解" class="headerlink" title="nextTick()方法理解"></a>nextTick()方法理解</h2><p><em>将回调函数延迟执行。简单理解：当数据更新了，在dom中渲染后，自动执行该函数</em></p>
-<h2 id="经验"><a href="#经验" class="headerlink" title="经验"></a>经验</h2><p>表单数据回显都放在nextTick中赋值，避免表单清除校验时无法清除数据。</p>
+
+
+
+
+<h2 id="项目应用"><a href="#项目应用" class="headerlink" title="项目应用"></a>项目应用</h2><p>由于地理信息（所有区域、省份、城市）在多个页面都需要获取，如果每个页面都通过请求获取，会重复多次请求同一个地址，导致项目加载效率低。因此采用vuex获取所有地理信息，并保存。每次使用的时候先从state中进行获取，如果state中没有信息再调用请求获取。</p>
+<h4 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h4><p>获取所有区域信息</p>
+<ul>
+<li>如果state.regions为空，则自行通过get请求获取所有Regions，并使用setRegions 设置 regions的值</li>
+<li>每次update、delete、insert后，都要通过get请求重新获取所有Regions</li>
+</ul>
+<p>获取所有省份信息</p>
+<ul>
+<li>setRegions 设置 regions的值后需要重新获取所有省份信息</li>
+<li>编辑省份后需要重新获取所有省份信息</li>
+</ul>
+<p>获取所有城市信息</p>
+<ul>
+<li>setRegions 设置 regions的值后需要重新获取城市信息</li>
+<li>编辑城市后需要重新获取</li>
+</ul>
+<p>编辑区域信息后，需要重新获取所有区域、省份、城市</p>
+<p>编辑省份后，需要重新所有省份、城市</p>
+<p>编辑城市后，需要重新获取所有城市</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2022/07/13/vue-%E7%88%B6%E7%BB%84%E4%BB%B6%E6%B8%85%E9%99%A4%E5%AD%90%E7%BB%84%E4%BB%B6%E7%9A%84%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C%E6%97%A0%E6%95%88%E9%97%AE%E9%A2%98-%E8%A1%A8%E5%8D%95%E5%88%9D%E5%A7%8B%E5%80%BC-nextTick/" data-id="cl5vwo8x8000licv0ab8n8vph" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2022/07/14/%E9%A1%B9%E7%9B%AE%E7%9F%A5%E8%AF%862-vuex%E7%9A%84%E4%BD%BF%E7%94%A8%E3%80%81action%E5%92%8Cmutation%E7%9A%84%E5%8C%BA%E5%88%AB/" data-id="cl5vwo8xl001oicv04o7mf3z5" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF-vue/" rel="tag">前端 vue</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vuex/" rel="tag">vuex</a></li></ul>
 
     </footer>
   </div>
@@ -122,19 +143,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2022/07/14/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A01-%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B7%A8%E5%9F%9F/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2022/07/15/%E9%A1%B9%E7%9B%AE%E7%9F%A5%E8%AF%86-%E5%AD%90%E7%BB%84%E4%BB%B6%E5%9C%A8create%E3%80%81mounted%E4%B8%AD%E6%8E%A5%E5%8F%97%E4%B8%8D%E5%88%B0%E7%88%B6%E7%BB%84%E4%BB%B6%E4%BC%A0%E6%9D%A5%E7%9A%84%E5%BC%82%E6%AD%A5%E6%95%B0%E6%8D%AE/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          前端面试学习1 - 浏览器跨域
+          项目知识 - 子组件在create、mounted中接受不到父组件传来的异步数据
         
       </div>
     </a>
   
   
-    <a href="/2022/07/06/%E9%A1%B9%E7%9B%AE%E5%85%AC%E7%94%A8%E6%A1%86%E6%9E%B6%E7%BB%84%E4%BB%B6-tablelist/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2022/07/14/%E9%A1%B9%E7%9B%AE%E7%9F%A5%E8%AF%861-route%E5%92%8C-router%E7%9A%84%E5%8C%BA%E5%88%AB/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">项目公用框架组件-tablelist</div>
+      <div class="article-nav-title">项目知识1 - $route和$router的区别</div>
     </a>
   
 </nav>
