@@ -105,3 +105,17 @@ deploy:
   type: git
   repo: git@github.com:1Katherine/1Katherine.github.io.git
   branch: master
+
+# Search Config
+search:
+  path: search.json #之前就是这里出了问题导致图标错误，错误的教程是 search.xml
+  field: post
+  format: html
+  limit: 1000
+  
+copy_button:
+  enable: true
+  # Show text copy result.
+  show_result: false
+  # Available values: default | flat | mac
+  style: default
