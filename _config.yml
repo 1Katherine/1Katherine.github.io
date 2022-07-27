@@ -112,10 +112,3 @@ search:
   field: post
   format: html
   limit: 1000
-  
-copy_button:
-  enable: true
-  # Show text copy result.
-  show_result: false
-  # Available values: default | flat | mac
-  style: default
