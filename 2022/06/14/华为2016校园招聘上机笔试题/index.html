@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"1katherine.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.12.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="题目一：老师想知道从某某同学当中，分数最高的是多少，现在请你编程模拟老师的询问。当然，老师有时候需要更新某位同学的成绩. 反思：题目不难可以用暴力解法，不熟悉 while (sc.hasNext()) 导致一直运行失败。 学会了什么：以后要把写的代码框在while (sc.hasNext()) {} 中 12345678910111213141516171819202122232425262728">
+<meta property="og:type" content="article">
+<meta property="og:title" content="华为2016校园招聘上机笔试题">
+<meta property="og:url" content="https://1katherine.github.io/2022/06/14/%E5%8D%8E%E4%B8%BA2016%E6%A0%A1%E5%9B%AD%E6%8B%9B%E8%81%98%E4%B8%8A%E6%9C%BA%E7%AC%94%E8%AF%95%E9%A2%98/index.html">
+<meta property="og:site_name" content="Yang&#39;s Blog">
+<meta property="og:description" content="题目一：老师想知道从某某同学当中，分数最高的是多少，现在请你编程模拟老师的询问。当然，老师有时候需要更新某位同学的成绩. 反思：题目不难可以用暴力解法，不熟悉 while (sc.hasNext()) 导致一直运行失败。 学会了什么：以后要把写的代码框在while (sc.hasNext()) {} 中 12345678910111213141516171819202122232425262728">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-14T09:46:07.000Z">
+<meta property="article:modified_time" content="2022-07-28T02:45:29.419Z">
+<meta property="article:author" content="Yang">
+<meta property="article:tag" content="刷题">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://1katherine.github.io/2022/06/14/%E5%8D%8E%E4%B8%BA2016%E6%A0%A1%E5%9B%AD%E6%8B%9B%E8%81%98%E4%B8%8A%E6%9C%BA%E7%AC%94%E8%AF%95%E9%A2%98/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://1katherine.github.io/2022/06/14/%E5%8D%8E%E4%B8%BA2016%E6%A0%A1%E5%9B%AD%E6%8B%9B%E8%81%98%E4%B8%8A%E6%9C%BA%E7%AC%94%E8%AF%95%E9%A2%98/","path":"2022/06/14/华为2016校园招聘上机笔试题/","title":"华为2016校园招聘上机笔试题"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>华为2016校园招聘上机笔试题 | Yang's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Yang's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>guestbook</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-overview-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Yang</p>
+  <div class="site-description" itemprop="description">Yang的博客</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/06/14/%E5%8D%8E%E4%B8%BA2016%E6%A0%A1%E5%9B%AD%E6%8B%9B%E8%81%98%E4%B8%8A%E6%9C%BA%E7%AC%94%E8%AF%95%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yang's Blog">
+      <meta itemprop="description" content="Yang的博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="华为2016校园招聘上机笔试题 | Yang's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          华为2016校园招聘上机笔试题
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-06-14 17:46:07" itemprop="dateCreated datePublished" datetime="2022-06-14T17:46:07+08:00">2022-06-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-28 10:45:29" itemprop="dateModified" datetime="2022-07-28T10:45:29+08:00">2022-07-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%89%9B%E5%AE%A2%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">牛客刷题</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>题目一：老师想知道从某某同学当中，分数最高的是多少，现在请你编程模拟老师的询问。当然，老师有时候需要更新某位同学的成绩.</p>
+<p>反思：题目不难可以用暴力解法，不熟悉 while (sc.hasNext()) 导致一直运行失败。</p>
+<p>学会了什么：以后要把写的代码框在while (sc.hasNext()) {} 中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">import java.util.*;</span><br><span class="line">public class Main &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        // 1. 初始化</span><br><span class="line">        Scanner sc = new Scanner(System.in);</span><br><span class="line">        // 不加这一句while 运行不通过，加了以后运行通过</span><br><span class="line">        while (sc.hasNext()) &#123;</span><br><span class="line">            int N = sc.nextInt();</span><br><span class="line">            int M = sc.nextInt();</span><br><span class="line">            int[] grades = new int[N+1];</span><br><span class="line">            grades[0] = -1;</span><br><span class="line">            for (int i = 1; i &lt;= N; i++) &#123;</span><br><span class="line">                grades[i] = sc.nextInt();</span><br><span class="line">            &#125;</span><br><span class="line">            sc.nextLine();</span><br><span class="line">            int[][] operator = new int[M][3];</span><br><span class="line">            for (int i = 0; i &lt; M; i++) &#123;</span><br><span class="line">                String line = sc.nextLine();</span><br><span class="line">                String opera = line.split(&quot; &quot;)[0];</span><br><span class="line">                int b = Integer.valueOf(line.split(&quot; &quot;)[1]);</span><br><span class="line">                int c = Integer.valueOf(line.split(&quot; &quot;)[2]);</span><br><span class="line">                if (opera.equals(&quot;Q&quot;)) &#123;</span><br><span class="line">                    System.out.println(getMax(grades, b, c));</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    grades[b] = c;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            &#125; </span><br><span class="line">            sc.close();</span><br><span class="line">    &#125;</span><br><span class="line">      </span><br><span class="line">    public static int getMax(int[] grades, int start, int end) &#123;</span><br><span class="line">        if (start == end) return grades[start];</span><br><span class="line">        if (start &gt; end) &#123;</span><br><span class="line">            int temp = end;</span><br><span class="line">            end = start;</span><br><span class="line">            start = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        int max = grades[start];</span><br><span class="line">        for (int i = start; i &lt;= end; i++) &#123;</span><br><span class="line">            max = Math.max(max, grades[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        return max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>题目二：开发一个简单错误记录功能小模块，能够记录出错的代码所在的文件名称和行号。</p>
+<p>反思：着急了题目没读懂。</p>
+<p>输入多行数据，每一行数据表示该文件的错误行数，可能存在一个文件有多个行错误，故匹配多行输入，对于文件名和行数完全相同的记录，最后输出合并为一行，错误次数++</p>
+<p>只记录最后的八条错误记录（输入的最后八行）</p>
+<p>输出中不包含文件路径，如果文件名大于16字符，则截取最后的16字符。</p>
+<p>学到了什么：还没有解决完，不会排序！！！</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">sc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        HashMap&lt;String,Integer&gt; map = <span class="keyword">new</span> <span class="title class_">LinkedHashMap</span>&lt;&gt;(); </span><br><span class="line">        <span class="keyword">while</span> (sc.hasNext()) &#123;</span><br><span class="line">            String[] arr = sc.nextLine().split(<span class="string">&quot;\\\\&quot;</span>);</span><br><span class="line">            <span class="type">String</span> <span class="variable">nameAndLine</span> <span class="operator">=</span> arr[arr.length - <span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span> (map.containsKey(nameAndLine)) &#123;</span><br><span class="line">                map.put(nameAndLine, map.get(nameAndLine) + <span class="number">1</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                map.put(nameAndLine, <span class="number">1</span>);</span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;</span><br><span class="line">        sc.close();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取最后八位元素</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (String key: map.keySet()) &#123;</span><br><span class="line">            count++;</span><br><span class="line">            <span class="keyword">if</span> (count &gt; map.keySet().size() - <span class="number">8</span>) &#123;</span><br><span class="line">                <span class="type">String</span> <span class="variable">fileName</span> <span class="operator">=</span> key.split(<span class="string">&quot; &quot;</span>)[<span class="number">0</span>];</span><br><span class="line">                <span class="type">String</span> <span class="variable">lineNum</span> <span class="operator">=</span> key.split(<span class="string">&quot; &quot;</span>)[<span class="number">1</span>];</span><br><span class="line">                <span class="keyword">if</span> (fileName.length() &gt; <span class="number">16</span>)&#123;</span><br><span class="line">                    <span class="comment">// 从 key.length() - 16 的后一个元素开始，截取所有字符</span></span><br><span class="line">                    fileName = fileName.substring(key.length() - <span class="number">16</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                System.out.println(fileName + <span class="string">&quot; &quot;</span> + lineNum + <span class="string">&quot; &quot;</span> + map.get(key));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>题目三：扑克牌游戏大家应该都比较熟悉了，一副牌由54张组成，含3~A，2各4张，小王1张，大王1张。牌面从小到大用如下字符和字符串表示（其中，小写joker表示小王，大写JOKER表示大王）3 4 5 6 7 8 9 10 J Q K A 2 joker JOKER</p>
+<p>反思：拿到题目的第一感觉是复杂，需要很多if else，做题时的思绪也是很乱的理不清楚。不能完全沉下心思，浮躁觉得自己不行就得看答案才能解答。总觉得复杂方法用暴力解法就不对，其实没有不对，暴力是最基本的，在暴力之上再考虑其他方法，连暴力都做不出来和谈技巧呢？最后看到答案觉得很简单，除了复杂以外没有其他技巧，按道理来说是能做出来的题目。</p>
+<p>学到了什么：复杂的题目先理清思路，一点点写下来，就算代码敲出来不对了也可以跟答案比较哪一步想错了、哪一步漏掉了，从而提升思维能力，复杂的题目可以分成几个小模块，分别构造辅助函数实现。</p>
+<p>[^思路理清： ]: </p>
+<ol>
+<li>针对两个手牌，需要判断它们的类型（单张、对子、三张、四张牌的炸弹、五张牌的顺子、大小王），如果它们的类型不同，进入操作2</li>
+<li>类型不同时只有炸弹才能比较出大小–通过类型判断（大小王、四张炸弹），否则无法比较大小返回Error</li>
+<li>类型相同时都可以通过第一张牌来比较大小，针对JQKA2jokerJOKER的情况转换成10以后的数字，通过数字比较大小</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">sc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        <span class="keyword">while</span> (sc.hasNext()) &#123;</span><br><span class="line">            String[] card = sc.nextLine().split(<span class="string">&quot;-&quot;</span>);</span><br><span class="line">            <span class="type">String</span> <span class="variable">card1</span> <span class="operator">=</span> card[<span class="number">0</span>];</span><br><span class="line">            <span class="type">String</span> <span class="variable">card2</span> <span class="operator">=</span> card[<span class="number">1</span>];</span><br><span class="line">            String[] cards1 = card1.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">            String[] cards2 = card2.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">            <span class="type">String</span> <span class="variable">card1Type</span> <span class="operator">=</span> checkType(cards1);</span><br><span class="line">            <span class="type">String</span> <span class="variable">card2Type</span> <span class="operator">=</span> checkType(cards2);</span><br><span class="line">            <span class="type">String</span> <span class="variable">res</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">            <span class="keyword">if</span> (!card1Type.equals(card2Type)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (card1Type.equals(<span class="string">&quot;jokers&quot;</span>)) &#123;</span><br><span class="line">                    res = card1;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (card2Type.equals(<span class="string">&quot;jokers&quot;</span>)) &#123;</span><br><span class="line">                    res = card2;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (card1Type.equals(<span class="string">&quot;bomb&quot;</span>)) &#123;</span><br><span class="line">                    res = card1;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (card2Type.equals(<span class="string">&quot;bomb&quot;</span>)) &#123;</span><br><span class="line">                    res = card2;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    res = <span class="string">&quot;ERROR&quot;</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (getNumber(cards1[<span class="number">0</span>]) &gt; getNumber(cards2[<span class="number">0</span>])) &#123;</span><br><span class="line">                    res = card1;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    res = card2;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(res);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">getNumber</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (s.matches(<span class="string">&quot;[3-9]&quot;</span>) || s.matches(<span class="string">&quot;10&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> Integer.valueOf(s);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (s.equals(<span class="string">&quot;J&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">11</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (s.equals(<span class="string">&quot;Q&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">12</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (s.equals(<span class="string">&quot;K&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">13</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (s.equals(<span class="string">&quot;A&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">14</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (s.equals(<span class="string">&quot;2&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">15</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (s.equals(<span class="string">&quot;joker&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">16</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (s.equals(<span class="string">&quot;JOKER&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">17</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">checkType</span><span class="params">(String[] card)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> card.length;</span><br><span class="line">        <span class="type">String</span> <span class="variable">res</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">if</span> (len == <span class="number">1</span>) &#123;</span><br><span class="line">            res = <span class="string">&quot;single&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (len == <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (card[<span class="number">0</span>].toLowerCase().matches(<span class="string">&quot;joker&quot;</span>) &amp;&amp; card[<span class="number">1</span>].toLowerCase().matches(<span class="string">&quot;joker&quot;</span>)) &#123;</span><br><span class="line">                res = <span class="string">&quot;jokers&quot;</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                res = <span class="string">&quot;double&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (len == <span class="number">3</span>) &#123;</span><br><span class="line">            res = <span class="string">&quot;triple&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (len == <span class="number">4</span>) &#123;</span><br><span class="line">            res = <span class="string">&quot;bomb&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            res = <span class="string">&quot;shunzi&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%88%B7%E9%A2%98/" rel="tag"># 刷题</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/06/14/mytext/" rel="prev" title="mytext">
+                  <i class="fa fa-chevron-left"></i> mytext
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/06/22/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" rel="next" title="hexo常用命令">
+                  hexo常用命令 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
