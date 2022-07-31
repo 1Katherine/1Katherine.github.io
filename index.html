@@ -152,18 +152,18 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">26</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">40</span>
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -193,6 +193,125 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/07/31/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%EF%BC%9A%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96-%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yang's Blog">
+      <meta itemprop="description" content="Yang的博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Yang's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/31/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81%EF%BC%9A%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96-%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81/" class="post-title-link" itemprop="url">前端面试代码：性能优化-防抖和节流</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-31 21:41:34 / 修改时间：22:23:49" itemprop="dateCreated datePublished" datetime="2022-07-31T21:41:34+08:00">2022-07-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E4%BB%A3%E7%A0%81/" itemprop="url" rel="index"><span itemprop="name">前端面试代码</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>防抖：事件触发过于频繁时，只执行最后一次</p>
+<p>节流：事件触发过于频繁时，控制执行次数</p>
+<p>共同点：都需要设置定时器</p>
+<h2 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h2><p>多次执行的内容，只允许执行最后一次。【需要设置时间，如5s，表示无论这5秒内做了什么，只有到了5秒才执行一次逻辑]</p>
+<p>oninput方法：键入就会执行，输入qian，执行4次</p>
+<h3 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;!-- </span><br><span class="line">        需求：在输入框中打字，控制台输出input中的内容</span><br><span class="line">        抖动：比如输&quot;前&quot;,会打印 q qi qia qian 前 ---- 五次</span><br><span class="line">     --&gt;</span><br><span class="line">  &lt;input type=&quot;text&quot; /&gt;</span><br><span class="line">  &lt;script&gt;</span><br><span class="line">      // 防抖：当用户触发时间过于频繁，只要最后事件的操作</span><br><span class="line">      let inp = document.querySelector(&quot;input&quot;);</span><br><span class="line">      //   防抖方法：比如设置一个事件t=0.5s，当连续打字小于0.5秒不会触发，超过0.5秒才触发</span><br><span class="line">      //   通过setTimeout的方式，在一定的时间间隔内，将多次触发变成一次触发；</span><br><span class="line">      let t = null;</span><br><span class="line">      inp.oninput = function () &#123;</span><br><span class="line">        if (t != null) &#123;</span><br><span class="line">          // t！=null则清除计时器(为了在下次使用计时器前，先清空计时器)</span><br><span class="line">          clearInterval(t);</span><br><span class="line">        &#125;</span><br><span class="line">        // 使用setInterval新建0.5s的计时器（每0.5秒执行一次打印输入框内容的操作）</span><br><span class="line">        t = setInterval(() =&gt; &#123;</span><br><span class="line">          console.log(this.value);</span><br><span class="line">        &#125;, 500);</span><br><span class="line">      &#125;;</span><br><span class="line"></span><br><span class="line">  &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="改进-业务逻辑-闭包"><a href="#改进-业务逻辑-闭包" class="headerlink" title="改进 - 业务逻辑 闭包"></a>改进 - 业务逻辑 闭包</h3><p>上一节的代码问题在于：</p>
+<p>1.业务逻辑代码只有一行 <code>console.log(this.value);</code> 其他代码都是防抖代码，而且还有一个全局变量t。看起来代码很混乱</p>
+<p>2.将业务代码和防抖代码放在一起，其他人不方便阅读和理解</p>
+<p>改进：</p>
+<p>将防抖代码封装成一个闭包，返回一个函数</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> /&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">       <span class="comment">// 防抖：当用户触发时间过于频繁，只要最后事件的操作</span></span></span><br><span class="line"><span class="language-javascript">       <span class="keyword">let</span> inp = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;input&quot;</span>);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">       inp.<span class="property">oninput</span> = <span class="title function_">debounce</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">         <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">value</span>); <span class="comment">// 将业务代码传递给闭包</span></span></span><br><span class="line"><span class="language-javascript">         <span class="comment">// 这个函数的this指向的是window</span></span></span><br><span class="line"><span class="language-javascript">         <span class="comment">// console.log(this);</span></span></span><br><span class="line"><span class="language-javascript">       &#125;, <span class="number">500</span>)</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">     <span class="comment">//   防抖闭包 [外部函数、内部函数、返回内部函数]</span></span></span><br><span class="line"><span class="language-javascript">     <span class="comment">// 由于需要返回一个函数给oninput，因此使用闭包，返回函数的形式</span></span></span><br><span class="line"><span class="language-javascript">     <span class="keyword">function</span> <span class="title function_">debounce</span>(<span class="params">fn, delay</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">       <span class="keyword">let</span> t = <span class="literal">null</span></span></span><br><span class="line"><span class="language-javascript">       <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">         <span class="keyword">if</span> (t!= <span class="literal">null</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">           <span class="built_in">clearTimeout</span>(t)</span></span><br><span class="line"><span class="language-javascript">         &#125; </span></span><br><span class="line"><span class="language-javascript">         t = <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">           <span class="comment">// 这个函数的this指向input</span></span></span><br><span class="line"><span class="language-javascript">           <span class="comment">// console.log(this);</span></span></span><br><span class="line"><span class="language-javascript">           <span class="comment">// 改变这个fn的this指向为当前的this也就是input</span></span></span><br><span class="line"><span class="language-javascript">           fn.<span class="title function_">call</span>(<span class="variable language_">this</span>)</span></span><br><span class="line"><span class="language-javascript">         &#125;, delay)</span></span><br><span class="line"><span class="language-javascript">       &#125;</span></span><br><span class="line"><span class="language-javascript">     &#125;</span></span><br><span class="line"><span class="language-javascript">   </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="节流"><a href="#节流" class="headerlink" title="节流"></a>节流</h2><p>当高度超出浏览器最大高度时，会出现滚动条。window.onscroll 方法在每次滚动进度条时都会执行，从上滚到下，可能会执行几百次。故使用节流，控制执行次数，控制为每5秒钟执行一次。</p>
+<h3 id="基础用法-1"><a href="#基础用法-1" class="headerlink" title="基础用法"></a>基础用法</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=edge&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">body</span> &#123;</span></span><br><span class="line"><span class="language-css">            <span class="attribute">height</span>: <span class="number">2000px</span>;</span></span><br><span class="line"><span class="language-css">        &#125;</span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">let</span> flag = <span class="literal">true</span></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">window</span>.<span class="property">onscroll</span> = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">if</span>(flag) &#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;hello world&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">                    flag = <span class="literal">true</span></span></span><br><span class="line"><span class="language-javascript">                &#125;, <span class="number">500</span>)</span></span><br><span class="line"><span class="language-javascript">            &#125;</span></span><br><span class="line"><span class="language-javascript">            flag = <span class="literal">false</span></span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    </span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="改进-业务逻辑-闭包-1"><a href="#改进-业务逻辑-闭包-1" class="headerlink" title="改进 - 业务逻辑 闭包"></a>改进 - 业务逻辑 闭包</h3><p>注：这个代码实现后只有打印了一次，不知道为什么</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">window</span>.<span class="property">onscroll</span> = <span class="title function_">throttle</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;hello world&#x27;</span>)</span><br><span class="line">&#125;,<span class="number">500</span>)      </span><br><span class="line"><span class="keyword">function</span> <span class="title function_">throttle</span>(<span class="params">fn, delay</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> flag = <span class="literal">true</span></span><br><span class="line">    <span class="keyword">if</span> (flag) &#123;</span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">            fn.<span class="title function_">call</span>(<span class="variable language_">this</span>)</span><br><span class="line">            flag = <span class="literal">true</span></span><br><span class="line">        &#125;, delay)</span><br><span class="line">    &#125;</span><br><span class="line">    flag = <span class="literal">false</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>或者</p>
+<p>注：这个代码用了ok</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">document</span>.<span class="property">onmousemove</span> = <span class="title function_">throttle</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;函数节流&quot;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">throttle</span>(<span class="params">cb, wait = <span class="number">300</span></span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> last = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">var</span> now = <span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">getTime</span>();</span><br><span class="line">        <span class="keyword">if</span> (now - last &gt; wait) &#123;</span><br><span class="line">            cb.<span class="title function_">call</span>(<span class="variable language_">this</span>);</span><br><span class="line">            last = <span class="keyword">new</span> <span class="title class_">Date</span>().<span class="title function_">getTime</span>();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="防抖与节流的比较"><a href="#防抖与节流的比较" class="headerlink" title="防抖与节流的比较"></a>防抖与节流的比较</h2><h3 id="相同点"><a href="#相同点" class="headerlink" title="相同点"></a>相同点</h3><p>都可以通过使用 setTimeout 实现<br>目的都是，降低回调执行频率，节省计算资源</p>
+<h3 id="不同点"><a href="#不同点" class="headerlink" title="不同点"></a>不同点</h3><p>防抖，在一段连续操作结束后，处理回调，利用clearTimeout 和 setTimeout实现。节流，在一段连续操作中，每一段时间只执行一次，频率较高的事件中使用来提高性能<br>防抖关注一定时间连续触发的事件只在最后执行一次。节流侧重于一段时间内只执行一次<br>应用场景：</p>
+<h3 id="函数防抖"><a href="#函数防抖" class="headerlink" title="函数防抖"></a>函数防抖</h3><p>连续的事件，只需触发一次回调的场景有：</p>
+<p>搜索框搜索输入。只需用户最后一次输入完，再发送请求<br>手机号、邮箱验证输入检测<br>窗口大小Resize。只需窗口调整完成后，计算窗口大小。防止重复渲染</p>
+<h3 id="函数节流"><a href="#函数节流" class="headerlink" title="函数节流"></a>函数节流</h3><p>间隔一段时间执行一次回调的场景有：</p>
+<p>滚动加载，加载更多或滚到底部监听<br>谷歌搜索框，搜索联想功能<br>高频点击提交，表单重复提交<br>参考资料：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45654582/article/details/121419851">https://blog.csdn.net/weixin_45654582/article/details/121419851</a></p>
+<h2 id="扩展-JS的两种定时器"><a href="#扩展-JS的两种定时器" class="headerlink" title="扩展 - JS的两种定时器"></a>扩展 - JS的两种定时器</h2><h3 id="执行一次-延时定时器"><a href="#执行一次-延时定时器" class="headerlink" title="执行一次(延时定时器)"></a>执行一次(延时定时器)</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> t1 = <span class="variable language_">window</span>.<span class="built_in">setTimeout</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;1秒钟之后执行了&#x27;</span>)</span><br><span class="line">&#125;,<span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">window</span>.<span class="built_in">clearTimeout</span>(t1)  <span class="comment">// 去除定时器</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="重复执行-间歇定时器"><a href="#重复执行-间歇定时器" class="headerlink" title="重复执行(间歇定时器)"></a>重复执行(间歇定时器)</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> t2 = <span class="variable language_">window</span>.<span class="built_in">setInterval</span>(<span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;每隔1秒钟执行一次&#x27;</span>)</span><br><span class="line">&#125;,<span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line"><span class="variable language_">window</span>.<span class="built_in">clearInterval</span>(t2)  <span class="comment">// 去除定时器</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>资料：<a target="_blank" rel="noopener" href="https://blog.csdn.net/u010132177/article/details/120434205">js中两种定时器，setTimeout(执行一次)、setInterval(执行多次)，实例自动点击某按钮</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1532,125 +1651,6 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">父组件 beforeDestroy --&gt;</span><br><span class="line">子组件 beforeDestroy --&gt;</span><br><span class="line">子组件 destroyed --&gt;</span><br><span class="line">父组件 destroyed</span><br></pre></td></tr></table></figure>
 
 <p>可以这样理解，父组件生命周期中会先看看子组件的生命周期有没有走完，<code>子组件生命周期走完了，才会走完父组件的生命周期</code>。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/07/14/%E9%A1%B9%E7%9B%AE%E7%9F%A5%E8%AF%862-vuex%E7%9A%84%E4%BD%BF%E7%94%A8%E3%80%81action%E5%92%8Cmutation%E7%9A%84%E5%8C%BA%E5%88%AB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Yang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yang's Blog">
-      <meta itemprop="description" content="Yang的博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Yang's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/14/%E9%A1%B9%E7%9B%AE%E7%9F%A5%E8%AF%862-vuex%E7%9A%84%E4%BD%BF%E7%94%A8%E3%80%81action%E5%92%8Cmutation%E7%9A%84%E5%8C%BA%E5%88%AB/" class="post-title-link" itemprop="url">项目知识2 - vuex的使用、action和mutation的区别</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-07-14 21:02:08" itemprop="dateCreated datePublished" datetime="2022-07-14T21:02:08+08:00">2022-07-14</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-28 10:45:29" itemprop="dateModified" datetime="2022-07-28T10:45:29+08:00">2022-07-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E9%A1%B9%E7%9B%AE%E6%9F%A5%E6%BC%8F%E8%A1%A5%E7%BC%BA/" itemprop="url" rel="index"><span itemprop="name">项目查漏补缺</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="vuex的使用、action和mutation的区别"><a href="#vuex的使用、action和mutation的区别" class="headerlink" title="vuex的使用、action和mutation的区别"></a>vuex的使用、action和mutation的区别</h1><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
-<li>action和mutation区别 [<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/f9213af4bcb1]">https://www.jianshu.com/p/f9213af4bcb1]</a></li>
-</ol>
-<h2 id="action和mutation的区别"><a href="#action和mutation的区别" class="headerlink" title="action和mutation的区别"></a>action和mutation的区别</h2><blockquote>
-<p>action中处理业务代码、异步请求。不能操作State</p>
-<p>mutation专注于修改State，理论上是修改State的唯一途径。必须同步执行</p>
-</blockquote>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>定义action</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">actions</span>: &#123;</span><br><span class="line">  <span class="comment">//  获取异步的数据 context表示当前的store的实例 可以通过 context.state 获取状态 也可以通过context.commit 来提交mutations， 也可以 context.diapatch调用其他的action</span></span><br><span class="line">    getAsyncCount (context) &#123;</span><br><span class="line">      <span class="built_in">setTimeout</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        <span class="comment">// 一秒钟之后 要给一个数 去修改state</span></span><br><span class="line">        context.<span class="title function_">commit</span>(<span class="string">&#x27;addCount&#x27;</span>, <span class="number">123</span>)</span><br><span class="line">      &#125;, <span class="number">1000</span>)</span><br><span class="line">    &#125;</span><br><span class="line"> &#125; </span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-<h2 id="项目应用"><a href="#项目应用" class="headerlink" title="项目应用"></a>项目应用</h2><p>由于地理信息（所有区域、省份、城市）在多个页面都需要获取，如果每个页面都通过请求获取，会重复多次请求同一个地址，导致项目加载效率低。因此采用vuex获取所有地理信息，并保存。每次使用的时候先从state中进行获取，如果state中没有信息再调用请求获取。</p>
-<h4 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h4><p>获取所有区域信息</p>
-<ul>
-<li>如果state.regions为空，则自行通过get请求获取所有Regions，并使用setRegions 设置 regions的值</li>
-<li>每次update、delete、insert后，都要通过get请求重新获取所有Regions</li>
-</ul>
-<p>获取所有省份信息</p>
-<ul>
-<li>setRegions 设置 regions的值后需要重新获取所有省份信息</li>
-<li>编辑省份后需要重新获取所有省份信息</li>
-</ul>
-<p>获取所有城市信息</p>
-<ul>
-<li>setRegions 设置 regions的值后需要重新获取城市信息</li>
-<li>编辑城市后需要重新获取</li>
-</ul>
-<p>编辑区域信息后，需要重新获取所有区域、省份、城市</p>
-<p>编辑省份后，需要重新所有省份、城市</p>
-<p>编辑城市后，需要重新获取所有城市</p>
 
       
     </div>
