@@ -33,6 +33,8 @@ categories:
 
 #### 在根目录src中新建utils目录下新建rem.js等比适配文件
 
+我使用的最大放大比例为1 ，呵呵，效果不错！需要自己调试，选出一个合适的值
+
 ~~~js
 // rem等比适配配置文件
 // 基准大小
@@ -42,7 +44,7 @@ function setRem () {
   // 当前页面屏幕分辨率相对于 1920宽的缩放比例，可根据自己需要修改
   const scale = document.documentElement.clientWidth / 1920
   // 设置页面根节点字体大小（“Math.min(scale, 2)” 指最高放大比例为2，可根据实际业务需求调整）
-  document.documentElement.style.fontSize = baseSize * Math.min(scale, 2) + 'px'
+  document.documentElement.style.fontSize = baseSize * Math.min(scale, 1) + 'px'
 }
 // 初始化
 setRem()
