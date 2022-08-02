@@ -152,7 +152,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-count">28</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -163,7 +163,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -193,6 +193,105 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/08/02/%E9%A1%B9%E7%9B%AE%E7%9F%A5%E8%AF%86-%E8%A7%A3%E5%86%B3element-ui-el-table%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0%E6%97%B6%E7%9A%84%E9%94%99%E4%BD%8D%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yang's Blog">
+      <meta itemprop="description" content="Yang的博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Yang's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/08/02/%E9%A1%B9%E7%9B%AE%E7%9F%A5%E8%AF%86-%E8%A7%A3%E5%86%B3element-ui-el-table%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0%E6%97%B6%E7%9A%84%E9%94%99%E4%BD%8D%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">项目知识 - 解决element-ui el-table数据更新时的错位问题</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-08-02 08:49:33 / 修改时间：08:54:44" itemprop="dateCreated datePublished" datetime="2022-08-02T08:49:33+08:00">2022-08-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%A1%B9%E7%9B%AE%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">项目知识</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_39998026/article/details/124862604">解决Element-ui的el-table出现的表格错位问题</a></p>
+<p>在使用element-ui中的el-table时，我们经常会用到fiexd属性，而使用了fixed属性之后，就会容易在各种场景出现表格错位的问题。</p>
+<p>查阅element-ui官网，发现官网提供了doLayout方法来解决这个问题</p>
+<p>总结容易出现错位问题的几种场景及解决办法</p>
+<p>1、数据更新后出现的错位问题</p>
+<p>1.1 直接在数据赋值后执行doLayout方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">this.data = data;</span><br><span class="line">// 在数据更新后执行</span><br><span class="line">this.$nextTick(() =&gt; &#123;</span><br><span class="line">      // myTable是表格的ref属性值</span><br><span class="line">      if (this.$refs.myTable &amp;&amp; this.$refs.myTable.doLayout) &#123;</span><br><span class="line">        this.$refs.myTable.doLayout();</span><br><span class="line">      &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+<p>1.2在生命周期updated里执行doLayout方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">updated() &#123;</span><br><span class="line">    // myTable是表格的ref属性值</span><br><span class="line">    if (this.$refs.myTable &amp;&amp; this.$refs.myTable.doLayout) &#123;</span><br><span class="line">      this.$refs.myTable.doLayout();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>注：参考链接中有三种方法解决错位问题。分为是</p>
+<ol>
+<li><strong>数据更新后出现的错位问题</strong></li>
+<li><strong>浏览器窗口大小变化时出现的错位问题</strong></li>
+<li><strong>当有多个Tab标签时，切换标签出现的错位问题</strong></li>
+</ol>
+<p>本文中仅参考第一种 [数据更新错位问题] 就解决了刷新时el-table有一瞬间的错位问题</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -917,7 +1016,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2022-07-31 09:31:33 / 修改时间：10:18:36" itemprop="dateCreated datePublished" datetime="2022-07-31T09:31:33+08:00">2022-07-31</time>
+      <time title="创建时间：2022-07-31 09:31:33 / 修改时间：23:20:44" itemprop="dateCreated datePublished" datetime="2022-07-31T09:31:33+08:00">2022-07-31</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -954,50 +1053,7 @@
 <li>过度使用闭包可能造成内存泄漏</li>
 </ol>
 <p>注：回调函数也能访问函数内部的局部变量。</p>
-<h2 id="JS进阶"><a href="#JS进阶" class="headerlink" title="JS进阶"></a>JS进阶</h2><h3 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h3><p>[它允许在变量声明之前即被访问]</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="comment">// 访问变量 str</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(str + <span class="string">&#x27;world!&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 声明变量 str</span></span><br><span class="line">  <span class="keyword">var</span> str = <span class="string">&#x27;hello &#x27;</span>;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span>和<span class="keyword">var</span>都有提升，但是<span class="keyword">let</span>定义的变量没有赋值之前是不可以使用、<span class="keyword">var</span>可以使用是<span class="literal">undefined</span></span><br></pre></td></tr></table></figure>
 
-<p>总结：</p>
-<ol>
-<li>变量在未声明即被访问时会报语法错误</li>
-<li>变量在声明之前即被访问，变量的值为 <code>undefined</code></li>
-<li><code>let</code> 声明的变量不存在变量提升，推荐使用 <code>let</code>【也有人认为具有提升但是不赋值不能使用】</li>
-<li>变量提升出现在相同作用域当中</li>
-<li>实际开发中推荐先声明再访问变量</li>
-</ol>
-<h3 id="函数提升"><a href="#函数提升" class="headerlink" title="函数提升"></a>函数提升</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="comment">// 调用函数</span></span><br><span class="line">  <span class="title function_">foo</span>();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 声明函数</span></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;声明之前即被调用...&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 不存在提升现象</span></span><br><span class="line">  <span class="title function_">bar</span>();</span><br><span class="line">  <span class="keyword">var</span> bar = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;函数表达式不存在提升现象...&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>总结：</p>
-<ol>
-<li>函数提升能够使函数的声明调用更灵活</li>
-<li>函数表达式不存在提升的现象</li>
-<li>函数提升出现在相同作用域当中</li>
-</ol>
-<h3 id="函数参数【默认值、动态参数、剩余参数】"><a href="#函数参数【默认值、动态参数、剩余参数】" class="headerlink" title="函数参数【默认值、动态参数、剩余参数】"></a>函数参数【默认值、动态参数、剩余参数】</h3><h4 id="默认值"><a href="#默认值" class="headerlink" title="默认值"></a>默认值</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="comment">// 设置参数默认值</span></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">sayHi</span>(<span class="params">name=<span class="string">&quot;小明&quot;</span>, age=<span class="number">18</span></span>) &#123;</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">write</span>(<span class="string">`&lt;p&gt;大家好，我叫<span class="subst">$&#123;name&#125;</span>，我今年<span class="subst">$&#123;age&#125;</span>岁了。&lt;/p&gt;`</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 调用函数</span></span><br><span class="line">  <span class="title function_">sayHi</span>();</span><br><span class="line">  <span class="title function_">sayHi</span>(<span class="string">&#x27;小红&#x27;</span>);</span><br><span class="line">  <span class="title function_">sayHi</span>(<span class="string">&#x27;小刚&#x27;</span>, <span class="number">21</span>);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>总结：</p>
-<ol>
-<li>声明函数时为形参赋值即为参数的默认值</li>
-<li>如果参数未自定义默认值时，参数的默认值为 <code>undefined</code></li>
-<li>调用函数时没有传入对应实参时，参数的默认值被当做实参传入</li>
-</ol>
-<h4 id="动态参数"><a href="#动态参数" class="headerlink" title="动态参数"></a>动态参数</h4><p><code>arguments</code> 是函数内部内置的伪数组变量，它包含了调用函数时传入的所有实参。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="comment">// 求生函数，计算所有参数的和</span></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">sum</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// console.log(arguments);</span></span><br><span class="line">    <span class="keyword">let</span> s = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="variable language_">arguments</span>.<span class="property">length</span>; i++) &#123;</span><br><span class="line">      s += <span class="variable language_">arguments</span>[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(s);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 调用求和函数</span></span><br><span class="line">  <span class="title function_">sum</span>(<span class="number">5</span>, <span class="number">10</span>); <span class="comment">// 两个参数</span></span><br><span class="line">  <span class="title function_">sum</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>); <span class="comment">// 两个参数</span></span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>总结：</p>
-<ol>
-<li><code>arguments</code> 是一个伪数组</li>
-<li><code>arguments</code> 的作用是动态获取函数的实参</li>
-</ol>
-<h4 id="剩余参数"><a href="#剩余参数" class="headerlink" title="剩余参数"></a>剩余参数</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">config</span>(<span class="params">baseURL, ...other</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(baseURL);</span><br><span class="line">    <span class="comment">// other 是真数组，动态获取实参</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(other);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 调用函数</span></span><br><span class="line">  <span class="title function_">config</span>(<span class="string">&#x27;http://baidu.com&#x27;</span>, <span class="string">&#x27;get&#x27;</span>, <span class="string">&#x27;json&#x27;</span>);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<p>总结：</p>
-<ol>
-<li><code>...</code> 是语法符号，置于最末函数形参之前，用于获取多余的实参</li>
-<li>借助 <code>...</code> 获取的剩余实参</li>
-<li></li>
-</ol>
-<h3 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h3>
       
     </div>
 
@@ -1539,118 +1595,6 @@
 
 <h3 id="3-5-在学校界面，点击”导入”按钮，实现批量导入。传入type类型"><a href="#3-5-在学校界面，点击”导入”按钮，实现批量导入。传入type类型" class="headerlink" title="3.5 在学校界面，点击”导入”按钮，实现批量导入。传入type类型"></a>3.5 在学校界面，点击”导入”按钮，实现批量导入。传入type类型</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;el-button type=&quot;warning&quot; @click=&quot;$router.push(&#x27;/import?type=schoolBasicInfo&#x27;)&quot;</span><br><span class="line">&gt;导入&lt;/el-button&gt;</span><br></pre></td></tr></table></figure>
 
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/07/15/%E9%A1%B9%E7%9B%AE%E7%9F%A5%E8%AF%86-%E5%AD%90%E7%BB%84%E4%BB%B6%E5%9C%A8create%E3%80%81mounted%E4%B8%AD%E6%8E%A5%E5%8F%97%E4%B8%8D%E5%88%B0%E7%88%B6%E7%BB%84%E4%BB%B6%E4%BC%A0%E6%9D%A5%E7%9A%84%E5%BC%82%E6%AD%A5%E6%95%B0%E6%8D%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Yang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yang's Blog">
-      <meta itemprop="description" content="Yang的博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Yang's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/15/%E9%A1%B9%E7%9B%AE%E7%9F%A5%E8%AF%86-%E5%AD%90%E7%BB%84%E4%BB%B6%E5%9C%A8create%E3%80%81mounted%E4%B8%AD%E6%8E%A5%E5%8F%97%E4%B8%8D%E5%88%B0%E7%88%B6%E7%BB%84%E4%BB%B6%E4%BC%A0%E6%9D%A5%E7%9A%84%E5%BC%82%E6%AD%A5%E6%95%B0%E6%8D%AE/" class="post-title-link" itemprop="url">项目知识 - 子组件在create、mounted中接受不到父组件传来的异步数据</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-07-15 09:30:11" itemprop="dateCreated datePublished" datetime="2022-07-15T09:30:11+08:00">2022-07-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-28 10:45:29" itemprop="dateModified" datetime="2022-07-28T10:45:29+08:00">2022-07-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E9%A1%B9%E7%9B%AE%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">项目知识</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="子组件在create、mounted中接受不到父组件传来的异步数据"><a href="#子组件在create、mounted中接受不到父组件传来的异步数据" class="headerlink" title="子组件在create、mounted中接受不到父组件传来的异步数据"></a>子组件在create、mounted中接受不到父组件传来的异步数据</h1><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
-<li>vue中父组件异步数据通过props方式传递给子组件，子组件接收不到的问题 [<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43290151/article/details/124954767]">https://blog.csdn.net/weixin_43290151/article/details/124954767]</a></li>
-<li>Vue生命周期详解 [<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45054614/article/details/122178368]">https://blog.csdn.net/weixin_45054614/article/details/122178368]</a></li>
-</ol>
-<h2 id="问题来源"><a href="#问题来源" class="headerlink" title="问题来源"></a>问题来源</h2><p>最近在写项目结构时候遇到了这个问题，项目结构如下：父组件地理信息&#x2F;index.js中包含三个子组件：区域组件、省份组件、城市组件。</p>
-<p>需求：在index.js中通过后端接口获取所有区域信息、再遍历每个区域，获取区域下的省份，组成所有省份信息。将所有区域信息传递给省份组件用于显示每个区域下有哪些省份，所有省份信息传递给城市组件用于显示每个省份下有哪些城市。遇到了问题：城市组件在页面渲染时候获取不到父组件传来的数据。</p>
-<h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><p>由于所有省份信息是在index.js页面以后端请求的方式异步获取的，根据父子组件的生命周期流程，父组件要等子组件的生命周期走完，即子组件mounted完后，父组件才会mounted。而mounted钩子默认加载只会执行一次，子组件的mounted钩子执行的时候，父组件的异步数据还没有传递过来。</p>
-<h2 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h2><h4 id="方案一-使用v-if控制子组件渲染的时机"><a href="#方案一-使用v-if控制子组件渲染的时机" class="headerlink" title="方案一 使用v-if控制子组件渲染的时机"></a>方案一 使用v-if控制子组件渲染的时机</h4><h5 id="父组件"><a href="#父组件" class="headerlink" title="父组件"></a>父组件</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-tab-pane</span> <span class="attr">label</span>=<span class="string">&quot;城市信息管理&quot;</span> <span class="attr">name</span>=<span class="string">&quot;third&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">City</span> <span class="attr">v-if</span>=<span class="string">&quot;allprovinces.length !== 0&quot;</span> <span class="attr">:allprovinces</span>=<span class="string">&quot;allprovinces&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-tab-pane</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h5 id="子组件"><a href="#子组件" class="headerlink" title="子组件"></a>子组件</h5><blockquote>
-<p> 这种方式，子组件不用动代码，在父组件中去做控制即可</p>
-</blockquote>
-<p>但是这种方式有一个小小的缺点，就是最终效果会显得组件有些延迟才出现效果。因为异步数据是从后端的接口获取的，如果接口时间长一些的话，最终效果渲染也会慢一点，但是！！！一般情况下，后端的接口速度都会控制在几十到几百毫秒的时间，一般情况下，不会出现好几秒，甚至几十秒的接口，所以瑕不掩瑜，这种方式不影响我们使用</p>
-<h4 id="方案二-子组件使用watch监听父组件传递过来的数据"><a href="#方案二-子组件使用watch监听父组件传递过来的数据" class="headerlink" title="方案二 子组件使用watch监听父组件传递过来的数据"></a>方案二 子组件使用watch监听父组件传递过来的数据</h4><h5 id="父组件-1"><a href="#父组件-1" class="headerlink" title="父组件"></a>父组件</h5><p>这种方式父组件正常传递数据即可，不需要做什么代码处理，只要在子组件中加一个监听即可</p>
-<h5 id="子组件-1"><a href="#子组件-1" class="headerlink" title="子组件"></a>子组件</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">props</span>: &#123;</span><br><span class="line">    <span class="attr">allprovince</span>: &#123;</span><br><span class="line">      <span class="attr">type</span>: <span class="title class_">Array</span>,</span><br><span class="line">      <span class="attr">default</span>: <span class="literal">null</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">watch</span>: &#123;</span><br><span class="line">    <span class="comment">// 监听到父组件传递过来的数据后，加工一下，</span></span><br><span class="line">    <span class="comment">// 存到data中去，然后在页面上使用</span></span><br><span class="line">    <span class="title function_">allprovince</span>(<span class="params">newnew, oldold</span>) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;监听&quot;</span>, newnew, oldold)</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">allprovince_total</span> = newnew</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">allprovince_total</span>: [],</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-<h2 id="相关知识"><a href="#相关知识" class="headerlink" title="相关知识"></a>相关知识</h2><h3 id="Vue生命周期"><a href="#Vue生命周期" class="headerlink" title="Vue生命周期"></a>Vue生命周期</h3><img src="/2022/07/15/%E9%A1%B9%E7%9B%AE%E7%9F%A5%E8%AF%86-%E5%AD%90%E7%BB%84%E4%BB%B6%E5%9C%A8create%E3%80%81mounted%E4%B8%AD%E6%8E%A5%E5%8F%97%E4%B8%8D%E5%88%B0%E7%88%B6%E7%BB%84%E4%BB%B6%E4%BC%A0%E6%9D%A5%E7%9A%84%E5%BC%82%E6%AD%A5%E6%95%B0%E6%8D%AE/vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png" class="" title="vue生命周期">
-
-<h3 id="父子组件生命周期执行顺序"><a href="#父子组件生命周期执行顺序" class="headerlink" title="父子组件生命周期执行顺序"></a>父子组件生命周期执行顺序</h3><p>加载渲染数据过程</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">父组件 beforeCreate --&gt;</span><br><span class="line">父组件 created --&gt;</span><br><span class="line">父组件 beforeMount --&gt;</span><br><span class="line">子组件 beforeCreate --&gt;</span><br><span class="line">子组件 created --&gt;</span><br><span class="line">子组件 beforeMount --&gt;</span><br><span class="line">子组件 mounted --&gt;</span><br><span class="line">父组件 mounted --&gt;</span><br></pre></td></tr></table></figure>
-
-<p>更新渲染数据过程</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">父组件 beforeUpdate --&gt;</span><br><span class="line">子组件 beforeUpdate --&gt;</span><br><span class="line">子组件 updated --&gt;</span><br><span class="line">父组件 updated --&gt;</span><br></pre></td></tr></table></figure>
-
-<p>销毁组件数据过程</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">父组件 beforeDestroy --&gt;</span><br><span class="line">子组件 beforeDestroy --&gt;</span><br><span class="line">子组件 destroyed --&gt;</span><br><span class="line">父组件 destroyed</span><br></pre></td></tr></table></figure>
-
-<p>可以这样理解，父组件生命周期中会先看看子组件的生命周期有没有走完，<code>子组件生命周期走完了，才会走完父组件的生命周期</code>。</p>
 
       
     </div>

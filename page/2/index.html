@@ -152,7 +152,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-count">28</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -163,7 +163,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -193,6 +193,118 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/07/15/%E9%A1%B9%E7%9B%AE%E7%9F%A5%E8%AF%86-%E5%AD%90%E7%BB%84%E4%BB%B6%E5%9C%A8create%E3%80%81mounted%E4%B8%AD%E6%8E%A5%E5%8F%97%E4%B8%8D%E5%88%B0%E7%88%B6%E7%BB%84%E4%BB%B6%E4%BC%A0%E6%9D%A5%E7%9A%84%E5%BC%82%E6%AD%A5%E6%95%B0%E6%8D%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yang's Blog">
+      <meta itemprop="description" content="Yang的博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Yang's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/15/%E9%A1%B9%E7%9B%AE%E7%9F%A5%E8%AF%86-%E5%AD%90%E7%BB%84%E4%BB%B6%E5%9C%A8create%E3%80%81mounted%E4%B8%AD%E6%8E%A5%E5%8F%97%E4%B8%8D%E5%88%B0%E7%88%B6%E7%BB%84%E4%BB%B6%E4%BC%A0%E6%9D%A5%E7%9A%84%E5%BC%82%E6%AD%A5%E6%95%B0%E6%8D%AE/" class="post-title-link" itemprop="url">项目知识 - 子组件在create、mounted中接受不到父组件传来的异步数据</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-07-15 09:30:11" itemprop="dateCreated datePublished" datetime="2022-07-15T09:30:11+08:00">2022-07-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-28 10:45:29" itemprop="dateModified" datetime="2022-07-28T10:45:29+08:00">2022-07-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%A1%B9%E7%9B%AE%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">项目知识</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="子组件在create、mounted中接受不到父组件传来的异步数据"><a href="#子组件在create、mounted中接受不到父组件传来的异步数据" class="headerlink" title="子组件在create、mounted中接受不到父组件传来的异步数据"></a>子组件在create、mounted中接受不到父组件传来的异步数据</h1><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li>vue中父组件异步数据通过props方式传递给子组件，子组件接收不到的问题 [<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43290151/article/details/124954767]">https://blog.csdn.net/weixin_43290151/article/details/124954767]</a></li>
+<li>Vue生命周期详解 [<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_45054614/article/details/122178368]">https://blog.csdn.net/weixin_45054614/article/details/122178368]</a></li>
+</ol>
+<h2 id="问题来源"><a href="#问题来源" class="headerlink" title="问题来源"></a>问题来源</h2><p>最近在写项目结构时候遇到了这个问题，项目结构如下：父组件地理信息&#x2F;index.js中包含三个子组件：区域组件、省份组件、城市组件。</p>
+<p>需求：在index.js中通过后端接口获取所有区域信息、再遍历每个区域，获取区域下的省份，组成所有省份信息。将所有区域信息传递给省份组件用于显示每个区域下有哪些省份，所有省份信息传递给城市组件用于显示每个省份下有哪些城市。遇到了问题：城市组件在页面渲染时候获取不到父组件传来的数据。</p>
+<h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><p>由于所有省份信息是在index.js页面以后端请求的方式异步获取的，根据父子组件的生命周期流程，父组件要等子组件的生命周期走完，即子组件mounted完后，父组件才会mounted。而mounted钩子默认加载只会执行一次，子组件的mounted钩子执行的时候，父组件的异步数据还没有传递过来。</p>
+<h2 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h2><h4 id="方案一-使用v-if控制子组件渲染的时机"><a href="#方案一-使用v-if控制子组件渲染的时机" class="headerlink" title="方案一 使用v-if控制子组件渲染的时机"></a>方案一 使用v-if控制子组件渲染的时机</h4><h5 id="父组件"><a href="#父组件" class="headerlink" title="父组件"></a>父组件</h5><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-tab-pane</span> <span class="attr">label</span>=<span class="string">&quot;城市信息管理&quot;</span> <span class="attr">name</span>=<span class="string">&quot;third&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">City</span> <span class="attr">v-if</span>=<span class="string">&quot;allprovinces.length !== 0&quot;</span> <span class="attr">:allprovinces</span>=<span class="string">&quot;allprovinces&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-tab-pane</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="子组件"><a href="#子组件" class="headerlink" title="子组件"></a>子组件</h5><blockquote>
+<p> 这种方式，子组件不用动代码，在父组件中去做控制即可</p>
+</blockquote>
+<p>但是这种方式有一个小小的缺点，就是最终效果会显得组件有些延迟才出现效果。因为异步数据是从后端的接口获取的，如果接口时间长一些的话，最终效果渲染也会慢一点，但是！！！一般情况下，后端的接口速度都会控制在几十到几百毫秒的时间，一般情况下，不会出现好几秒，甚至几十秒的接口，所以瑕不掩瑜，这种方式不影响我们使用</p>
+<h4 id="方案二-子组件使用watch监听父组件传递过来的数据"><a href="#方案二-子组件使用watch监听父组件传递过来的数据" class="headerlink" title="方案二 子组件使用watch监听父组件传递过来的数据"></a>方案二 子组件使用watch监听父组件传递过来的数据</h4><h5 id="父组件-1"><a href="#父组件-1" class="headerlink" title="父组件"></a>父组件</h5><p>这种方式父组件正常传递数据即可，不需要做什么代码处理，只要在子组件中加一个监听即可</p>
+<h5 id="子组件-1"><a href="#子组件-1" class="headerlink" title="子组件"></a>子组件</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">props</span>: &#123;</span><br><span class="line">    <span class="attr">allprovince</span>: &#123;</span><br><span class="line">      <span class="attr">type</span>: <span class="title class_">Array</span>,</span><br><span class="line">      <span class="attr">default</span>: <span class="literal">null</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">watch</span>: &#123;</span><br><span class="line">    <span class="comment">// 监听到父组件传递过来的数据后，加工一下，</span></span><br><span class="line">    <span class="comment">// 存到data中去，然后在页面上使用</span></span><br><span class="line">    <span class="title function_">allprovince</span>(<span class="params">newnew, oldold</span>) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;监听&quot;</span>, newnew, oldold)</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">allprovince_total</span> = newnew</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="attr">allprovince_total</span>: [],</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="相关知识"><a href="#相关知识" class="headerlink" title="相关知识"></a>相关知识</h2><h3 id="Vue生命周期"><a href="#Vue生命周期" class="headerlink" title="Vue生命周期"></a>Vue生命周期</h3><img src="/2022/07/15/%E9%A1%B9%E7%9B%AE%E7%9F%A5%E8%AF%86-%E5%AD%90%E7%BB%84%E4%BB%B6%E5%9C%A8create%E3%80%81mounted%E4%B8%AD%E6%8E%A5%E5%8F%97%E4%B8%8D%E5%88%B0%E7%88%B6%E7%BB%84%E4%BB%B6%E4%BC%A0%E6%9D%A5%E7%9A%84%E5%BC%82%E6%AD%A5%E6%95%B0%E6%8D%AE/vue%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.png" class="" title="vue生命周期">
+
+<h3 id="父子组件生命周期执行顺序"><a href="#父子组件生命周期执行顺序" class="headerlink" title="父子组件生命周期执行顺序"></a>父子组件生命周期执行顺序</h3><p>加载渲染数据过程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">父组件 beforeCreate --&gt;</span><br><span class="line">父组件 created --&gt;</span><br><span class="line">父组件 beforeMount --&gt;</span><br><span class="line">子组件 beforeCreate --&gt;</span><br><span class="line">子组件 created --&gt;</span><br><span class="line">子组件 beforeMount --&gt;</span><br><span class="line">子组件 mounted --&gt;</span><br><span class="line">父组件 mounted --&gt;</span><br></pre></td></tr></table></figure>
+
+<p>更新渲染数据过程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">父组件 beforeUpdate --&gt;</span><br><span class="line">子组件 beforeUpdate --&gt;</span><br><span class="line">子组件 updated --&gt;</span><br><span class="line">父组件 updated --&gt;</span><br></pre></td></tr></table></figure>
+
+<p>销毁组件数据过程</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">父组件 beforeDestroy --&gt;</span><br><span class="line">子组件 beforeDestroy --&gt;</span><br><span class="line">子组件 destroyed --&gt;</span><br><span class="line">父组件 destroyed</span><br></pre></td></tr></table></figure>
+
+<p>可以这样理解，父组件生命周期中会先看看子组件的生命周期有没有走完，<code>子组件生命周期走完了，才会走完父组件的生命周期</code>。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1164,136 +1276,6 @@
 <p>payload：存储有效期等数据</p>
 <p>signature：签名的信息</p>
 <img src="/2022/06/27/1-%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9Acookie%E3%80%81session%E3%80%81tokenz%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8C%E5%8C%BA%E5%88%AB/image-20220627105711878.png" class="" title="image-20220627105711878">
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/06/24/%E5%88%86%E9%A1%B5%E7%BB%84%E4%BB%B6el-pagination/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Yang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yang's Blog">
-      <meta itemprop="description" content="Yang的博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Yang's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/24/%E5%88%86%E9%A1%B5%E7%BB%84%E4%BB%B6el-pagination/" class="post-title-link" itemprop="url">分页组件el-pagination</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-06-24 15:59:36" itemprop="dateCreated datePublished" datetime="2022-06-24T15:59:36+08:00">2022-06-24</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-28 10:45:29" itemprop="dateModified" datetime="2022-07-28T10:45:29+08:00">2022-07-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/element-ui/" itemprop="url" rel="index"><span itemprop="name">element-ui</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>[TOC]</p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本篇文章用于简要描述el-table和el-pagination之间如何交互，以及编码中遇到的问题。</p>
-<p>数据：静态假数据（用于学习和测试，自己编的数据，请勿当真）</p>
-<h3 id="el-pagination使用方式"><a href="#el-pagination使用方式" class="headerlink" title="el-pagination使用方式"></a>el-pagination使用方式</h3><blockquote>
-<p>官方地址：<a target="_blank" rel="noopener" href="https://element.eleme.cn/#/zh-CN/component/pagination#dai-you-bei-jing-se-de-fen-ye">https://element.eleme.cn/#/zh-CN/component/pagination#dai-you-bei-jing-se-de-fen-ye</a></p>
-</blockquote>
-<h4 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h4><img src="/2022/06/24/%E5%88%86%E9%A1%B5%E7%BB%84%E4%BB%B6el-pagination/image-20220624160229958.png" class="" title="image-20220624160229958">
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;el-pagination</span><br><span class="line">               :current-page=&quot;page.page&quot;</span><br><span class="line">               :page-size=&quot;page.size&quot;</span><br><span class="line">               layout=&quot;prev, pager, next&quot;</span><br><span class="line">               :total=&quot;page.total&quot;</span><br><span class="line">               @current-change=&quot;handleCurrentChange&quot;</span><br><span class="line">               /&gt;</span><br></pre></td></tr></table></figure>
-
-<p>数据</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="comment">// 接收表格数据（在mounted中，获取数据，同时计算数据总数）</span></span><br><span class="line">    <span class="attr">datalist</span>: [],</span><br><span class="line">    <span class="comment">// 分页相关数据</span></span><br><span class="line">    <span class="attr">page</span>: &#123;</span><br><span class="line">      <span class="attr">page</span>: <span class="number">1</span>, <span class="comment">// 当前页数</span></span><br><span class="line">      <span class="attr">size</span>: <span class="number">10</span>, <span class="comment">// 每一页放的数据个数</span></span><br><span class="line">      <span class="attr">total</span>: <span class="number">0</span> <span class="comment">// 数据总数，需要在所有数据挂载完毕后才能在mounted中计算数据总数，</span></span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-
-<p>注释：</p>
-<p>（1）<strong>datalist</strong>：表格展示数据。由于需要分页组件需要计算总数据量，所以需要把所有页面数据都加载完之后，才能计算数据长度。故选择created()或mounted()生命周期函数。此处使用mounted()即刷新渲染html页面会重新运行mounted函数。</p>
-<p><strong>created</strong>(): 在所有数据和函数加载完成后，未渲染html之后就执行</p>
-<p><strong>mounted</strong>(): 在页面刷新后，即渲染完html之后才会重新执行</p>
-<p><strong>踩坑！</strong>声明周期函数不写在methods中，写在methods外，和methods平级。很容易在编码时自以为函数都要写在methods里面，导致生命周期函数不执行。</p>
-<p>（2）page对象：存储与分页相关的数据</p>
-<p><strong>page</strong>：用于当前页面的显示。当page值发生改变时，赋值给表格的显示数据也要改变。（分页组件通过这个与表格组件交互）</p>
-<p>注：分页组件和表格组件是两个独立组件，需要通过函数将两者连接起来，实现不同页面显示不同内容。如果是动态数据，就把page对象传递给后端接口，由接口根据page对象返回不同的数据给表格显示。</p>
-<p><strong>total</strong>：通过设置了total实现分页组件下面的 1 2 3 4…10 数字显示。初始为0，通过mounted函数中计算总数居量</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">mounted</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">page</span>.<span class="property">total</span> = tableList.<span class="property">length</span> <span class="comment">// 修改分页组件的总数居数量</span></span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">datalist</span> = tableList.<span class="title function_">slice</span>(<span class="number">0</span>, <span class="variable language_">this</span>.<span class="property">page</span>.<span class="property">size</span>) <span class="comment">// 为表格附上第一页的数据</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-
-<p>注：测试发现，此处使用created也能实现效果。</p>
-<p>最终解决方法：通过getDataList()函数获取数据，将数据赋值给datalist，在created中调用datalist。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">getSchoolList</span>(<span class="params"></span>) &#123; <span class="comment">// 根据页码获取当前所有数据</span></span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">page</span>.<span class="property">total</span> = tableList.<span class="property">length</span> <span class="comment">// 修改分页组件的总数居数量</span></span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">datalist</span> = tableList.<span class="title function_">slice</span>((<span class="variable language_">this</span>.<span class="property">page</span>.<span class="property">page</span> - <span class="number">1</span>) * <span class="variable language_">this</span>.<span class="property">page</span>.<span class="property">size</span>,</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">page</span>.<span class="property">page</span> * <span class="variable language_">this</span>.<span class="property">page</span>.<span class="property">size</span>) <span class="comment">// 为表格附上该页面的数据</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">created</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">getSchoolList</span>() <span class="comment">// 获取所有数据</span></span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h4><p><strong>@current-change&#x3D;”handleCurrentChange”</strong> </p>
-<p>用于设置改变当前页面之后显示的不同数据。通过这个方法实现分页组件与表格数据的交互。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">handleCurrentChange</span>(<span class="params">newPage</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">page</span>.<span class="property">page</span> = newPage <span class="comment">// 修改当前页</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">getPageList</span>() <span class="comment">// 获取当前页的数据给datalist</span></span><br><span class="line">&#125;,</span><br><span class="line"><span class="comment">// 获取当前页的数据</span></span><br><span class="line"><span class="title function_">getPageList</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="comment">// 取出newPage页的数据给表格数据显示</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">datalist</span> = tableList.<span class="title function_">slice</span>(</span><br><span class="line">            (<span class="variable language_">this</span>.<span class="property">page</span>.<span class="property">page</span> - <span class="number">1</span>) * <span class="variable language_">this</span>.<span class="property">page</span>.<span class="property">size</span>,</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">page</span>.<span class="property">page</span> * <span class="variable language_">this</span>.<span class="property">page</span>.<span class="property">size</span></span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">// 将获取数据单独放在一个函数中，方便编辑数据、新增数据、删除数据后重新调用获取数据的函数，重新渲染页面数据。</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="踩坑2！"><a href="#踩坑2！" class="headerlink" title="踩坑2！"></a><strong>踩坑2！</strong></h4><p>获取当前页数据时，我一开始使用splice，导致每次数组时都改变了原数组。</p>
-<h5 id="截取数组元素方法"><a href="#截取数组元素方法" class="headerlink" title="截取数组元素方法"></a>截取数组元素方法</h5><p>splice() : 会改变原数组</p>
-<p>slice(): 不会改变原数组</p>
-<h2 id="总代码"><a href="#总代码" class="headerlink" title="总代码"></a>总代码</h2><h3 id="html"><a href="#html" class="headerlink" title="html"></a>html</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;dashboard-container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;app-container&quot;</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- 信息显示表格 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-table</span> <span class="attr">:data</span>=<span class="string">&quot;datalist&quot;</span> <span class="attr">style</span>=<span class="string">&quot;width: 100%&quot;</span> <span class="attr">stripe</span> <span class="attr">border</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">fixed</span>=<span class="string">&quot;&quot;</span> <span class="attr">type</span>=<span class="string">&quot;index&quot;</span> <span class="attr">label</span>=<span class="string">&quot;序号&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">prop</span>=<span class="string">&quot;school_id&quot;</span> <span class="attr">label</span>=<span class="string">&quot;学校编号&quot;</span> <span class="attr">width</span>=<span class="string">&quot;140&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">label</span>=<span class="string">&quot;学校名&quot;</span> <span class="attr">width</span>=<span class="string">&quot;140&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">template</span> <span class="attr">slot-scope</span>=<span class="string">&quot;scope&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">el-tag</span> <span class="attr">size</span>=<span class="string">&quot;medium&quot;</span>&gt;</span>&#123;&#123; scope.row.school_name &#125;&#125;<span class="tag">&lt;/<span class="name">el-tag</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">el-table-column</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">prop</span>=<span class="string">&quot;school_level&quot;</span> <span class="attr">label</span>=<span class="string">&quot;等级&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">prop</span>=<span class="string">&quot;school_type&quot;</span> <span class="attr">label</span>=<span class="string">&quot;类型&quot;</span> <span class="attr">width</span>=<span class="string">&quot;140&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">prop</span>=<span class="string">&quot;school_nature&quot;</span> <span class="attr">label</span>=<span class="string">&quot;办学性质&quot;</span> <span class="attr">width</span>=<span class="string">&quot;140&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">prop</span>=<span class="string">&quot;school_region&quot;</span> <span class="attr">label</span>=<span class="string">&quot;区域&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">prop</span>=<span class="string">&quot;school_province&quot;</span> <span class="attr">label</span>=<span class="string">&quot;省份&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">prop</span>=<span class="string">&quot;school_city&quot;</span> <span class="attr">label</span>=<span class="string">&quot;城市&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">prop</span>=<span class="string">&quot;school_belong&quot;</span> <span class="attr">label</span>=<span class="string">&quot;隶属单位&quot;</span> <span class="attr">width</span>=<span class="string">&quot;100&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">prop</span>=<span class="string">&quot;school_rk&quot;</span> <span class="attr">label</span>=<span class="string">&quot;最新软科排名&quot;</span> <span class="attr">width</span>=<span class="string">&quot;80&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">prop</span>=<span class="string">&quot;school_wsl&quot;</span> <span class="attr">label</span>=<span class="string">&quot;最新校友会排名&quot;</span> <span class="attr">width</span>=<span class="string">&quot;80&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">prop</span>=<span class="string">&quot;school_xyh&quot;</span> <span class="attr">label</span>=<span class="string">&quot;最新武书连排名&quot;</span> <span class="attr">width</span>=<span class="string">&quot;80&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">prop</span>=<span class="string">&quot;school_qs&quot;</span> <span class="attr">label</span>=<span class="string">&quot;最新QS排名&quot;</span> <span class="attr">width</span>=<span class="string">&quot;80&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">prop</span>=<span class="string">&quot;school_us&quot;</span> <span class="attr">label</span>=<span class="string">&quot;最新US排名&quot;</span> <span class="attr">width</span>=<span class="string">&quot;80&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">prop</span>=<span class="string">&quot;school_tws&quot;</span> <span class="attr">label</span>=<span class="string">&quot;最新泰晤士排名&quot;</span> <span class="attr">width</span>=<span class="string">&quot;80&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-table-column</span></span></span><br><span class="line"><span class="tag">          <span class="attr">prop</span>=<span class="string">&quot;school_requirments&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">label</span>=<span class="string">&quot;报考要求&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">width</span>=<span class="string">&quot;140&quot;</span></span></span><br><span class="line"><span class="tag">        /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-table-column</span> <span class="attr">width</span>=<span class="string">&quot;200px&quot;</span> <span class="attr">label</span>=<span class="string">&quot;操作&quot;</span>&gt;</span></span><br><span class="line">          <span class="comment">&lt;!-- 通过作用域插槽，通过点击行，获得父组件行的数据 --&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">template</span> <span class="attr">slot-scope</span>=<span class="string">&quot;scope&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">el-button</span></span></span><br><span class="line"><span class="tag">              <span class="attr">size</span>=<span class="string">&quot;small&quot;</span></span></span><br><span class="line"><span class="tag">              <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span></span></span><br><span class="line"><span class="tag">              @<span class="attr">click</span>=<span class="string">&quot;handleClick(scope.row)&quot;</span></span></span><br><span class="line"><span class="tag">            &gt;</span>编辑<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">el-button</span></span></span><br><span class="line"><span class="tag">              <span class="attr">size</span>=<span class="string">&quot;small&quot;</span></span></span><br><span class="line"><span class="tag">              <span class="attr">type</span>=<span class="string">&quot;danger&quot;</span></span></span><br><span class="line"><span class="tag">              @<span class="attr">click</span>=<span class="string">&quot;handleDelete(scope.row)&quot;</span></span></span><br><span class="line"><span class="tag">            &gt;</span>删除<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">el-table-column</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">el-table</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- 分页组件 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-row</span> <span class="attr">justify</span>=<span class="string">&quot;center&quot;</span> <span class="attr">type</span>=<span class="string">&quot;flex&quot;</span> <span class="attr">align</span>=<span class="string">&quot;middle&quot;</span> <span class="attr">style</span>=<span class="string">&quot;height: 60px&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-pagination</span></span></span><br><span class="line"><span class="tag">          <span class="attr">:current-page</span>=<span class="string">&quot;page.page&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">:page-size</span>=<span class="string">&quot;page.size&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">layout</span>=<span class="string">&quot;prev, pager, next&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">:total</span>=<span class="string">&quot;page.total&quot;</span></span></span><br><span class="line"><span class="tag">          @<span class="attr">current-change</span>=<span class="string">&quot;handleCurrentChange&quot;</span></span></span><br><span class="line"><span class="tag">        /&gt;</span></span><br><span class="line">      &lt;/el-row</span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="javascript"><a href="#javascript" class="headerlink" title="javascript"></a>javascript</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">var</span> data = &#123;</span><br><span class="line">  <span class="attr">school_id</span>: <span class="string">&#x27;10074&#x27;</span>,</span><br><span class="line">  <span class="attr">school_name</span>: <span class="string">&#x27;华中科技大学&#x27;</span>,</span><br><span class="line">  <span class="attr">school_level</span>: <span class="string">&#x27;B&#x27;</span>,</span><br><span class="line">  <span class="attr">school_type</span>: <span class="string">&#x27;本科一批&#x27;</span>,</span><br><span class="line">  <span class="attr">school_nature</span>: <span class="string">&#x27;本科&#x27;</span>,</span><br><span class="line">  <span class="attr">school_region</span>: <span class="string">&#x27;中部&#x27;</span>,</span><br><span class="line">  <span class="attr">school_province</span>: <span class="string">&#x27;湖北&#x27;</span>,</span><br><span class="line">  <span class="attr">school_city</span>: <span class="string">&#x27;武汉&#x27;</span>,</span><br><span class="line">  <span class="attr">school_211</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="attr">school_985</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="attr">school_belong</span>: <span class="string">&#x27;湖北省&#x27;</span>,</span><br><span class="line">  <span class="attr">school_rk</span>: <span class="number">8</span>,</span><br><span class="line">  <span class="attr">school_xyh</span>: <span class="number">12</span>,</span><br><span class="line">  <span class="attr">school_wsl</span>: <span class="number">22</span>,</span><br><span class="line">  <span class="attr">school_qs</span>: <span class="number">69</span>,</span><br><span class="line">  <span class="attr">school_us</span>: <span class="number">178</span>,</span><br><span class="line">  <span class="attr">school_tws</span>: <span class="number">7</span>,</span><br><span class="line">  <span class="attr">school_requirments</span>: <span class="string">&#x27;报考要求&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> data1 = &#123;</span><br><span class="line">  <span class="attr">school_id</span>: <span class="string">&#x27;20046&#x27;</span>,</span><br><span class="line">  <span class="attr">school_name</span>: <span class="string">&#x27;武汉大学&#x27;</span>,</span><br><span class="line">  <span class="attr">school_level</span>: <span class="string">&#x27;B&#x27;</span>,</span><br><span class="line">  <span class="attr">school_type</span>: <span class="string">&#x27;本科一批&#x27;</span>,</span><br><span class="line">  <span class="attr">school_nature</span>: <span class="string">&#x27;本科&#x27;</span>,</span><br><span class="line">  <span class="attr">school_region</span>: <span class="string">&#x27;中部&#x27;</span>,</span><br><span class="line">  <span class="attr">school_province</span>: <span class="string">&#x27;湖北&#x27;</span>,</span><br><span class="line">  <span class="attr">school_city</span>: <span class="string">&#x27;武汉&#x27;</span>,</span><br><span class="line">  <span class="attr">school_211</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="attr">school_985</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="attr">school_belong</span>: <span class="string">&#x27;湖北省&#x27;</span>,</span><br><span class="line">  <span class="attr">school_rk</span>: <span class="number">9</span>,</span><br><span class="line">  <span class="attr">school_xyh</span>: <span class="number">10</span>,</span><br><span class="line">  <span class="attr">school_wsl</span>: <span class="number">80</span>,</span><br><span class="line">  <span class="attr">school_qs</span>: <span class="number">99</span>,</span><br><span class="line">  <span class="attr">school_us</span>: <span class="number">237</span>,</span><br><span class="line">  <span class="attr">school_tws</span>: <span class="number">6</span>,</span><br><span class="line">  <span class="attr">school_requirments</span>: <span class="string">&#x27;报考要求&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> tableList = [</span><br><span class="line">  data,</span><br><span class="line">  data1,</span><br><span class="line">  data,</span><br><span class="line">  data1,</span><br><span class="line">  data,</span><br><span class="line">  data1,</span><br><span class="line">  data,</span><br><span class="line">  data1,</span><br><span class="line">  data,</span><br><span class="line">  data1,</span><br><span class="line">  data,</span><br><span class="line">  data1,</span><br><span class="line">  data,</span><br><span class="line">  data1,</span><br><span class="line">  data,</span><br><span class="line">  data1,</span><br><span class="line">  data1,</span><br><span class="line">  data,</span><br><span class="line">  data1,</span><br><span class="line">  data,</span><br><span class="line">  data1</span><br><span class="line">]</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;SchoolInfo&#x27;</span>,</span><br><span class="line">  <span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      <span class="comment">// 接收表格数据（在mounted中，获取数据，同时计算数据总数</span></span><br><span class="line">      <span class="attr">datalist</span>: [],</span><br><span class="line">      <span class="comment">// 分页相关数据</span></span><br><span class="line">      <span class="attr">page</span>: &#123;</span><br><span class="line">        <span class="attr">page</span>: <span class="number">1</span>, <span class="comment">// 当前页数</span></span><br><span class="line">        <span class="attr">size</span>: <span class="number">10</span>, <span class="comment">// 每一页放的数据个数</span></span><br><span class="line">        <span class="attr">total</span>: <span class="number">1000</span> <span class="comment">// 数据总数，需要在所有数据挂载完毕后才能在mounted中计算数据总数，</span></span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">mounted</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">page</span>.<span class="property">total</span> = tableList.<span class="property">length</span> <span class="comment">// 修改分页组件的总数居数量</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">datalist</span> = tableList.<span class="title function_">slice</span>(<span class="number">0</span>, <span class="variable language_">this</span>.<span class="property">page</span>.<span class="property">size</span>) <span class="comment">// 为表格附上第一页的数据</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">methods</span>: &#123;</span><br><span class="line">    <span class="title function_">handleCurrentChange</span>(<span class="params">newPage</span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">page</span>.<span class="property">page</span> = newPage <span class="comment">// 修改当前页</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">getPageList</span>() <span class="comment">// 获取当前页的数据给datalist</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 获取当前页的数据</span></span><br><span class="line">    <span class="title function_">getPageList</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="comment">// 取出newPage页的数据给表格数据显示</span></span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">datalist</span> = tableList.<span class="title function_">slice</span>(</span><br><span class="line">        (<span class="variable language_">this</span>.<span class="property">page</span>.<span class="property">page</span> - <span class="number">1</span>) * <span class="variable language_">this</span>.<span class="property">page</span>.<span class="property">size</span>,</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">page</span>.<span class="property">page</span> * <span class="variable language_">this</span>.<span class="property">page</span>.<span class="property">size</span></span><br><span class="line">      )</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="分页效果展示"><a href="#分页效果展示" class="headerlink" title="分页效果展示"></a>分页效果展示</h3><p><video src="分页组件el-pagination/高考信息系统 - Google Chrome 2022-06-24 16-26-53.mp4"></video></p>
 
       
     </div>
