@@ -152,13 +152,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">32</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -193,6 +193,132 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/06/29/%E5%89%8D%E7%AB%AF%E7%BC%96%E7%A0%81%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yang's Blog">
+      <meta itemprop="description" content="Yang的博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Yang's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/06/29/%E5%89%8D%E7%AB%AF%E7%BC%96%E7%A0%81%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">前端编码日常记录</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-06-29 15:30:22" itemprop="dateCreated datePublished" datetime="2022-06-29T15:30:22+08:00">2022-06-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-28 10:45:29" itemprop="dateModified" datetime="2022-07-28T10:45:29+08:00">2022-07-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="前后端分离-跨域"><a href="#前后端分离-跨域" class="headerlink" title="前后端分离-跨域"></a>前后端分离-跨域</h3><p>比如后端的请求接口：<a target="_blank" rel="noopener" href="http://192.168.1.**):8080/user/login">http://192.168.1.**):8080/user/login</a></p>
+<p>由于前端与后端地址不同，不能够直接请求后端接口需要解决跨域问题，即用编写前端的电脑作为请求代理。</p>
+<ol>
+<li>vue,config.js 的proxy配置跨域代理</li>
+<li>设置请求的基地址为&#x2F;api</li>
+<li>api实例</li>
+</ol>
+<p>vue,config.js 的proxy配置</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">devServer</span>: &#123;</span><br><span class="line">  <span class="comment">// 代理配置 - 解决跨域问题（前端和后端接口不在同一域名下</span></span><br><span class="line">  <span class="attr">port</span>: port,</span><br><span class="line">  <span class="attr">open</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">overlay</span>: &#123;</span><br><span class="line">    <span class="attr">warnings</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">errors</span>: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">proxy</span>: &#123;</span><br><span class="line">    <span class="string">&#x27;/api&#x27;</span>: &#123; <span class="comment">// 前端访问基地址</span></span><br><span class="line">      <span class="attr">target</span>: <span class="string">&#x27;http://192.168.1.**:8080&#x27;</span>, <span class="comment">// 后端地接口地址</span></span><br><span class="line">      <span class="attr">changeOrigin</span>: <span class="literal">true</span>, <span class="comment">// 是否跨域</span></span><br><span class="line">      <span class="attr">pathRewrite</span>: &#123; <span class="comment">// 如果接口本身没有/api需要通过pathRewrite来重写了地址</span></span><br><span class="line">        <span class="string">&#x27;^/api&#x27;</span>: <span class="string">&#x27;&#x27;</span> <span class="comment">// 这里一定要重写为空（因为后端接口没有/api路径，直接才ip后接的接口）</span></span><br><span class="line">          <span class="comment">//这里理解成用‘/api’代替target里面的地址，组件中我们调接口时直接用/api代替</span></span><br><span class="line">        <span class="comment">// 比如我要调用&#x27;http://0.0:300/user/add&#x27;，直接写‘/api/user/add’即可</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>设置请求的基地址为&#x2F;api</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span></span><br><span class="line"><span class="comment">// 创建一个axios实例</span></span><br><span class="line"><span class="keyword">const</span> service = axios.<span class="title function_">create</span>(&#123;</span><br><span class="line">  <span class="attr">baseURL</span>: <span class="string">&#x27;/api&#x27;</span>, <span class="comment">// 设置axios请求的基础的基础地址(通过/api别名指定后端路由)</span></span><br><span class="line">  <span class="attr">timeout</span>: <span class="number">5000</span> <span class="comment">// 定义5秒超时</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>api请求实例</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">login</span>(<span class="params">data</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">request</span>(&#123;</span><br><span class="line">    <span class="attr">url</span>: <span class="string">&#x27;/user/login&#x27;</span>,</span><br><span class="line">    <span class="attr">method</span>: <span class="string">&#x27;post&#x27;</span>,</span><br><span class="line">    data</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>network显示的请求接口为</p>
+<img src="/2022/06/29/%E5%89%8D%E7%AB%AF%E7%BC%96%E7%A0%81%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/image-20220629162315846.png" class="" title="image-20220629162315846">
+
+<p>虽然显示请求 <a target="_blank" rel="noopener" href="http://localhost:8888/api/user/list%EF%BC%8C%E5%85%B6%E5%AE%9E%E6%9C%AC%E5%9C%B0%E4%BC%9A%E8%BD%AC%E5%8F%91http://192.168.1.**:8080/user/login">http://localhost:8888/api/user/list，其实本地会转发http://192.168.1.**:8080/user/login</a> 请求，即实现前端访问后端接口</p>
+<h3 id="父传子"><a href="#父传子" class="headerlink" title="父传子"></a>父传子</h3><h5 id="父组件点击编辑按钮，传递数据给子组件，子组件在表单内进行数据回显。"><a href="#父组件点击编辑按钮，传递数据给子组件，子组件在表单内进行数据回显。" class="headerlink" title="父组件点击编辑按钮，传递数据给子组件，子组件在表单内进行数据回显。"></a>父组件点击编辑按钮，传递数据给子组件，子组件在表单内进行数据回显。</h5><p>知识点：</p>
+<ol>
+<li>谁调用api获取数据？（父组件）</li>
+<li>父组件通过什么方式传数据给子组件？（:变量名&#x3D;“变量名”）</li>
+<li>子组件怎么接收？（props）</li>
+<li>子组件怎么使用数据进行回显？（el-input中使用v-model）</li>
+</ol>
+<p>父组件 el-table</p>
+<p>子组件 el-dialog</p>
+<p>触发：表格每一行都有一个用户编辑的操作，点击编辑按钮后，弹出子组件表单对话框，表单对话框进行该行数据回显。</p>
+<img src="/2022/06/29/%E5%89%8D%E7%AB%AF%E7%BC%96%E7%A0%81%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/image-20220629154002779.png" class="" title="image-20220629154002779">
+
+<p>假设：需求为全部用户信息表，每一行为一个用户的信息。父组件data中有一个form表示该行用户信息，子组件props中有一个form:{}用于接收父组件传来的用户的信息。</p>
+<p>操作步骤：</p>
+<ol>
+<li><p>父组件调有api接口，根据id查询该用户的所有信息</p>
+</li>
+<li><p>this.form &#x3D; userinfo &#x2F;&#x2F; 父组件保存用户信息</p>
+</li>
+<li><p>&lt;子组件 :form&#x3D;”form”&#x2F;&gt;  通过prop形式，将父组件得到的用户信息传递给子组件，子组件通过v-model绑定数据显示在el-input中</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">label</span>=<span class="string">&quot;密码&quot;</span> <span class="attr">prop</span>=<span class="string">&quot;password&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">el-input</span> <span class="attr">v-model</span>=<span class="string">&quot;form.password&quot;</span> <span class="attr">class</span>=<span class="string">&quot;input_box&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1150,95 +1276,6 @@
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">Scanner</span> <span class="variable">sc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scanner</span>(System.in);</span><br><span class="line">        <span class="keyword">while</span> (sc.hasNext()) &#123;</span><br><span class="line">            String[] card = sc.nextLine().split(<span class="string">&quot;-&quot;</span>);</span><br><span class="line">            <span class="type">String</span> <span class="variable">card1</span> <span class="operator">=</span> card[<span class="number">0</span>];</span><br><span class="line">            <span class="type">String</span> <span class="variable">card2</span> <span class="operator">=</span> card[<span class="number">1</span>];</span><br><span class="line">            String[] cards1 = card1.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">            String[] cards2 = card2.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">            <span class="type">String</span> <span class="variable">card1Type</span> <span class="operator">=</span> checkType(cards1);</span><br><span class="line">            <span class="type">String</span> <span class="variable">card2Type</span> <span class="operator">=</span> checkType(cards2);</span><br><span class="line">            <span class="type">String</span> <span class="variable">res</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">            <span class="keyword">if</span> (!card1Type.equals(card2Type)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (card1Type.equals(<span class="string">&quot;jokers&quot;</span>)) &#123;</span><br><span class="line">                    res = card1;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (card2Type.equals(<span class="string">&quot;jokers&quot;</span>)) &#123;</span><br><span class="line">                    res = card2;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (card1Type.equals(<span class="string">&quot;bomb&quot;</span>)) &#123;</span><br><span class="line">                    res = card1;</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (card2Type.equals(<span class="string">&quot;bomb&quot;</span>)) &#123;</span><br><span class="line">                    res = card2;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    res = <span class="string">&quot;ERROR&quot;</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (getNumber(cards1[<span class="number">0</span>]) &gt; getNumber(cards2[<span class="number">0</span>])) &#123;</span><br><span class="line">                    res = card1;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    res = card2;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            System.out.println(res);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">getNumber</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (s.matches(<span class="string">&quot;[3-9]&quot;</span>) || s.matches(<span class="string">&quot;10&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> Integer.valueOf(s);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (s.equals(<span class="string">&quot;J&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">11</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (s.equals(<span class="string">&quot;Q&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">12</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (s.equals(<span class="string">&quot;K&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">13</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (s.equals(<span class="string">&quot;A&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">14</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (s.equals(<span class="string">&quot;2&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">15</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (s.equals(<span class="string">&quot;joker&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">16</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (s.equals(<span class="string">&quot;JOKER&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">17</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">checkType</span><span class="params">(String[] card)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">len</span> <span class="operator">=</span> card.length;</span><br><span class="line">        <span class="type">String</span> <span class="variable">res</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">if</span> (len == <span class="number">1</span>) &#123;</span><br><span class="line">            res = <span class="string">&quot;single&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (len == <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (card[<span class="number">0</span>].toLowerCase().matches(<span class="string">&quot;joker&quot;</span>) &amp;&amp; card[<span class="number">1</span>].toLowerCase().matches(<span class="string">&quot;joker&quot;</span>)) &#123;</span><br><span class="line">                res = <span class="string">&quot;jokers&quot;</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                res = <span class="string">&quot;double&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (len == <span class="number">3</span>) &#123;</span><br><span class="line">            res = <span class="string">&quot;triple&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (len == <span class="number">4</span>) &#123;</span><br><span class="line">            res = <span class="string">&quot;bomb&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            res = <span class="string">&quot;shunzi&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/06/14/mytext/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Yang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yang's Blog">
-      <meta itemprop="description" content="Yang的博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Yang's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/14/mytext/" class="post-title-link" itemprop="url">mytext</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-06-14 17:35:51" itemprop="dateCreated datePublished" datetime="2022-06-14T17:35:51+08:00">2022-06-14</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-28 10:45:29" itemprop="dateModified" datetime="2022-07-28T10:45:29+08:00">2022-07-28</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <img src="/2022/06/14/mytext/image-20220614173821555.png" class="" title="image-20220614173821555">
-
-
-
-
-
-
-
-
-
-
-
-<p>a</p>
-<p>撒打啊三大asdd</p>
 
       
     </div>
