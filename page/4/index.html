@@ -152,7 +152,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -163,7 +163,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">52</span>
+        <span class="site-state-item-count">54</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -193,6 +193,99 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/07/13/vue-%E7%88%B6%E7%BB%84%E4%BB%B6%E6%B8%85%E9%99%A4%E5%AD%90%E7%BB%84%E4%BB%B6%E7%9A%84%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C%E6%97%A0%E6%95%88%E9%97%AE%E9%A2%98-%E8%A1%A8%E5%8D%95%E5%88%9D%E5%A7%8B%E5%80%BC-nextTick/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yang's Blog">
+      <meta itemprop="description" content="Yang的博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Yang's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/13/vue-%E7%88%B6%E7%BB%84%E4%BB%B6%E6%B8%85%E9%99%A4%E5%AD%90%E7%BB%84%E4%BB%B6%E7%9A%84%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C%E6%97%A0%E6%95%88%E9%97%AE%E9%A2%98-%E8%A1%A8%E5%8D%95%E5%88%9D%E5%A7%8B%E5%80%BC-nextTick/" class="post-title-link" itemprop="url">vue - 父组件清除子组件的表单校验无效问题 表单初始值 nextTick()</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-07-13 11:59:31" itemprop="dateCreated datePublished" datetime="2022-07-13T11:59:31+08:00">2022-07-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-28 10:45:29" itemprop="dateModified" datetime="2022-07-28T10:45:29+08:00">2022-07-28</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><p>父组件 father.vue 里面有一个ref.dialog的子组件对话框</p>
+<p>子组件 add-dialog.vue 里面有一个ref&#x3D;form的表单</p>
+<p>父组件调用子组件中的表单对象，使用表单对象的清除校验方法？</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">$refs</span>.<span class="property">dialog</span>.<span class="property">$refs</span>.<span class="property">form</span>.<span class="title function_">resetFields</span>()</span><br></pre></td></tr></table></figure>
+
+<h3 id="坑1"><a href="#坑1" class="headerlink" title="坑1"></a>坑1</h3><p>ref获取dom对象的前提，对象要已经挂载到页面上，否则获取不到。</p>
+<p>解决：在每次使用$refs使用dom对象前，先打印看看这个对象在这一执行步骤时是否存在了。</p>
+<h3 id="坑2"><a href="#坑2" class="headerlink" title="坑2"></a>坑2</h3><p>resetFields方法的作用</p>
+<ol>
+<li>清除表单校验规则（红色警告字体），避免下次一打开表单就显示警告</li>
+<li>恢复表单数据到初始值（mounted之前的数据为表单初始值）因此，如果在做表单数据回显时，直接将数据赋值给表单对象，那么该数据就会在挂载前赋值上去，导致表单初始值变成当前的数据对象。可以使用$nextTIck(()&#x3D;&gt;{})，等数据和dom都挂载完成后，在执行数据回显操作</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 数据回显放入$nextTIck中执行</span></span><br><span class="line"> <span class="comment">// 在表单mounted之后再赋值，避免重置表单失败（重置表单-&gt;恢复mounted之前的初始值)</span></span><br><span class="line"><span class="variable language_">this</span>.$nextTick(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">form</span> = &#123;</span><br><span class="line">        <span class="attr">pc_code</span>: row.<span class="property">province_control_pc</span>,</span><br><span class="line">        <span class="attr">zslx_code</span>: row.<span class="property">province_control_zslx</span>,</span><br><span class="line">        <span class="attr">year</span>: row.<span class="property">province_control_year</span>,</span><br><span class="line">        <span class="attr">province_code</span>: row.<span class="property">province_control_province</span>,</span><br><span class="line">        <span class="attr">province_score</span>: row.<span class="property">province_control_score</span>,</span><br><span class="line">        <span class="attr">province_majorScore</span>: row.<span class="property">province_control_majorScore</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="nextTick-方法理解"><a href="#nextTick-方法理解" class="headerlink" title="nextTick()方法理解"></a>nextTick()方法理解</h2><p><em>将回调函数延迟执行。简单理解：当数据更新了，在dom中渲染后，自动执行该函数</em></p>
+<h2 id="经验"><a href="#经验" class="headerlink" title="经验"></a>经验</h2><p>表单数据回显都放在nextTick中赋值，避免表单清除校验时无法清除数据。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1174,98 +1267,6 @@
 <li>反转有两个以上元素的链表</li>
 </ol>
 <h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><img src="/2022/06/22/1-NC78-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/image-20220622111630985.png" class="" title="image-20220622111630985">
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/06/22/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Yang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yang's Blog">
-      <meta itemprop="description" content="Yang的博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Yang's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/22/hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">hexo常用命令</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-06-22 11:02:00" itemprop="dateCreated datePublished" datetime="2022-06-22T11:02:00+08:00">2022-06-22</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-28 10:45:29" itemprop="dateModified" datetime="2022-07-28T10:45:29+08:00">2022-07-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E6%8A%80%E5%B7%A7%E5%B0%8F%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">技巧小知识</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>方便查阅，将本人常用指令汇总</p>
-<h2 id="常用指令"><a href="#常用指令" class="headerlink" title="常用指令"></a>常用指令</h2><p>由于设置了github多设备同步博客，因此在使用博客之前需要进行拉取同步</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git pull</span><br></pre></td></tr></table></figure>
-
-<p>新建文章</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo n &quot;文章名&quot;</span><br></pre></td></tr></table></figure>
-
-<p>文章上传服务器</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># 清除缓存&amp;&amp;生成静态网页&amp;&amp;将本地数据部署到服务器</span><br><span class="line">hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
       
     </div>
 

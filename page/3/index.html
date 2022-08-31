@@ -152,7 +152,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -163,7 +163,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">52</span>
+        <span class="site-state-item-count">54</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -193,6 +193,99 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/07/31/%E9%9D%A2%E8%AF%95%E9%A2%98-%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yang's Blog">
+      <meta itemprop="description" content="Yang的博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Yang's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/31/%E9%9D%A2%E8%AF%95%E9%A2%98-%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0/" class="post-title-link" itemprop="url">面试题-回调函数、闭包、回调地狱、Promise、Async、Await、指针函数（this）</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-31 09:31:33 / 修改时间：23:20:44" itemprop="dateCreated datePublished" datetime="2022-07-31T09:31:33+08:00">2022-07-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">前端面试</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>h</p>
+<h2 id="回调函数"><a href="#回调函数" class="headerlink" title="回调函数"></a>回调函数</h2><p>【回调函数作为其他函数的参数】</p>
+<p>当一个函数作为另一个函数的参数，传给另一个函数调用，这个作为参数的函数就是回调函数。</p>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><p>[将一个函数在另一个函数中定义并返回这个函数] 使用闭包能够访问函数作用域中的变量</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 函数内部分函数</span></span><br><span class="line">    <span class="keyword">function</span> <span class="title function_">bar</span>(<span class="params"></span>) &#123;</span><br><span class="line">			<span class="variable language_">console</span>.<span class="title function_">log</span>(++i);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将函数做为返回值</span></span><br><span class="line">    <span class="keyword">return</span> bar;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// fn 即为闭包函数</span></span><br><span class="line">  <span class="keyword">let</span> fn = <span class="title function_">foo</span>();</span><br><span class="line">  </span><br><span class="line">  <span class="title function_">fn</span>(); <span class="comment">// 1</span></span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>总结：</p>
+<p>闭包：一个作用域有权访问另外一个作用域的局部变量，</p>
+<p>好处：可以把一个变量使用范围延伸</p>
+<ol>
+<li>闭包本质仍是函数，只不是从函数内部返回的</li>
+<li>闭包能够创建外部可访问的隔离作用域，避免全局变量污染</li>
+<li>过度使用闭包可能造成内存泄漏</li>
+</ol>
+<p>注：回调函数也能访问函数内部的局部变量。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1185,99 +1278,6 @@
 <p>创建axois实例</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个axios实例</span></span><br><span class="line"><span class="keyword">const</span> service = axios.<span class="title function_">create</span>(&#123;</span><br><span class="line">  <span class="attr">baseURL</span>: <span class="string">&#x27;/api&#x27;</span>, <span class="comment">// 设置axios请求的基础的基础地址(通过/api别名指定后端路由)</span></span><br><span class="line">  <span class="attr">timeout</span>: <span class="number">5000</span> <span class="comment">// 定义5秒超时</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/07/13/vue-%E7%88%B6%E7%BB%84%E4%BB%B6%E6%B8%85%E9%99%A4%E5%AD%90%E7%BB%84%E4%BB%B6%E7%9A%84%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C%E6%97%A0%E6%95%88%E9%97%AE%E9%A2%98-%E8%A1%A8%E5%8D%95%E5%88%9D%E5%A7%8B%E5%80%BC-nextTick/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Yang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yang's Blog">
-      <meta itemprop="description" content="Yang的博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Yang's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/13/vue-%E7%88%B6%E7%BB%84%E4%BB%B6%E6%B8%85%E9%99%A4%E5%AD%90%E7%BB%84%E4%BB%B6%E7%9A%84%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C%E6%97%A0%E6%95%88%E9%97%AE%E9%A2%98-%E8%A1%A8%E5%8D%95%E5%88%9D%E5%A7%8B%E5%80%BC-nextTick/" class="post-title-link" itemprop="url">vue - 父组件清除子组件的表单校验无效问题 表单初始值 nextTick()</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-07-13 11:59:31" itemprop="dateCreated datePublished" datetime="2022-07-13T11:59:31+08:00">2022-07-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-28 10:45:29" itemprop="dateModified" datetime="2022-07-28T10:45:29+08:00">2022-07-28</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h2><p>父组件 father.vue 里面有一个ref.dialog的子组件对话框</p>
-<p>子组件 add-dialog.vue 里面有一个ref&#x3D;form的表单</p>
-<p>父组件调用子组件中的表单对象，使用表单对象的清除校验方法？</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">$refs</span>.<span class="property">dialog</span>.<span class="property">$refs</span>.<span class="property">form</span>.<span class="title function_">resetFields</span>()</span><br></pre></td></tr></table></figure>
-
-<h3 id="坑1"><a href="#坑1" class="headerlink" title="坑1"></a>坑1</h3><p>ref获取dom对象的前提，对象要已经挂载到页面上，否则获取不到。</p>
-<p>解决：在每次使用$refs使用dom对象前，先打印看看这个对象在这一执行步骤时是否存在了。</p>
-<h3 id="坑2"><a href="#坑2" class="headerlink" title="坑2"></a>坑2</h3><p>resetFields方法的作用</p>
-<ol>
-<li>清除表单校验规则（红色警告字体），避免下次一打开表单就显示警告</li>
-<li>恢复表单数据到初始值（mounted之前的数据为表单初始值）因此，如果在做表单数据回显时，直接将数据赋值给表单对象，那么该数据就会在挂载前赋值上去，导致表单初始值变成当前的数据对象。可以使用$nextTIck(()&#x3D;&gt;{})，等数据和dom都挂载完成后，在执行数据回显操作</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 数据回显放入$nextTIck中执行</span></span><br><span class="line"> <span class="comment">// 在表单mounted之后再赋值，避免重置表单失败（重置表单-&gt;恢复mounted之前的初始值)</span></span><br><span class="line"><span class="variable language_">this</span>.$nextTick(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">form</span> = &#123;</span><br><span class="line">        <span class="attr">pc_code</span>: row.<span class="property">province_control_pc</span>,</span><br><span class="line">        <span class="attr">zslx_code</span>: row.<span class="property">province_control_zslx</span>,</span><br><span class="line">        <span class="attr">year</span>: row.<span class="property">province_control_year</span>,</span><br><span class="line">        <span class="attr">province_code</span>: row.<span class="property">province_control_province</span>,</span><br><span class="line">        <span class="attr">province_score</span>: row.<span class="property">province_control_score</span>,</span><br><span class="line">        <span class="attr">province_majorScore</span>: row.<span class="property">province_control_majorScore</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="nextTick-方法理解"><a href="#nextTick-方法理解" class="headerlink" title="nextTick()方法理解"></a>nextTick()方法理解</h2><p><em>将回调函数延迟执行。简单理解：当数据更新了，在dom中渲染后，自动执行该函数</em></p>
-<h2 id="经验"><a href="#经验" class="headerlink" title="经验"></a>经验</h2><p>表单数据回显都放在nextTick中赋值，避免表单清除校验时无法清除数据。</p>
 
       
     </div>
