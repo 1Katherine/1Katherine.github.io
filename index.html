@@ -152,7 +152,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-count">47</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -193,6 +193,95 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/08/31/Leetcode969-%E7%85%8E%E9%A5%BC%E6%8E%92%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yang's Blog">
+      <meta itemprop="description" content="Yang的博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Yang's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/08/31/Leetcode969-%E7%85%8E%E9%A5%BC%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">Leetcode969 煎饼排序</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-08-31 17:19:25 / 修改时间：17:51:13" itemprop="dateCreated datePublished" datetime="2022-08-31T17:19:25+08:00">2022-08-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/pancake-sorting/">链接🔗</a></p>
+<blockquote>
+<p>提示：递归 - 拆分子问题    1<del>n号煎饼，找到最大煎饼，将大煎饼翻转到最底部（n号位置），之后对1</del>n-1号煎饼执行同样的步骤，直到只剩一个煎饼</p>
+<p>怎么将最大的煎饼反转到底部？ — 假设最大煎饼的下标为 maxIndex</p>
+<ol>
+<li>先翻转 1~maxIndex号煎饼，此时最大的煎饼在最上方</li>
+<li>再翻转所有煎饼，此时最大的煎饼到最下方</li>
+</ol>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">number[]</span>&#125; <span class="variable">arr</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">number[]</span>&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> pancakeSort = <span class="keyword">function</span> (<span class="params">arr</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> res = [] <span class="comment">// 记录每次翻转的位置</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 左闭右闭，翻转[0,n]号煎饼，从maxIndex开始翻转，则翻转位置在 maxIndex+1</span></span><br><span class="line">  <span class="keyword">let</span> <span class="title function_">dfs</span> = (<span class="params">arr, n</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (n === <span class="number">0</span>) <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 找最大煎饼的下标</span></span><br><span class="line">    <span class="keyword">let</span> max = arr[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">let</span> maxIndex = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt;= n; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (arr[i] &gt; max) &#123;</span><br><span class="line">        max = arr[i]</span><br><span class="line">        maxIndex = i</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 第一次翻转煎饼，将最大的翻到最上方</span></span><br><span class="line">    <span class="title function_">_reverse</span>(arr, maxIndex)</span><br><span class="line">    <span class="comment">// 记录本次翻转</span></span><br><span class="line">    res.<span class="title function_">push</span>(maxIndex + <span class="number">1</span>)</span><br><span class="line">    <span class="comment">// 第二次翻转煎饼，翻转整个煎饼</span></span><br><span class="line">    <span class="title function_">_reverse</span>(arr, n)</span><br><span class="line">    <span class="comment">// 记录本次翻转</span></span><br><span class="line">    res.<span class="title function_">push</span>(n + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 递归翻转剩下的 0~n-1号煎饼</span></span><br><span class="line">    <span class="title function_">dfs</span>(arr, n - <span class="number">1</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">dfs</span>(arr, arr.<span class="property">length</span> - <span class="number">1</span>)</span><br><span class="line">  <span class="keyword">return</span> res</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 翻转0-m煎饼，共m+1个</span></span><br><span class="line"><span class="comment"> * 如果最大煎饼下标为2，翻转0-2共三个煎饼</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">let</span> <span class="title function_">_reverse</span> = (<span class="params">arr, m</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> tmp = arr.<span class="title function_">splice</span>(<span class="number">0</span>, m + <span class="number">1</span>).<span class="title function_">reverse</span>()</span><br><span class="line">  arr.<span class="title function_">unshift</span>(...tmp)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> arr = [<span class="number">3</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">1</span>]</span><br><span class="line"><span class="title function_">pancakeSort</span>(arr)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -928,88 +1017,6 @@
           <p>链接🔗</p>
 <p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/restore-ip-addresses/">https://leetcode.cn/problems/restore-ip-addresses/</a></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">string</span>&#125; <span class="variable">s</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">string[]</span>&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> result = []</span><br><span class="line"><span class="keyword">let</span> path = []</span><br><span class="line"><span class="keyword">var</span> restoreIpAddresses = <span class="keyword">function</span> (<span class="params">s</span>) &#123;</span><br><span class="line">    result = []</span><br><span class="line">    <span class="title function_">backTracing</span>(s, <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="title function_">backTracing</span> = (<span class="params">s, startIndex</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (startIndex === s.<span class="property">length</span>) &#123;</span><br><span class="line">        result.<span class="title function_">push</span>(path.<span class="title function_">join</span>(<span class="string">&#x27;.&#x27;</span>))</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//  只能是 1-3 位数字</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = startIndex; i - startIndex &lt; <span class="number">3</span> &amp;&amp; i &lt; s.<span class="property">length</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">let</span> temp = s.<span class="title function_">slice</span>(startIndex, i + <span class="number">1</span>) <span class="comment">// 左闭右开</span></span><br><span class="line">        <span class="comment">// 不能以0开头 || 不能超过255 || IP 长度只能是 4 位数字 =&gt; 不用往下继续进行了</span></span><br><span class="line">        <span class="keyword">if</span> ((temp.<span class="property">length</span> &gt; <span class="number">1</span> &amp;&amp; <span class="built_in">parseInt</span>(temp[<span class="number">0</span>]) === <span class="number">0</span>) || <span class="built_in">parseInt</span>(temp) &gt; <span class="number">255</span> || path.<span class="property">length</span> === <span class="number">4</span>) <span class="keyword">break</span></span><br><span class="line">        <span class="comment">// 做选择</span></span><br><span class="line">        path.<span class="title function_">push</span>(temp)</span><br><span class="line">        <span class="comment">// 递归</span></span><br><span class="line">        <span class="title function_">backTracing</span>(s, i + <span class="number">1</span>)</span><br><span class="line">        <span class="comment">// 撤销选择</span></span><br><span class="line">        path.<span class="title function_">pop</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> s = <span class="string">&quot;25525511135&quot;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">restoreIpAddresses</span>(s));</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/08/31/Leetcode90-%E5%AD%90%E9%9B%86%E2%85%A1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Yang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yang's Blog">
-      <meta itemprop="description" content="Yang的博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Yang's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/08/31/Leetcode90-%E5%AD%90%E9%9B%86%E2%85%A1/" class="post-title-link" itemprop="url">Leetcode90 子集Ⅱ</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2022-08-31 10:30:03 / 修改时间：10:32:49" itemprop="dateCreated datePublished" datetime="2022-08-31T10:30:03+08:00">2022-08-31</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>链接🔗</p>
-<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/subsets-ii/">https://leetcode.cn/problems/subsets-ii/</a></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">number[]</span>&#125; <span class="variable">nums</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">number[][]</span>&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> result = []</span><br><span class="line"><span class="keyword">let</span> path = []</span><br><span class="line"><span class="keyword">let</span> used = []</span><br><span class="line"><span class="keyword">var</span> subsetsWithDup = <span class="keyword">function</span> (<span class="params">nums</span>) &#123;</span><br><span class="line">    result = []</span><br><span class="line">    used = <span class="keyword">new</span> <span class="title class_">Array</span>(nums.<span class="property">length</span>).<span class="title function_">fill</span>(<span class="literal">false</span>)</span><br><span class="line">    <span class="comment">// 去重前 需要对数组升序</span></span><br><span class="line">    nums.<span class="title function_">sort</span>(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a - b)</span><br><span class="line"></span><br><span class="line">    <span class="title function_">backTracing</span>(nums, <span class="number">0</span>, used)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="title function_">backTracing</span> = (<span class="params">nums, startIndex</span>) =&gt; &#123;</span><br><span class="line">    <span class="comment">// 要么不加判断语句，要么 &gt; 。 不能是 &gt;= , 因为==时，不进行push操作了</span></span><br><span class="line">    <span class="keyword">if</span> (startIndex &gt; nums.<span class="property">length</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    result.<span class="title function_">push</span>([...path])</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = startIndex; i &lt; nums.<span class="property">length</span>; i++) &#123;</span><br><span class="line">        <span class="comment">// false表示在同一层出现过（去重），true表示在同一树枝出现过（不管）</span></span><br><span class="line">        <span class="keyword">if</span> (i &gt; <span class="number">0</span> &amp;&amp; nums[i - <span class="number">1</span>] === nums[i] &amp;&amp; used[i - <span class="number">1</span>] === <span class="literal">false</span>) <span class="keyword">continue</span></span><br><span class="line">        <span class="comment">// 做选择</span></span><br><span class="line">        path.<span class="title function_">push</span>(nums[i])</span><br><span class="line">        used[i] = <span class="literal">true</span></span><br><span class="line">        <span class="comment">// 递归</span></span><br><span class="line">        <span class="title function_">backTracing</span>(nums, i + <span class="number">1</span>, used)</span><br><span class="line">        <span class="comment">// 撤销选择</span></span><br><span class="line">        used[i] = <span class="literal">false</span></span><br><span class="line">        path.<span class="title function_">pop</span>()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> nums = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>]</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">subsetsWithDup</span>(nums));</span><br></pre></td></tr></table></figure>
 
 
       

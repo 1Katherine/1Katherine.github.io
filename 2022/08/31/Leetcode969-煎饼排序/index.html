@@ -20,28 +20,28 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"1katherine.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.12.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="描述将一个节点数为 size 链表 m 位置到 n 位置之间的区间反转，要求时间复杂度 O(n)O(n)，空间复杂度 O(1)O(1)。例如：给出的链表为 1→2→3→4→5→NULL, m&#x3D;2,n&#x3D;4返回1→4→3→2→5→NULL. 数据范围： 链表长度0&lt;size≤1000，0&lt;m≤n≤size，链表中每个节点的值满足∣val∣≤1000 要求：时间复杂度 O">
+    <meta name="description" content="链接🔗  提示：递归 - 拆分子问题    1n号煎饼，找到最大煎饼，将大煎饼翻转到最底部（n号位置），之后对1n-1号煎饼执行同样的步骤，直到只剩一个煎饼 怎么将最大的煎饼反转到底部？ — 假设最大煎饼的下标为 maxIndex  先翻转 1~maxIndex号煎饼，此时最大的煎饼在最上方 再翻转所有煎饼，此时最大的煎饼到最下方   123456789101112131415161718192">
 <meta property="og:type" content="article">
-<meta property="og:title" content="2. BM2 链表内指定区间反转">
-<meta property="og:url" content="https://1katherine.github.io/2022/06/23/2-BM2-%E9%93%BE%E8%A1%A8%E5%86%85%E6%8C%87%E5%AE%9A%E5%8C%BA%E9%97%B4%E5%8F%8D%E8%BD%AC/index.html">
+<meta property="og:title" content="Leetcode969 煎饼排序">
+<meta property="og:url" content="https://1katherine.github.io/2022/08/31/Leetcode969-%E7%85%8E%E9%A5%BC%E6%8E%92%E5%BA%8F/index.html">
 <meta property="og:site_name" content="Yang&#39;s Blog">
-<meta property="og:description" content="描述将一个节点数为 size 链表 m 位置到 n 位置之间的区间反转，要求时间复杂度 O(n)O(n)，空间复杂度 O(1)O(1)。例如：给出的链表为 1→2→3→4→5→NULL, m&#x3D;2,n&#x3D;4返回1→4→3→2→5→NULL. 数据范围： 链表长度0&lt;size≤1000，0&lt;m≤n≤size，链表中每个节点的值满足∣val∣≤1000 要求：时间复杂度 O">
+<meta property="og:description" content="链接🔗  提示：递归 - 拆分子问题    1n号煎饼，找到最大煎饼，将大煎饼翻转到最底部（n号位置），之后对1n-1号煎饼执行同样的步骤，直到只剩一个煎饼 怎么将最大的煎饼反转到底部？ — 假设最大煎饼的下标为 maxIndex  先翻转 1~maxIndex号煎饼，此时最大的煎饼在最上方 再翻转所有煎饼，此时最大的煎饼到最下方   123456789101112131415161718192">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-06-23T01:47:51.000Z">
-<meta property="article:modified_time" content="2022-07-28T02:45:29.396Z">
+<meta property="article:published_time" content="2022-08-31T09:19:25.000Z">
+<meta property="article:modified_time" content="2022-08-31T09:51:13.585Z">
 <meta property="article:author" content="Yang">
-<meta property="article:tag" content="中等">
+<meta property="article:tag" content="递归">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://1katherine.github.io/2022/06/23/2-BM2-%E9%93%BE%E8%A1%A8%E5%86%85%E6%8C%87%E5%AE%9A%E5%8C%BA%E9%97%B4%E5%8F%8D%E8%BD%AC/">
+<link rel="canonical" href="https://1katherine.github.io/2022/08/31/Leetcode969-%E7%85%8E%E9%A5%BC%E6%8E%92%E5%BA%8F/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://1katherine.github.io/2022/06/23/2-BM2-%E9%93%BE%E8%A1%A8%E5%86%85%E6%8C%87%E5%AE%9A%E5%8C%BA%E9%97%B4%E5%8F%8D%E8%BD%AC/","path":"2022/06/23/2-BM2-链表内指定区间反转/","title":"2. BM2 链表内指定区间反转"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://1katherine.github.io/2022/08/31/Leetcode969-%E7%85%8E%E9%A5%BC%E6%8E%92%E5%BA%8F/","path":"2022/08/31/Leetcode969-煎饼排序/","title":"Leetcode969 煎饼排序"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>2. BM2 链表内指定区间反转 | Yang's Blog</title>
+<title>Leetcode969 煎饼排序 | Yang's Blog</title>
   
 
 
@@ -130,7 +130,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -143,7 +143,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B1"><span class="nav-number">2.</span> <span class="nav-text">示例1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B2"><span class="nav-number">3.</span> <span class="nav-text">示例2</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF%E5%88%86%E6%9E%90"><span class="nav-number">4.</span> <span class="nav-text">思路分析</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -207,7 +206,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/06/23/2-BM2-%E9%93%BE%E8%A1%A8%E5%86%85%E6%8C%87%E5%AE%9A%E5%8C%BA%E9%97%B4%E5%8F%8D%E8%BD%AC/">
+    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/08/31/Leetcode969-%E7%85%8E%E9%A5%BC%E6%8E%92%E5%BA%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -220,12 +219,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="2. BM2 链表内指定区间反转 | Yang's Blog">
+      <meta itemprop="name" content="Leetcode969 煎饼排序 | Yang's Blog">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          2. BM2 链表内指定区间反转
+          Leetcode969 煎饼排序
         </h1>
 
         <div class="post-meta-container">
@@ -235,15 +234,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2022-06-23 09:47:51" itemprop="dateCreated datePublished" datetime="2022-06-23T09:47:51+08:00">2022-06-23</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-28 10:45:29" itemprop="dateModified" datetime="2022-07-28T10:45:29+08:00">2022-07-28</time>
+      <time title="创建时间：2022-08-31 17:19:25 / 修改时间：17:51:13" itemprop="dateCreated datePublished" datetime="2022-08-31T17:19:25+08:00">2022-08-31</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -251,7 +244,7 @@
       </span>
       <span class="post-meta-item-text">分类于</span>
         <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%89%9B%E5%AE%A2%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">牛客刷题</span></a>
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
         </span>
     </span>
 
@@ -265,45 +258,17 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h2 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h2><p>将一个节点数为 size 链表 m 位置到 n 位置之间的区间反转，要求时间复杂度 O(n)<em>O</em>(<em>n</em>)，空间复杂度 O(1)<em>O</em>(1)。<br>例如：<br>给出的链表为 1→2→3→4→5→<em>N<strong>U</strong>LL</em>, m&#x3D;2,n&#x3D;4<br>返回1→4→3→2→5→<em>N<strong>U</strong>LL</em>.</p>
-<p>数据范围： 链表长度0&lt;<em>s<strong>i</strong>ze</em>≤1000，0&lt;<em>m</em>≤<em>n</em>≤<em>s<strong>i</strong>ze</em>，链表中每个节点的值满足∣<em>v<strong>a</strong>l</em>∣≤1000</p>
-<p>要求：时间复杂度 O(n)，空间复杂度 O(n)</p>
-<p>进阶：时间复杂度 O(n)，空间复杂度 O(1)</p>
-<h2 id="示例1"><a href="#示例1" class="headerlink" title="示例1"></a>示例1</h2><p>输入：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;1,2,3,4,5&#125;,2,4</span><br></pre></td></tr></table></figure>
-
-<p>返回值：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;1,4,3,2,5&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="示例2"><a href="#示例2" class="headerlink" title="示例2"></a>示例2</h2><p>输入：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;5&#125;,1,1</span><br></pre></td></tr></table></figure>
-
-<p>返回值：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;5&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h2><ol>
-<li><p>如果m &#x3D;&#x3D; n：返回原链表头节点</p>
-</li>
-<li><p>如果 m ！&#x3D; n: </p>
+        <p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/pancake-sorting/">链接🔗</a></p>
+<blockquote>
+<p>提示：递归 - 拆分子问题    1<del>n号煎饼，找到最大煎饼，将大煎饼翻转到最底部（n号位置），之后对1</del>n-1号煎饼执行同样的步骤，直到只剩一个煎饼</p>
+<p>怎么将最大的煎饼反转到底部？ — 假设最大煎饼的下标为 maxIndex</p>
 <ol>
-<li><p>比如1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;6 反转后 1-&gt;5-&gt;4-&gt;3-&gt;2-&gt;6 </p>
-</li>
-<li><p>先反转部分链表 2-&gt;3-&gt;4-&gt;5 变成 5-&gt;4-&gt;3-&gt;2 </p>
-<ol>
-<li>pre&#x2F;cur&#x2F;post记录待反转节点 pre&#x3D;2，cur&#x3D;3，post&#x3D;4</li>
-<li>反转 cur.next&#x3D;pre;pre&#x3D;cur;cur&#x3D;post;post&#x3D;post.next;</li>
-<li>如果pre&#x3D;5代表部分反转完成</li>
+<li>先翻转 1~maxIndex号煎饼，此时最大的煎饼在最上方</li>
+<li>再翻转所有煎饼，此时最大的煎饼到最下方</li>
 </ol>
-</li>
-<li><p>再收尾连接</p>
-<ol>
-<li>phead 记录 需要连接到反转链表头部的指针 p1 指向 1</li>
-<li>ptail 记录 需要连接到反转链表尾部的指针  p2 指向 6</li>
-</ol>
-</li>
-</ol>
-</li>
-</ol>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">number[]</span>&#125; <span class="variable">arr</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">number[]</span>&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> pancakeSort = <span class="keyword">function</span> (<span class="params">arr</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> res = [] <span class="comment">// 记录每次翻转的位置</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 左闭右闭，翻转[0,n]号煎饼，从maxIndex开始翻转，则翻转位置在 maxIndex+1</span></span><br><span class="line">  <span class="keyword">let</span> <span class="title function_">dfs</span> = (<span class="params">arr, n</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (n === <span class="number">0</span>) <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 找最大煎饼的下标</span></span><br><span class="line">    <span class="keyword">let</span> max = arr[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">let</span> maxIndex = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt;= n; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (arr[i] &gt; max) &#123;</span><br><span class="line">        max = arr[i]</span><br><span class="line">        maxIndex = i</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 第一次翻转煎饼，将最大的翻到最上方</span></span><br><span class="line">    <span class="title function_">_reverse</span>(arr, maxIndex)</span><br><span class="line">    <span class="comment">// 记录本次翻转</span></span><br><span class="line">    res.<span class="title function_">push</span>(maxIndex + <span class="number">1</span>)</span><br><span class="line">    <span class="comment">// 第二次翻转煎饼，翻转整个煎饼</span></span><br><span class="line">    <span class="title function_">_reverse</span>(arr, n)</span><br><span class="line">    <span class="comment">// 记录本次翻转</span></span><br><span class="line">    res.<span class="title function_">push</span>(n + <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 递归翻转剩下的 0~n-1号煎饼</span></span><br><span class="line">    <span class="title function_">dfs</span>(arr, n - <span class="number">1</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">dfs</span>(arr, arr.<span class="property">length</span> - <span class="number">1</span>)</span><br><span class="line">  <span class="keyword">return</span> res</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 翻转0-m煎饼，共m+1个</span></span><br><span class="line"><span class="comment"> * 如果最大煎饼下标为2，翻转0-2共三个煎饼</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">let</span> <span class="title function_">_reverse</span> = (<span class="params">arr, m</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">let</span> tmp = arr.<span class="title function_">splice</span>(<span class="number">0</span>, m + <span class="number">1</span>).<span class="title function_">reverse</span>()</span><br><span class="line">  arr.<span class="title function_">unshift</span>(...tmp)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> arr = [<span class="number">3</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">1</span>]</span><br><span class="line"><span class="title function_">pancakeSort</span>(arr)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 
     </div>
 
@@ -313,21 +278,18 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/%E4%B8%AD%E7%AD%89/" rel="tag"># 中等</a>
+              <a href="/tags/%E9%80%92%E5%BD%92/" rel="tag"># 递归</a>
           </div>
 
         
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/06/22/1-NC78-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/" rel="prev" title="1. NC78 反转链表">
-                  <i class="fa fa-chevron-left"></i> 1. NC78 反转链表
+                <a href="/2022/08/31/Leetcode200-%E5%B2%9B%E5%B1%BF%E6%95%B0%E9%87%8F/" rel="prev" title="Leetcode200 岛屿数量">
+                  <i class="fa fa-chevron-left"></i> Leetcode200 岛屿数量
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/06/23/JavaScript%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" rel="next" title="JavaScript基础语法">
-                  JavaScript基础语法 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
     </footer>
