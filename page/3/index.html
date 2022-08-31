@@ -152,7 +152,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">38</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -163,7 +163,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">51</span>
+        <span class="site-state-item-count">52</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -193,6 +193,548 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/07/30/%E9%A1%B9%E7%9B%AE%E7%9F%A5%E8%AF%86-%E4%BA%8B%E4%BB%B6%E6%80%BB%E7%BA%BF-bus-%E5%85%84%E5%BC%9F%E9%97%B4%E9%80%9A%E4%BF%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yang's Blog">
+      <meta itemprop="description" content="Yang的博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Yang's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/30/%E9%A1%B9%E7%9B%AE%E7%9F%A5%E8%AF%86-%E4%BA%8B%E4%BB%B6%E6%80%BB%E7%BA%BF-bus-%E5%85%84%E5%BC%9F%E9%97%B4%E9%80%9A%E4%BF%A1/" class="post-title-link" itemprop="url">项目知识 - 事件总线 bus 兄弟间通信</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-30 20:51:18 / 修改时间：22:11:05" itemprop="dateCreated datePublished" datetime="2022-07-30T20:51:18+08:00">2022-07-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%A1%B9%E7%9B%AE%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">项目知识</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>当前项目使用tagsView实现多页签效果，并且对已打开的所有多页签使用缓存，避免多次发请求。但是页面之间又是相关关联的，页面A更新后，需要通知页面B重新获取数据。A、B之间的关系可能是父子 ，可能是兄弟，也可能是祖先。因此，采用BUS事件总线实现。</p>
+<h2 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h2><h4 id="新增util-x2F-bus-js-用于导出事件总线"><a href="#新增util-x2F-bus-js-用于导出事件总线" class="headerlink" title="新增util&#x2F;bus.js 用于导出事件总线"></a>新增util&#x2F;bus.js 用于导出事件总线</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 创建事件总线</span><br><span class="line">import Vue from &#x27;vue&#x27;</span><br><span class="line">export const EventBus = new Vue()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="发送事件组件"><a href="#发送事件组件" class="headerlink" title="发送事件组件"></a>发送事件组件</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import &#123; EventBus &#125; from &#x27;@/utils/bus&#x27;</span><br><span class="line"></span><br><span class="line">// 通知学校一级学科页面刷新</span><br><span class="line">EventBus.$emit(&#x27;refreshSchoolSubjects&#x27;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h4 id="接收事件组件"><a href="#接收事件组件" class="headerlink" title="接收事件组件"></a>接收事件组件</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import &#123; EventBus &#125; from &#x27;@/utils/bus&#x27;</span><br><span class="line"></span><br><span class="line">  mounted() &#123;</span><br><span class="line">    EventBus.$on(&#x27;refreshSchoolSubjects&#x27;, () =&gt; &#123;</span><br><span class="line">      this.getSchoolSubjectsByPageByConditions()</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/07/30/%E9%A1%B9%E7%9B%AE-PC%E9%80%82%E9%85%8D-vue-config-js/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yang's Blog">
+      <meta itemprop="description" content="Yang的博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Yang's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/30/%E9%A1%B9%E7%9B%AE-PC%E9%80%82%E9%85%8D-vue-config-js/" class="post-title-link" itemprop="url">项目 - PC适配 - vue.config.js</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-30 11:24:11 / 修改时间：12:01:09" itemprop="dateCreated datePublished" datetime="2022-07-30T11:24:11+08:00">2022-07-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%A1%B9%E7%9B%AE%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">项目知识</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li>【vue2.0项目PC端随屏幕分辨率与窗口大小自适应】<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_47416539/article/details/125032479">https://blog.csdn.net/weixin_47416539/article/details/125032479</a></li>
+<li>【vue+px2rem实现pc端大屏自适应(rem适配)】<a target="_blank" rel="noopener" href="https://codeantenna.com/a/G4TWS25Sdt">https://codeantenna.com/a/G4TWS25Sdt</a></li>
+</ol>
+<h2 id="PC端适配问题"><a href="#PC端适配问题" class="headerlink" title="PC端适配问题"></a>PC端适配问题</h2><p>用于解决最小化浏览器窗口时，字体和样式大小不变，导致的页面混乱问题。</p>
+<p>解决方式，将px转换为rem</p>
+<h3 id="实现步骤"><a href="#实现步骤" class="headerlink" title="实现步骤"></a>实现步骤</h3><h4 id="在根目录src中新建utils目录下新建rem-js等比适配文件"><a href="#在根目录src中新建utils目录下新建rem-js等比适配文件" class="headerlink" title="在根目录src中新建utils目录下新建rem.js等比适配文件"></a>在根目录src中新建utils目录下新建rem.js等比适配文件</h4><p>我使用的最大放大比例为1 ，呵呵，效果不错！需要自己调试，选出一个合适的值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// rem等比适配配置文件</span></span><br><span class="line"><span class="comment">// 基准大小</span></span><br><span class="line"><span class="keyword">const</span> baseSize = <span class="number">16</span></span><br><span class="line"><span class="comment">// 设置 rem 函数</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">setRem</span> () &#123;</span><br><span class="line">  <span class="comment">// 当前页面屏幕分辨率相对于 1920宽的缩放比例，可根据自己需要修改</span></span><br><span class="line">  <span class="keyword">const</span> scale = <span class="variable language_">document</span>.<span class="property">documentElement</span>.<span class="property">clientWidth</span> / <span class="number">1920</span></span><br><span class="line">  <span class="comment">// 设置页面根节点字体大小（“Math.min(scale, 2)” 指最高放大比例为2，可根据实际业务需求调整）</span></span><br><span class="line">  <span class="variable language_">document</span>.<span class="property">documentElement</span>.<span class="property">style</span>.<span class="property">fontSize</span> = baseSize * <span class="title class_">Math</span>.<span class="title function_">min</span>(scale, <span class="number">1</span>) + <span class="string">&#x27;px&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 初始化</span></span><br><span class="line"><span class="title function_">setRem</span>()</span><br><span class="line"><span class="comment">// 改变窗口大小时重新设置 rem</span></span><br><span class="line"><span class="variable language_">window</span>.<span class="property">onresize</span> = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">  <span class="title function_">setRem</span>()</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="在main-js中引入适配文件"><a href="#在main-js中引入适配文件" class="headerlink" title="在main.js中引入适配文件"></a>在main.js中引入适配文件</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &#x27;./utils/rem.js&#x27;</span><br></pre></td></tr></table></figure>
+
+<h4 id="安装postcss-pxtorem"><a href="#安装postcss-pxtorem" class="headerlink" title="安装postcss-pxtorem"></a>安装postcss-pxtorem</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i postcss-pxtorem@5.1.1 -D</span><br></pre></td></tr></table></figure>
+
+<h4 id="在vue-config-js内配置"><a href="#在vue-config-js内配置" class="headerlink" title="在vue.config.js内配置"></a>在vue.config.js内配置</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;</span><br><span class="line">    <span class="attr">css</span>: &#123;</span><br><span class="line">            <span class="attr">loaderOptions</span>: &#123;</span><br><span class="line">              <span class="attr">postcss</span>: &#123;</span><br><span class="line">                <span class="attr">plugins</span>: [</span><br><span class="line">                  <span class="built_in">require</span>(<span class="string">&#x27;postcss-pxtorem&#x27;</span>)(&#123;</span><br><span class="line">                    rootValue : <span class="number">16</span>, <span class="comment">// 换算的基数</span></span><br><span class="line">                    selectorBlackList  : [], <span class="comment">// 忽略转换正则匹配项 列入一些ui库, [&#x27;.el&#x27;] 就是忽略elementUI库</span></span><br><span class="line">                    propList   : [<span class="string">&#x27;*&#x27;</span>],</span><br><span class="line">                  &#125;),</span><br><span class="line">                ]</span><br><span class="line">              &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="PC端禁止用户缩放页面"><a href="#PC端禁止用户缩放页面" class="headerlink" title="PC端禁止用户缩放页面"></a>PC端禁止用户缩放页面</h2><p>用于禁止移动端双指缩放页面，和PC端ctrl+滚轮缩放页面</p>
+<h3 id="实现步骤-1"><a href="#实现步骤-1" class="headerlink" title="实现步骤"></a>实现步骤</h3><h4 id="对于移动端"><a href="#对于移动端" class="headerlink" title="对于移动端"></a>对于移动端</h4><p>‘可以在<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=index&spm=1001.2101.3001.7020">index</a>.html中增加如下代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1.0,maximum-scale=1.0, user-scalable=no&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="对于PC端：禁止ctrl-鼠标滚轮缩放"><a href="#对于PC端：禁止ctrl-鼠标滚轮缩放" class="headerlink" title="对于PC端：禁止ctrl+鼠标滚轮缩放"></a>对于PC端：禁止ctrl+鼠标滚轮缩放</h4><p>可以在<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=index&spm=1001.2101.3001.7020">index</a>.html中增加如下代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line"> </span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;mousewheel&#x27;</span>, <span class="keyword">function</span> (<span class="params">e</span>) &#123;</span><br><span class="line"> </span><br><span class="line">      e = e || <span class="variable language_">window</span>.<span class="property">event</span>;</span><br><span class="line"> </span><br><span class="line">      <span class="keyword">if</span> ((e.<span class="property">wheelDelta</span> &amp;&amp; event.<span class="property">ctrlKey</span>) || e.<span class="property">detail</span>) &#123;</span><br><span class="line"> </span><br><span class="line">        event.<span class="title function_">preventDefault</span>();</span><br><span class="line"> </span><br><span class="line">      &#125;</span><br><span class="line"> </span><br><span class="line">    &#125;, &#123;</span><br><span class="line"> </span><br><span class="line">      <span class="attr">capture</span>: <span class="literal">false</span>,</span><br><span class="line"> </span><br><span class="line">      <span class="attr">passive</span>: <span class="literal">false</span></span><br><span class="line"> </span><br><span class="line">    &#125;);</span><br><span class="line"> </span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;keydown&#x27;</span>, <span class="keyword">function</span> (<span class="params">event</span>) &#123;</span><br><span class="line"> </span><br><span class="line">      <span class="keyword">if</span> ((event.<span class="property">ctrlKey</span> === <span class="literal">true</span> || event.<span class="property">metaKey</span> === <span class="literal">true</span>)</span><br><span class="line"> </span><br><span class="line">        &amp;&amp; (event.<span class="property">keyCode</span> === <span class="number">61</span> || event.<span class="property">keyCode</span> === <span class="number">107</span></span><br><span class="line"> </span><br><span class="line">          || event.<span class="property">keyCode</span> === <span class="number">173</span> || event.<span class="property">keyCode</span> === <span class="number">109</span></span><br><span class="line"> </span><br><span class="line">          || event.<span class="property">keyCode</span> === <span class="number">187</span> || event.<span class="property">keyCode</span> === <span class="number">189</span>)) &#123;</span><br><span class="line"> </span><br><span class="line">        event.<span class="title function_">preventDefault</span>();</span><br><span class="line"> </span><br><span class="line">      &#125;</span><br><span class="line"> </span><br><span class="line">    &#125;, <span class="literal">false</span>);</span><br><span class="line"> </span><br><span class="line">  &lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/07/28/hello-world/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yang's Blog">
+      <meta itemprop="description" content="Yang的博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Yang's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/28/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-07-28 10:45:29" itemprop="dateCreated datePublished" datetime="2022-07-28T10:45:29+08:00">2022-07-28</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/07/27/vuex%E5%9F%BA%E7%A1%80-store%E3%80%81state%E3%80%81mutations%E3%80%81actions%E3%80%81%E5%B1%80%E9%83%A8%E4%BD%9C%E7%94%A8%E5%9F%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yang's Blog">
+      <meta itemprop="description" content="Yang的博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Yang's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/27/vuex%E5%9F%BA%E7%A1%80-store%E3%80%81state%E3%80%81mutations%E3%80%81actions%E3%80%81%E5%B1%80%E9%83%A8%E4%BD%9C%E7%94%A8%E5%9F%9F/" class="post-title-link" itemprop="url">vuex基础 - store、state、mutations、actions、局部作用域</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-07-27 10:23:52" itemprop="dateCreated datePublished" datetime="2022-07-27T10:23:52+08:00">2022-07-27</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-28 10:45:29" itemprop="dateModified" datetime="2022-07-28T10:45:29+08:00">2022-07-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%A1%B9%E7%9B%AE%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">项目知识</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><ol>
+<li>修改state状态必须通过**<code>mutations</code>**</li>
+<li>**<code>mutations</code>**只能执行同步代码，类似ajax，定时器之类的代码不能在mutations中执行</li>
+<li>执行异步代码，要通过**<code>actions</code>**，然后将数据提交给mutations才可以完成数据更新</li>
+<li>state的状态即共享数据可以在组件中引用</li>
+<li>组件中可以调用 state 、mutations、 actions</li>
+</ol>
+<h2 id="vuex初始化"><a href="#vuex初始化" class="headerlink" title="vuex初始化"></a>vuex初始化</h2><ol>
+<li><p>创建vue demo</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vue create  demo</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装到**<code>运行时依赖</code>**</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i vuex --save</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在main.js中注册vuex</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">Vue</span> <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Vuex</span> <span class="keyword">from</span> <span class="string">&#x27;vuex&#x27;</span></span><br><span class="line"><span class="title class_">Vue</span>.<span class="title function_">use</span>(vuex)</span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> <span class="title class_">Vuex</span>.<span class="title class_">Store</span>(&#123;&#125;)</span><br><span class="line"><span class="keyword">new</span> <span class="title class_">Vue</span>(&#123;</span><br><span class="line">  <span class="attr">el</span>: <span class="string">&#x27;#app&#x27;</span>,</span><br><span class="line">  store</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="state"><a href="#state" class="headerlink" title="state"></a>state</h2><h3 id="定义state"><a href="#定义state" class="headerlink" title="定义state"></a><strong>定义state</strong></h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 初始化vuex对象</span></span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> <span class="title class_">Vuex</span>.<span class="title class_">Store</span>(&#123;</span><br><span class="line">  <span class="attr">state</span>: &#123;</span><br><span class="line">    <span class="comment">// 管理数据</span></span><br><span class="line">    <span class="attr">count</span>: <span class="number">0</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="在组件中获取state"><a href="#在组件中获取state" class="headerlink" title="在组件中获取state"></a>在组件中获取state</h3><h4 id="插值表达式-store-state"><a href="#插值表达式-store-state" class="headerlink" title="插值表达式 $store.state"></a>插值表达式 $store.state</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt; state的数据：&#123;&#123; $store.state.count &#125;&#125;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 把state中数据，定义在组件内的计算属性中</span></span><br><span class="line">  <span class="attr">computed</span>: &#123;</span><br><span class="line">    count () &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">$store</span>.<span class="property">state</span>.<span class="property">count</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"> &lt;div&gt; state的数据：&#123;&#123; count &#125;&#125;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="辅助函数-mapState"><a href="#辅助函数-mapState" class="headerlink" title="辅助函数 - mapState"></a>辅助函数 - mapState</h4><p>第一步：导入mapState</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &#123; mapState &#125; from &#x27;vuex&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>第二步：采用数组形式引入state属性</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">mapState</span>([<span class="string">&#x27;count&#x27;</span>]) </span><br></pre></td></tr></table></figure>
+
+<p>第三步：利用<strong>延展运算符</strong>将导出的状态映射给计算属性</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">computed</span>: &#123;</span><br><span class="line">  ...<span class="title function_">mapState</span>([<span class="string">&#x27;count&#x27;</span>])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt; state的数据：&#123;&#123; count &#125;&#125;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="mutations"><a href="#mutations" class="headerlink" title="mutations"></a>mutations</h2><h4 id="定义mutations"><a href="#定义mutations" class="headerlink" title="定义mutations"></a>定义mutations</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> store  = <span class="keyword">new</span> <span class="title class_">Vuex</span>.<span class="title class_">Store</span>(&#123;</span><br><span class="line">  <span class="attr">state</span>: &#123;</span><br><span class="line">    <span class="attr">count</span>: <span class="number">0</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 定义mutations</span></span><br><span class="line">  <span class="attr">mutations</span>: &#123;</span><br><span class="line">      <span class="comment">// 方法里参数 第一个参数是当前store的state属性</span></span><br><span class="line">    <span class="comment">// payload 载荷 运输参数 调用mutaiions的时候 可以传递参数 传递载荷</span></span><br><span class="line">    addCount (state, payload) &#123;</span><br><span class="line">        state.<span class="property">count</span> += payload</span><br><span class="line">    &#125;,</span><br><span class="line">    addCount2 (state) &#123;</span><br><span class="line">        state.<span class="property">count</span> += <span class="number">2</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="在组件中调用mutations"><a href="#在组件中调用mutations" class="headerlink" title="在组件中调用mutations"></a>在组件中调用mutations</h3><h4 id="原始形式-store-commit"><a href="#原始形式-store-commit" class="headerlink" title="原始形式-$store.commit"></a><strong>原始形式</strong>-$store.commit</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;button @click=&quot;addCount&quot;&gt;+1&lt;/button&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">    methods: &#123;</span><br><span class="line">    //   调用方法</span><br><span class="line">      addCount () &#123;</span><br><span class="line">         // 调用store中的mutations 提交给muations</span><br><span class="line">        // commit(&#x27;muations名称&#x27;, 2)</span><br><span class="line">        this.$store.commit(&#x27;addCount&#x27;, 10)  // 直接调用mutations</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="辅助函数-mapMutations"><a href="#辅助函数-mapMutations" class="headerlink" title="辅助函数 - mapMutations"></a><strong>辅助函数</strong> - mapMutations</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import  &#123; mapMutations &#125; from &#x27;vuex&#x27;</span><br><span class="line">methods: &#123;</span><br><span class="line">    ...mapMutations([&#x27;addCount&#x27;])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;button @click=&quot;addCount(100)&quot;&gt;+100&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="actions"><a href="#actions" class="headerlink" title="actions"></a>actions</h2><h3 id="定义actions"><a href="#定义actions" class="headerlink" title="定义actions"></a>定义actions</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">actions</span>: &#123;</span><br><span class="line"> <span class="comment">//  获取异步的数据 context表示当前的store的实例 可以通过 context.state 获取状态 也可以通过context.commit 来提交mutations， 也可以 context.diapatch调用其他的action</span></span><br><span class="line">   getAsyncCount (context) &#123;</span><br><span class="line">     <span class="built_in">setTimeout</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">       <span class="comment">// 一秒钟之后 要给一个数 去修改state</span></span><br><span class="line">       context.<span class="title function_">commit</span>(<span class="string">&#x27;addCount&#x27;</span>, <span class="number">123</span>)</span><br><span class="line">     &#125;, <span class="number">1000</span>)</span><br><span class="line">   &#125;,</span><br><span class="line">   <span class="comment">// 带参数</span></span><br><span class="line">   getAsyncCount2 (context, payload) &#123;</span><br><span class="line">     <span class="built_in">setTimeout</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">       <span class="comment">// 一秒钟之后 要给一个数 去修改state</span></span><br><span class="line">       context.<span class="title function_">commit</span>(<span class="string">&#x27;addCount&#x27;</span>, payload)</span><br><span class="line">     &#125;, <span class="number">1000</span>)</span><br><span class="line">   &#125;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<h3 id="在组件中调用actions"><a href="#在组件中调用actions" class="headerlink" title="在组件中调用actions"></a>在组件中调用actions</h3><h4 id="原始调用-store-dispatch-‘actionName’-params"><a href="#原始调用-store-dispatch-‘actionName’-params" class="headerlink" title="原始调用 - $store.dispatch(‘actionName’, params)"></a><strong>原始调用</strong> - $store.dispatch(‘actionName’, params)</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 无参数调用</span></span><br><span class="line"> addAsyncCount () &#123;</span><br><span class="line">     <span class="variable language_">this</span>.<span class="property">$store</span>.<span class="title function_">dispatch</span>(<span class="string">&#x27;getAsyncCount&#x27;</span>)</span><br><span class="line"> &#125;</span><br><span class="line"><span class="comment">// 参数调用</span></span><br><span class="line"> addAsyncCount () &#123;</span><br><span class="line">     <span class="variable language_">this</span>.<span class="property">$store</span>.<span class="title function_">dispatch</span>(<span class="string">&#x27;getAsyncCount&#x27;</span>, <span class="number">123</span>)</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="辅助函数-mapActions"><a href="#辅助函数-mapActions" class="headerlink" title="辅助函数 - mapActions([])"></a>辅助函数 - mapActions([])</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import &#123; mapActions &#125; from &#x27;vuex&#x27;</span><br><span class="line">methods: &#123;</span><br><span class="line">    ...mapActions([&#x27;getAsyncCount&#x27;])</span><br><span class="line">&#125;</span><br><span class="line">// 调用</span><br><span class="line">&lt;button @click=&quot;getAsyncCount(111)&quot;&gt;+异步&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="getters"><a href="#getters" class="headerlink" title="getters"></a>getters</h2><h3 id="定义getters"><a href="#定义getters" class="headerlink" title="定义getters"></a>定义getters</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">getters</span>: &#123;</span><br><span class="line">  <span class="comment">// getters函数的第一个参数是 state</span></span><br><span class="line">  <span class="comment">// 必须要有返回值</span></span><br><span class="line">   <span class="attr">filterList</span>:  <span class="function"><span class="params">state</span> =&gt;</span>  state.<span class="property">list</span>.<span class="title function_">filter</span>(<span class="function"><span class="params">item</span> =&gt;</span> item &gt; <span class="number">5</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="在组件中使用getters"><a href="#在组件中使用getters" class="headerlink" title="在组件中使用getters"></a>在组件中使用getters</h3><h4 id="原始方式-store-getters"><a href="#原始方式-store-getters" class="headerlink" title="原始方式 - $store.getters"></a>原始方式 - $store.getters</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div&gt;&#123;&#123; $store.getters.filterList &#125;&#125;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="辅助函数-mapGetters"><a href="#辅助函数-mapGetters" class="headerlink" title="辅助函数 - mapGetters([])"></a><strong>辅助函数</strong> - mapGetters([])</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">computed: &#123;</span><br><span class="line">    ...mapGetters([&#x27;filterList&#x27;])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"> &lt;div&gt;&#123;&#123; filterList &#125;&#125;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Vuex-模块化"><a href="#Vuex-模块化" class="headerlink" title="Vuex - 模块化"></a>Vuex - 模块化</h2><h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>定义两个模块   <strong>user</strong> 和  <strong>setting</strong></p>
+<p>user中管理用户的状态  token </p>
+<p>setting中管理 应用的名称 name</p>
+<h3 id="定义两个模块"><a href="#定义两个模块" class="headerlink" title="定义两个模块"></a>定义两个模块</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">const store  = new Vuex.Store(&#123;</span><br><span class="line">  modules: &#123;</span><br><span class="line">    user: &#123;</span><br><span class="line">       state: &#123;</span><br><span class="line">         token: &#x27;12345&#x27;</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    setting: &#123;</span><br><span class="line">      state: &#123;</span><br><span class="line">         name: &#x27;Vuex实例&#x27;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-store-state-模块名称-属性名"><a href="#使用-store-state-模块名称-属性名" class="headerlink" title="使用 $store.state.模块名称.属性名"></a>使用 $store.<strong><code>state</code></strong>.<strong><code>模块名称</code></strong>.<strong><code>属性名</code></strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">      &lt;div&gt;用户token &#123;&#123; $store.state.user.token &#125;&#125;&lt;/div&gt;</span><br><span class="line">      &lt;div&gt;网站名称 &#123;&#123; $store.state.setting.name &#125;&#125;&lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
+
+<p>使用getters获取属性</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">getters</span>: &#123;</span><br><span class="line">  <span class="attr">token</span>: <span class="function"><span class="params">state</span> =&gt;</span> state.<span class="property">user</span>.<span class="property">token</span>,</span><br><span class="line">  <span class="attr">name</span>: <span class="function"><span class="params">state</span> =&gt;</span> state.<span class="property">setting</span>.<span class="property">name</span></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="attr">computed</span>: &#123;</span><br><span class="line">      ...<span class="title function_">mapGetters</span>([<span class="string">&#x27;token&#x27;</span>, <span class="string">&#x27;name&#x27;</span>])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="模块化中的命名空间"><a href="#模块化中的命名空间" class="headerlink" title="模块化中的命名空间"></a>模块化中的命名空间</h3><p>默认情况下，模块内部的 action、mutation 和 getter 是注册在<strong>全局命名空间</strong>的——这样使得多个模块能够对同一 mutation 或 action 作出响应。但是，如果我们想保证内部模块的高封闭性，我们可以采用namespaced来进行设置</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">user</span>: &#123;</span><br><span class="line">     <span class="attr">namespaced</span>: <span class="literal">true</span>,</span><br><span class="line">     <span class="attr">state</span>: &#123;</span><br><span class="line">       <span class="attr">token</span>: <span class="string">&#x27;12345&#x27;</span></span><br><span class="line">     &#125;,</span><br><span class="line">     <span class="attr">mutations</span>: &#123;</span><br><span class="line">      <span class="comment">//  这里的state表示的是user的state</span></span><br><span class="line">       updateToken (state) &#123;</span><br><span class="line">          state.<span class="property">token</span> = <span class="number">678910</span></span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
+<h4 id="方案1：直接调用-带上模块的属性名路径-store-dispatch-modelName-x2F-mutationName"><a href="#方案1：直接调用-带上模块的属性名路径-store-dispatch-modelName-x2F-mutationName" class="headerlink" title="方案1：直接调用-带上模块的属性名路径$store.dispatch(modelName&#x2F;mutationName)"></a>方案1：<strong>直接调用-带上模块的属性名路径$store.dispatch(modelName&#x2F;mutationName)</strong></h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">test () &#123;</span><br><span class="line">   <span class="variable language_">this</span>.<span class="property">$store</span>.<span class="title function_">dispatch</span>(<span class="string">&#x27;user/updateToken&#x27;</span>) <span class="comment">// 直接调用方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="方案2：辅助函数-带上模块的属性名路径-mapMutations-modelName-x2F-mutaionName"><a href="#方案2：辅助函数-带上模块的属性名路径-mapMutations-modelName-x2F-mutaionName" class="headerlink" title="方案2：辅助函数-带上模块的属性名路径 -mapMutations([modelName&#x2F;mutaionName])"></a>方案2：<strong>辅助函数-带上模块的属性名路径</strong> -mapMutations([modelName&#x2F;mutaionName])</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;</span><br><span class="line">     ...mapMutations([&#x27;user/updateToken&#x27;]),</span><br><span class="line">     test () &#123;</span><br><span class="line">         this[&#x27;user/updateToken&#x27;]()</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line">&lt;button @click=&quot;test&quot;&gt;修改token&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="方案3：-createNamespacedHelpers-创建基于某个命名空间辅助函数"><a href="#方案3：-createNamespacedHelpers-创建基于某个命名空间辅助函数" class="headerlink" title="方案3： createNamespacedHelpers  创建基于某个命名空间辅助函数"></a>方案3： <strong>createNamespacedHelpers</strong>  创建基于某个命名空间辅助函数</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import &#123; mapGetters, createNamespacedHelpers &#125; from &#x27;vuex&#x27;</span><br><span class="line">const &#123; mapMutations &#125; = createNamespacedHelpers(&#x27;user&#x27;)</span><br><span class="line">&lt;button @click=&quot;updateToken&quot;&gt;修改token2&lt;/button&gt;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/07/26/excel%E5%AF%BC%E5%85%A5%E5%8A%9F%E8%83%BD-%E5%AF%BC%E5%85%A5%E5%AD%A6%E6%A0%A1%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yang's Blog">
+      <meta itemprop="description" content="Yang的博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Yang's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/26/excel%E5%AF%BC%E5%85%A5%E5%8A%9F%E8%83%BD-%E5%AF%BC%E5%85%A5%E5%AD%A6%E6%A0%A1%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF/" class="post-title-link" itemprop="url">excel导入功能 - 导入学校基本信息</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-07-26 10:09:09" itemprop="dateCreated datePublished" datetime="2022-07-26T10:09:09+08:00">2022-07-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-07-28 10:45:29" itemprop="dateModified" datetime="2022-07-28T10:45:29+08:00">2022-07-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E9%A1%B9%E7%9B%AE%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">项目知识</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1 前言"></a>1 前言</h2><p>需求是给一张excel表格，提供学校的基本信息，将其批量导入后端数据库中</p>
+<p>表头如下：</p>
+<img src="/2022/07/26/excel%E5%AF%BC%E5%85%A5%E5%8A%9F%E8%83%BD-%E5%AF%BC%E5%85%A5%E5%AD%A6%E6%A0%A1%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF/image-20220726101114066.png" class="" title="image-20220726101114066">
+
+<h2 id="2-封装excel导入组件"><a href="#2-封装excel导入组件" class="headerlink" title="2 封装excel导入组件"></a>2 封装excel导入组件</h2><h3 id="2-1-安装xlsx包"><a href="#2-1-安装xlsx包" class="headerlink" title="2.1 安装xlsx包"></a>2.1 安装xlsx包</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm i xlsx@0.16.8</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-创建excel组件和样式-components-x2F-UploadExcel-x2F-index-vue"><a href="#2-2-创建excel组件和样式-components-x2F-UploadExcel-x2F-index-vue" class="headerlink" title="2.2 创建excel组件和样式(components&#x2F;UploadExcel&#x2F;index.vue)"></a>2.2 创建excel组件和样式(components&#x2F;UploadExcel&#x2F;index.vue)</h3><img src="/2022/07/26/excel%E5%AF%BC%E5%85%A5%E5%8A%9F%E8%83%BD-%E5%AF%BC%E5%85%A5%E5%AD%A6%E6%A0%A1%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF/image-20220726101922096.png" class="" title="image-20220726101922096">
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div class=&quot;upload-excel&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;btn-upload&quot;&gt;</span><br><span class="line">      &lt;el-button</span><br><span class="line">        :loading=&quot;loading&quot;</span><br><span class="line">        size=&quot;mini&quot;</span><br><span class="line">        type=&quot;primary&quot;</span><br><span class="line">        @click=&quot;handleUpload&quot;</span><br><span class="line">      &gt;</span><br><span class="line">        点击上传</span><br><span class="line">      &lt;/el-button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;input</span><br><span class="line">      ref=&quot;excel-upload-input&quot;</span><br><span class="line">      class=&quot;excel-upload-input&quot;</span><br><span class="line">      type=&quot;file&quot;</span><br><span class="line">      accept=&quot;.xlsx, .xls&quot;</span><br><span class="line">      @change=&quot;handleClick&quot;</span><br><span class="line">    &gt;</span><br><span class="line">    &lt;div</span><br><span class="line">      class=&quot;drop&quot;</span><br><span class="line">      @drop=&quot;handleDrop&quot;</span><br><span class="line">      @dragover=&quot;handleDragover&quot;</span><br><span class="line">      @dragenter=&quot;handleDragover&quot;</span><br><span class="line">    &gt;</span><br><span class="line">      &lt;i class=&quot;el-icon-upload&quot; /&gt;</span><br><span class="line">      &lt;span&gt;将文件拖到此处&lt;/span&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import XLSX from &#x27;xlsx&#x27;</span><br><span class="line">export default &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    beforeUpload: Function, // eslint-disable-line</span><br><span class="line">    onSuccess: Function // eslint-disable-line</span><br><span class="line">  &#125;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      loading: false,</span><br><span class="line">      excelData: &#123;</span><br><span class="line">        header: null,</span><br><span class="line">        results: null</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    generateData(&#123; header, results &#125;) &#123;</span><br><span class="line">      this.excelData.header = header</span><br><span class="line">      this.excelData.results = results</span><br><span class="line">      this.onSuccess &amp;&amp; this.onSuccess(this.excelData)</span><br><span class="line">    &#125;,</span><br><span class="line">    handleDrop(e) &#123;</span><br><span class="line">      e.stopPropagation()</span><br><span class="line">      e.preventDefault()</span><br><span class="line">      if (this.loading) return</span><br><span class="line">      const files = e.dataTransfer.files</span><br><span class="line">      if (files.length !== 1) &#123;</span><br><span class="line">        this.$message.error(&#x27;Only support uploading one file!&#x27;)</span><br><span class="line">        return</span><br><span class="line">      &#125;</span><br><span class="line">      const rawFile = files[0] // only use files[0]</span><br><span class="line">      if (!this.isExcel(rawFile)) &#123;</span><br><span class="line">        this.$message.error(</span><br><span class="line">          &#x27;Only supports upload .xlsx, .xls, .csv suffix files&#x27;</span><br><span class="line">        )</span><br><span class="line">        return false</span><br><span class="line">      &#125;</span><br><span class="line">      this.upload(rawFile)</span><br><span class="line">      e.stopPropagation()</span><br><span class="line">      e.preventDefault()</span><br><span class="line">    &#125;,</span><br><span class="line">    handleDragover(e) &#123;</span><br><span class="line">      e.stopPropagation()</span><br><span class="line">      e.preventDefault()</span><br><span class="line">      e.dataTransfer.dropEffect = &#x27;copy&#x27;</span><br><span class="line">    &#125;,</span><br><span class="line">    handleUpload() &#123;</span><br><span class="line">      this.$refs[&#x27;excel-upload-input&#x27;].click()</span><br><span class="line">    &#125;,</span><br><span class="line">    handleClick(e) &#123;</span><br><span class="line">      const files = e.target.files</span><br><span class="line">      const rawFile = files[0] // only use files[0]</span><br><span class="line">      if (!rawFile) return</span><br><span class="line">      this.upload(rawFile)</span><br><span class="line">    &#125;,</span><br><span class="line">    upload(rawFile) &#123;</span><br><span class="line">      this.$refs[&#x27;excel-upload-input&#x27;].value = null // fix can&#x27;t select the same excel</span><br><span class="line">      if (!this.beforeUpload) &#123;</span><br><span class="line">        this.readerData(rawFile)</span><br><span class="line">        return</span><br><span class="line">      &#125;</span><br><span class="line">      const before = this.beforeUpload(rawFile)</span><br><span class="line">      if (before) &#123;</span><br><span class="line">        this.readerData(rawFile)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    readerData(rawFile) &#123;</span><br><span class="line">      this.loading = true</span><br><span class="line">      return new Promise((resolve, reject) =&gt; &#123;</span><br><span class="line">        const reader = new FileReader()</span><br><span class="line">        reader.onload = (e) =&gt; &#123;</span><br><span class="line">          const data = e.target.result</span><br><span class="line">          const workbook = XLSX.read(data, &#123; type: &#x27;array&#x27; &#125;)</span><br><span class="line">          const firstSheetName = workbook.SheetNames[0]</span><br><span class="line">          const worksheet = workbook.Sheets[firstSheetName]</span><br><span class="line">          const header = this.getHeaderRow(worksheet)</span><br><span class="line">          const results = XLSX.utils.sheet_to_json(worksheet)</span><br><span class="line">          this.generateData(&#123; header, results &#125;)</span><br><span class="line">          this.loading = false</span><br><span class="line">          resolve()</span><br><span class="line">        &#125;</span><br><span class="line">        reader.readAsArrayBuffer(rawFile)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line">    getHeaderRow(sheet) &#123;</span><br><span class="line">      const headers = []</span><br><span class="line">      const range = XLSX.utils.decode_range(sheet[&#x27;!ref&#x27;])</span><br><span class="line">      let C</span><br><span class="line">      const R = range.s.r</span><br><span class="line">      /* start in the first row */</span><br><span class="line">      for (C = range.s.c; C &lt;= range.e.c; ++C) &#123;</span><br><span class="line">        /* walk every column in the range */</span><br><span class="line">        const cell = sheet[XLSX.utils.encode_cell(&#123; c: C, r: R &#125;)]</span><br><span class="line">        /* find the cell in the first row */</span><br><span class="line">        let hdr = &#x27;UNKNOWN &#x27; + C // &lt;-- replace with your desired default</span><br><span class="line">        if (cell &amp;&amp; cell.t) hdr = XLSX.utils.format_cell(cell)</span><br><span class="line">        headers.push(hdr)</span><br><span class="line">      &#125;</span><br><span class="line">      return headers</span><br><span class="line">    &#125;,</span><br><span class="line">    isExcel(file) &#123;</span><br><span class="line">      return /\.(xlsx|xls|csv)$/.test(file.name)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped lang=&quot;scss&quot;&gt;</span><br><span class="line">.upload-excel &#123;</span><br><span class="line">  display: flex;</span><br><span class="line">  justify-content: center;</span><br><span class="line">  margin-top: 100px;</span><br><span class="line">  .excel-upload-input &#123;</span><br><span class="line">    display: none;</span><br><span class="line">    z-index: -9999;</span><br><span class="line">  &#125;</span><br><span class="line">  .btn-upload,</span><br><span class="line">  .drop &#123;</span><br><span class="line">    border: 1px dashed #bbb;</span><br><span class="line">    width: 350px;</span><br><span class="line">    height: 160px;</span><br><span class="line">    text-align: center;</span><br><span class="line">    line-height: 160px;</span><br><span class="line">  &#125;</span><br><span class="line">  .drop &#123;</span><br><span class="line">    line-height: 80px;</span><br><span class="line">    color: #bbb;</span><br><span class="line">    i &#123;</span><br><span class="line">      font-size: 60px;</span><br><span class="line">      display: block;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-3-注册全局的导入excel组件-components-x2F-index-js"><a href="#2-3-注册全局的导入excel组件-components-x2F-index-js" class="headerlink" title="2.3 注册全局的导入excel组件 (components&#x2F;index.js)"></a>2.3 注册全局的导入excel组件 (components&#x2F;index.js)</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">PageTools</span> <span class="keyword">from</span> <span class="string">&#x27;./PageTools&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">UploadExcel</span> <span class="keyword">from</span> <span class="string">&#x27;./UploadExcel&#x27;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="title function_">install</span>(<span class="params">Vue</span>) &#123;</span><br><span class="line">    <span class="title class_">Vue</span>.<span class="title function_">component</span>(<span class="string">&#x27;PageTools&#x27;</span>, <span class="title class_">PageTools</span>) <span class="comment">// 注册工具栏组件</span></span><br><span class="line">    <span class="title class_">Vue</span>.<span class="title function_">component</span>(<span class="string">&#x27;UploadExcel&#x27;</span>, <span class="title class_">UploadExcel</span>) <span class="comment">// 注册导入excel组件</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="3-excel导入步骤"><a href="#3-excel导入步骤" class="headerlink" title="3 excel导入步骤"></a>3 excel导入步骤</h2><h3 id="3-1-建立公共导入的页面路由-（router-x2F-index-js）"><a href="#3-1-建立公共导入的页面路由-（router-x2F-index-js）" class="headerlink" title="3.1 建立公共导入的页面路由 （router&#x2F;index.js）"></a>3.1 建立公共导入的页面路由 （router&#x2F;index.js）</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// excel导入的路由</span></span><br><span class="line"> &#123;</span><br><span class="line">   <span class="attr">path</span>: <span class="string">&#x27;/import&#x27;</span>,</span><br><span class="line">   <span class="attr">component</span>: <span class="title class_">Layout</span>,</span><br><span class="line">   <span class="attr">hidden</span>: <span class="literal">true</span>, <span class="comment">// 在左侧栏中隐藏</span></span><br><span class="line">   <span class="attr">children</span>: [&#123;</span><br><span class="line">     <span class="attr">path</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">     <span class="attr">component</span>: <span class="function">() =&gt;</span> <span class="title function_">import</span>(<span class="string">&#x27;@/views/import&#x27;</span>),</span><br><span class="line">     <span class="attr">name</span>: <span class="string">&#x27;Import&#x27;</span>,</span><br><span class="line">     <span class="attr">meta</span>: &#123;</span><br><span class="line">       <span class="attr">title</span>: <span class="string">&#x27;文件导入&#x27;</span> <span class="comment">// 左侧导航会读取我们的路由里的meta里面的title作为显示菜单名称</span></span><br><span class="line">     &#125;</span><br><span class="line">   &#125;]</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-2-创建import路由组件-src-views-import-index-vue"><a href="#3-2-创建import路由组件-src-views-import-index-vue" class="headerlink" title="3.2 创建import路由组件  src/views/import/index.vue"></a>3.2 创建import路由组件  <strong><code>src/views/import/index.vue</code></strong></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;!-- 公共导入组件 --&gt; </span><br><span class="line">  &lt;upload-excel :on-success=&quot;success&quot; /&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-封装批量导入接口-api-x2F-schools-js"><a href="#3-3-封装批量导入接口-api-x2F-schools-js" class="headerlink" title="3.3 封装批量导入接口 api&#x2F;schools.js"></a>3.3 封装批量导入接口 api&#x2F;schools.js</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 批量新增学校信息</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">importSchoolInfo</span>(<span class="params">data</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">request</span>(&#123;</span><br><span class="line">    <span class="attr">url</span>: <span class="string">&#x27;/school/addBatch&#x27;</span>,</span><br><span class="line">    <span class="attr">method</span>: <span class="string">&#x27;post&#x27;</span>,</span><br><span class="line">    data</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-4-实现excel导入"><a href="#3-4-实现excel导入" class="headerlink" title="3.4 实现excel导入"></a>3.4 实现excel导入</h3><p>使用type类型，区分不同的批量导入请求。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;!-- 引入公共Excel导入组件 --&gt;</span><br><span class="line">  &lt;upload-excel :on-success=&quot;success&quot; /&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123; importSchoolInfo &#125; from &#x27;@/api/school&#x27;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &#x27;Import&#x27;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      // 为了让这个页面可以服务更多的导入功能，我们可以在页面中用参数来判断</span><br><span class="line">      type: this.$route.query.type</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    async success(&#123; header, results &#125;) &#123;</span><br><span class="line">      console.log(&#x27;success type&#x27;, this.$route.query)</span><br><span class="line">      if (this.type === undefined) &#123;</span><br><span class="line">        this.$message.error(&#x27;请关闭当前页面，重新进入&#x27;)</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        // 如果是导入员工</span><br><span class="line">        if (this.type === &#x27;schoolBasicInfo&#x27;) &#123;</span><br><span class="line">          const schoolInfoRelations = &#123;</span><br><span class="line">            学校编号: &#x27;school_id&#x27;,</span><br><span class="line">            学校名: &#x27;school_name&#x27;,</span><br><span class="line">            学校等级: &#x27;school_level&#x27;,</span><br><span class="line">            学校类型: &#x27;school_type&#x27;,</span><br><span class="line">            办学性质: &#x27;school_nature&#x27;,</span><br><span class="line">            区域: &#x27;school_region&#x27;,</span><br><span class="line">            省份: &#x27;school_province&#x27;,</span><br><span class="line">            城市: &#x27;school_city&#x27;,</span><br><span class="line">            是否211: &#x27;school_211&#x27;,</span><br><span class="line">            是否985: &#x27;school_985&#x27;,</span><br><span class="line">            隶属单位: &#x27;school_belong&#x27;,</span><br><span class="line">            最新软科排名: &#x27;school_rk&#x27;,</span><br><span class="line">            最新校友会排名: &#x27;school_xyh&#x27;,</span><br><span class="line">            最新武书连排名: &#x27;school_wsl&#x27;,</span><br><span class="line">            最新QS排名: &#x27;school_qs&#x27;,</span><br><span class="line">            最新US排名: &#x27;school_us&#x27;,</span><br><span class="line">            最新泰晤士排名: &#x27;school_tws&#x27;,</span><br><span class="line">            报考要求: &#x27;school_requirments&#x27;</span><br><span class="line">          &#125;</span><br><span class="line">          const arr = []</span><br><span class="line">          results.forEach((item) =&gt; &#123;</span><br><span class="line">            const userInfo = &#123;&#125;</span><br><span class="line">            Object.keys(item).forEach((key) =&gt; &#123;</span><br><span class="line">              userInfo[schoolInfoRelations[key]] = item[key]</span><br><span class="line">            &#125;)</span><br><span class="line">            arr.push(userInfo)</span><br><span class="line">          &#125;)</span><br><span class="line">          const &#123; data &#125; = await importSchoolInfo(arr) // 调用导入接口</span><br><span class="line">          if (data.code === 200) &#123;</span><br><span class="line">            this.$message.success(&#x27;批量新增学校基本信息成功！&#x27;)</span><br><span class="line">          &#125;</span><br><span class="line">          // 跳转回到上一个页面</span><br><span class="line">          this.$router.back()</span><br><span class="line">          // 将信息导入页面从openPages中删除，即关闭导入页面的tagsView</span><br><span class="line">          this.$store.commit(&#x27;tagsView/REMOVE_PAGE&#x27;, &#x27;/import&#x27;)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;style /&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-5-在学校界面，点击”导入”按钮，实现批量导入。传入type类型"><a href="#3-5-在学校界面，点击”导入”按钮，实现批量导入。传入type类型" class="headerlink" title="3.5 在学校界面，点击”导入”按钮，实现批量导入。传入type类型"></a>3.5 在学校界面，点击”导入”按钮，实现批量导入。传入type类型</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;el-button type=&quot;warning&quot; @click=&quot;$router.push(&#x27;/import?type=schoolBasicInfo&#x27;)&quot;</span><br><span class="line">&gt;导入&lt;/el-button&gt;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -754,548 +1296,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/07/06/%E9%A1%B9%E7%9B%AE%E5%85%AC%E7%94%A8%E6%A1%86%E6%9E%B6%E7%BB%84%E4%BB%B6-tablelist/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Yang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yang's Blog">
-      <meta itemprop="description" content="Yang的博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Yang's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/06/%E9%A1%B9%E7%9B%AE%E5%85%AC%E7%94%A8%E6%A1%86%E6%9E%B6%E7%BB%84%E4%BB%B6-tablelist/" class="post-title-link" itemprop="url">项目公用框架组件-tablelist</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-07-06 23:28:41" itemprop="dateCreated datePublished" datetime="2022-07-06T23:28:41+08:00">2022-07-06</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-28 10:45:29" itemprop="dateModified" datetime="2022-07-28T10:45:29+08:00">2022-07-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%AE%9E%E9%AA%8C%E5%AE%A4%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index"><span itemprop="name">实验室项目</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>[TOC]</p>
-<h3 id="公关组件（无需修改）"><a href="#公关组件（无需修改）" class="headerlink" title="公关组件（无需修改）"></a>公关组件（无需修改）</h3><h4 id="table-vue"><a href="#table-vue" class="headerlink" title="table.vue"></a>table.vue</h4><p>通过props实现父传子数据显示，$emit实现子传父操作</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;el-card&gt;</span><br><span class="line">      &lt;el-table ref=&quot;table&quot; v-loading=&quot;loading&quot; :data=&quot;dataList&quot; style=&quot;width: 100%&quot; stripe border&gt;</span><br><span class="line">        &lt;!-- v-for 动态渲染表格 template --&gt;</span><br><span class="line">        &lt;template v-for=&quot;(item,index) in keys&quot;&gt;</span><br><span class="line">          &lt;el-table-column :key=&quot;index&quot; :prop=&quot;item.value&quot; :label=&quot;item.label&quot; :width=&quot;item.width&quot; /&gt;</span><br><span class="line">        &lt;/template&gt;</span><br><span class="line">        &lt;el-table-column label=&quot;操作&quot;&gt;</span><br><span class="line">          &lt;!-- 通过作用域插槽，通过点击行，获得父组件行的数据 --&gt;</span><br><span class="line">          &lt;template slot-scope=&quot;&#123; row &#125;&quot;&gt;</span><br><span class="line">            &lt;el-button</span><br><span class="line">              size=&quot;small&quot;</span><br><span class="line">              type=&quot;primary&quot;</span><br><span class="line">              @click=&quot;handleClick(row)&quot;</span><br><span class="line">            &gt;编辑&lt;/el-button&gt;</span><br><span class="line">            &lt;el-button</span><br><span class="line">              size=&quot;small&quot;</span><br><span class="line">              type=&quot;danger&quot;</span><br><span class="line">              @click=&quot;handleDelete(row)&quot;</span><br><span class="line">            &gt;删除&lt;/el-button&gt;</span><br><span class="line">          &lt;/template&gt;</span><br><span class="line">        &lt;/el-table-column&gt;</span><br><span class="line">      &lt;/el-table&gt;</span><br><span class="line">    &lt;/el-card&gt;</span><br><span class="line">    &lt;!-- 分页组件 --&gt;</span><br><span class="line">    &lt;el-row justify=&quot;center&quot; type=&quot;flex&quot; align=&quot;middle&quot; style=&quot;height: 60px&quot;&gt;</span><br><span class="line">      &lt;el-pagination</span><br><span class="line">        :current-page=&quot;page.currentPage&quot;</span><br><span class="line">        :page-size=&quot;page.pageSize&quot;</span><br><span class="line">        layout=&quot;prev, pager, next&quot;</span><br><span class="line">        :total=&quot;page.total&quot;</span><br><span class="line">        @current-change=&quot;handleCurrentChange&quot;</span><br><span class="line">      /&gt;</span><br><span class="line">    &lt;/el-row&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    // 表格显示信息</span><br><span class="line">    dataList: &#123;</span><br><span class="line">      type: Array,</span><br><span class="line">      default: null</span><br><span class="line">    &#125;,</span><br><span class="line">    keys: &#123;</span><br><span class="line">      type: Array,</span><br><span class="line">      default: null</span><br><span class="line">    &#125;,</span><br><span class="line">    // 分页数据</span><br><span class="line">    page: &#123;</span><br><span class="line">      type: Object,</span><br><span class="line">      default: null</span><br><span class="line">    &#125;,</span><br><span class="line">    loading: &#123;</span><br><span class="line">      type: Boolean,</span><br><span class="line">      default: false</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  created() &#123;</span><br><span class="line">    console.log(&#x27;loading&#x27;, this.loading)</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    handleClick(row) &#123;</span><br><span class="line">      this.$emit(&#x27;handleClick&#x27;, row)</span><br><span class="line">    &#125;,</span><br><span class="line">    handleDelete(row) &#123;</span><br><span class="line">      this.$emit(&#x27;handleDelete&#x27;, row)</span><br><span class="line">    &#125;,</span><br><span class="line">    handleCurrentChange(newPage) &#123;</span><br><span class="line">      this.$emit(&#x27;handleCurrentChange&#x27;, newPage)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line"></span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="dialog-vue"><a href="#dialog-vue" class="headerlink" title="dialog.vue"></a>dialog.vue</h4><p>通过具名插槽插入表单输入框、选择框、等等</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;!-- 新增/编辑对话框 --&gt;</span><br><span class="line">  &lt;el-dialog :title=&quot;titleName&quot; :visible=&quot;showDialog&quot; :before-close=&quot;btnCancel&quot; style=&quot;margin-top: 120px;&quot;&gt;</span><br><span class="line">    &lt;el-form</span><br><span class="line">      ref=&quot;form&quot;</span><br><span class="line">      style=&quot;overflow-y: auto; height: 485px; margin-top: 10px&quot;</span><br><span class="line">      label-width=&quot;150px&quot;</span><br><span class="line">      :rules=&quot;rules&quot;</span><br><span class="line">      :model=&quot;form&quot;</span><br><span class="line">    &gt;</span><br><span class="line">      &lt;slot name=&quot;dialog&quot; /&gt;</span><br><span class="line">    &lt;/el-form&gt;</span><br><span class="line">    &lt;!-- 弹框底部 --&gt;</span><br><span class="line">    &lt;template v-slot:footer&gt;</span><br><span class="line">      &lt;el-row class=&quot;footer&quot; type=&quot;flex&quot; justify=&quot;center&quot;&gt;</span><br><span class="line">        &lt;el-col :span=&quot;24&quot;&gt;</span><br><span class="line">          &lt;el-button @click=&quot;btnCancel&quot;&gt;取消&lt;/el-button&gt;</span><br><span class="line">          &lt;el-button type=&quot;primary&quot; @click=&quot;onSave()&quot;&gt;保存&lt;/el-button&gt;</span><br><span class="line">        &lt;/el-col&gt;</span><br><span class="line">      &lt;/el-row&gt;</span><br><span class="line">    &lt;/template&gt;</span><br><span class="line">  &lt;/el-dialog&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    titleName: &#123;</span><br><span class="line">      type: String,</span><br><span class="line">      default: &#x27;&#x27;</span><br><span class="line">    &#125;,</span><br><span class="line">    showDialog: &#123;</span><br><span class="line">      type: Boolean,</span><br><span class="line">      default: false</span><br><span class="line">    &#125;,</span><br><span class="line">    form: &#123;</span><br><span class="line">      type: Object,</span><br><span class="line">      default: null</span><br><span class="line">    &#125;,</span><br><span class="line">    rules: &#123;</span><br><span class="line">      type: Object,</span><br><span class="line">      default: null</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    // 取消对话框</span><br><span class="line">    btnCancel() &#123;</span><br><span class="line">      // 关闭对话框</span><br><span class="line">      this.$emit(&#x27;btnCancel&#x27;, false)</span><br><span class="line">    &#125;,</span><br><span class="line">    // 新增or修改</span><br><span class="line">    onSave() &#123;</span><br><span class="line">      this.$refs.form.validate((valid) =&gt; &#123;</span><br><span class="line">        // 成功valid为true，失败为false</span><br><span class="line">        if (valid) &#123;</span><br><span class="line">          // 校验通过才会进入下一步</span><br><span class="line">          this.$emit(&#x27;onSave&#x27;)</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">          this.$message.error(&#x27;表单校验不通过&#x27;)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line"></span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="基础框架-index-vue-引用公用组件"><a href="#基础框架-index-vue-引用公用组件" class="headerlink" title="基础框架 index.vue 引用公用组件"></a>基础框架 index.vue 引用公用组件</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line"></span><br><span class="line">  &lt;div class=&quot;dashboard-container&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;app-container&quot;&gt;</span><br><span class="line">      &lt;h3&gt;软科排名&lt;/h3&gt;</span><br><span class="line">      &lt;!-- table组件展示数据 --&gt;</span><br><span class="line">      &lt;Table</span><br><span class="line">        :data-list=&quot;dataList&quot;</span><br><span class="line">        :keys=&quot;keys&quot;</span><br><span class="line">        :page=&quot;page&quot;</span><br><span class="line">        :loading=&quot;loading&quot;</span><br><span class="line">        @handleClick=&quot;handleClick&quot;</span><br><span class="line">        @handleDelete=&quot;handleDelete&quot;</span><br><span class="line">        @handleCurrentChange=&quot;handleCurrentChange&quot;</span><br><span class="line">      /&gt;</span><br><span class="line"></span><br><span class="line">      &lt;!-- 对话框组件 --&gt;</span><br><span class="line">      &lt;add-dialog</span><br><span class="line">        ref=&quot;dialog&quot;</span><br><span class="line">        :form=&quot;form&quot;</span><br><span class="line">        :rules=&quot;rules&quot;</span><br><span class="line">        :show-dialog=&quot;showDialog&quot;</span><br><span class="line">        :title-name=&quot;titleName&quot;</span><br><span class="line">        @btnCancel=&quot;btnCancel&quot;</span><br><span class="line">        @onSave=&quot;onSave&quot;</span><br><span class="line">      &gt;</span><br><span class="line">        &lt;!-- 具名插槽传特定的内容 --&gt;</span><br><span class="line">        &lt;template #dialog&gt;</span><br><span class="line">          &lt;el-form-item label=&quot;排名编号&quot; prop=&quot;qs_code&quot;&gt;</span><br><span class="line">            &lt;el-input v-model=&quot;form.qs_code&quot; class=&quot;input_box&quot; :disabled=&quot;titleName.indexOf(&#x27;新增&#x27;)!==-1 ? false : true&quot; /&gt;</span><br><span class="line">          &lt;/el-form-item&gt;</span><br><span class="line">          &lt;el-form-item label=&quot;排名&quot; prop=&quot;qs_rank&quot;&gt;</span><br><span class="line">            &lt;el-input v-model=&quot;form.qs_rank&quot; class=&quot;input_box&quot; :disabled=&quot;titleName.indexOf(&#x27;新增&#x27;)!==-1 ? false : true&quot; /&gt;</span><br><span class="line">          &lt;/el-form-item&gt;</span><br><span class="line">          &lt;el-form-item label=&quot;学校编号&quot; prop=&quot;qs_school&quot;&gt;</span><br><span class="line">            &lt;el-input v-model=&quot;form.qs_school&quot; class=&quot;input_box&quot; /&gt;</span><br><span class="line">          &lt;/el-form-item&gt;</span><br><span class="line">          &lt;el-form-item label=&quot;学校名称&quot; prop=&quot;qs_schoolName&quot;&gt;</span><br><span class="line">            &lt;el-input v-model=&quot;form.qs_schoolName&quot; class=&quot;input_box&quot; /&gt;</span><br><span class="line">          &lt;/el-form-item&gt;</span><br><span class="line">        &lt;/template&gt;</span><br><span class="line">      &lt;/add-dialog&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import Table from &#x27;@/components/common/table.vue&#x27;</span><br><span class="line">import AddDialog from &#x27;@/components/common/add-dialog.vue&#x27;</span><br><span class="line">export default &#123;</span><br><span class="line">  components: &#123;</span><br><span class="line">    Table,</span><br><span class="line">    AddDialog</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  data() &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      // 表格</span><br><span class="line">      loading: false,</span><br><span class="line">      dataList: [],</span><br><span class="line">      keys: [], // 数据的keys</span><br><span class="line"></span><br><span class="line">      // 分页</span><br><span class="line">      page: &#123;</span><br><span class="line">        currentPage: 1,</span><br><span class="line">        pageSize: 10,</span><br><span class="line">        total: 0</span><br><span class="line">      &#125;,</span><br><span class="line">      //  对话框</span><br><span class="line">      titleName: &#x27;&#x27;,</span><br><span class="line">      showDialog: false,</span><br><span class="line">      form: &#123;&#125;,</span><br><span class="line">      rules: &#123;</span><br><span class="line"></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  created() &#123;</span><br><span class="line"></span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    // 分页查询所有信息</span><br><span class="line">    getSubjectsByPage() &#123;</span><br><span class="line">      try &#123;</span><br><span class="line">        this.loading = true</span><br><span class="line"></span><br><span class="line">        this.keys = [</span><br><span class="line">          &#123; label: &#x27;一级学科编号&#x27;, value: &#x27;subject_code&#x27;, width: &#x27;150px&#x27; &#125;,</span><br><span class="line">          &#123; label: &#x27;创建日期&#x27;, value: &#x27;create_time&#x27;, width: &#x27;300px&#x27; &#125;,</span><br><span class="line">          &#123; label: &#x27;更新日期&#x27;, value: &#x27;update_time&#x27;, width: &#x27;300px&#x27; &#125;,</span><br><span class="line">          &#123; label: &#x27;一级学科id&#x27;, value: &#x27;subject_id&#x27;, width: &#x27;150px&#x27; &#125;,</span><br><span class="line">          &#123; label: &#x27;一级学科名称&#x27;, value: &#x27;subject_name&#x27;, width: &#x27;300px&#x27; &#125;,</span><br><span class="line">          &#123; label: &#x27;所属学科门类&#x27;, value: &#x27;discipline_name&#x27;, width: &#x27;150px&#x27; &#125;]</span><br><span class="line"></span><br><span class="line">        this.loading = false</span><br><span class="line">      &#125; catch (err) &#123;</span><br><span class="line">        console.log(err)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    // 换页操作</span><br><span class="line">    handleCurrentChange(newPage) &#123;</span><br><span class="line">      this.page.currentPage = newPage</span><br><span class="line">      //   重新获取数据</span><br><span class="line">    &#125;,</span><br><span class="line">    // 打开对话框</span><br><span class="line">    async handleClick(row) &#123;</span><br><span class="line">      if (row.subject_code) &#123;</span><br><span class="line">        // 编辑</span><br><span class="line">        this.titleName = &#x27;编辑一级学科信息&#x27;</span><br><span class="line">        this.form = row</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        // 新增</span><br><span class="line">        this.titleName = &#x27;新增一级学科信息&#x27;</span><br><span class="line">      &#125;</span><br><span class="line">      this.showDialog = true</span><br><span class="line">    &#125;,</span><br><span class="line">    // 关闭对话框</span><br><span class="line">    btnCancel(value) &#123;</span><br><span class="line">      this.showDialog = value</span><br><span class="line">      // 清空子组件表单校验</span><br><span class="line">      this.$refs.dialog.$refs.form.resetFields()</span><br><span class="line">      // 清空数据</span><br><span class="line">      this.form = &#123; &#x27;subject_id&#x27;: &#x27;&#x27;, &#x27;subject_code&#x27;: &#x27;&#x27;, &#x27;subject_name&#x27;: &#x27;&#x27;, &#x27;subject_discipline&#x27;: &#x27;&#x27; &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    onSave() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    // async onSave() &#123;</span><br><span class="line">    //   try &#123;</span><br><span class="line">    //     if (this.titleName.indexOf(&#x27;新增&#x27;) !== -1) &#123;</span><br><span class="line">    //       const &#123; data &#125; = await addSubject(this.form)</span><br><span class="line">    //       if (data.code === 200) &#123;</span><br><span class="line">    //         this.$message.success(&#x27;保存成功！&#x27;)</span><br><span class="line">    //       &#125; else &#123;</span><br><span class="line">    //         this.$message.error(data.message)</span><br><span class="line">    //       &#125;</span><br><span class="line">    //     &#125; else &#123;</span><br><span class="line">    //       this.form.subject_code = Number.parseInt(this.form.subject_code)</span><br><span class="line">    //       const &#123; data &#125; = await editSubject(this.form)</span><br><span class="line">    //       if (data.code === 200) &#123;</span><br><span class="line">    //         this.$message.success(&#x27;保存成功！&#x27;)</span><br><span class="line">    //       &#125; else &#123;</span><br><span class="line">    //         this.$message.error(data.message)</span><br><span class="line">    //       &#125;</span><br><span class="line">    //     &#125;</span><br><span class="line">    //   &#125; catch (err) &#123;</span><br><span class="line">    //     console.log(err)</span><br><span class="line">    //   &#125;</span><br><span class="line"></span><br><span class="line">    //   // 刷新数据</span><br><span class="line">    //   this.getSubjectsByPage()</span><br><span class="line">    //   // 关闭对话框</span><br><span class="line">    //   this.showDialog = false</span><br><span class="line">    //   // 清空子组件表单校验</span><br><span class="line">    //   this.$refs.dialog.$refs.form.resetFields()</span><br><span class="line">    //   // 清空数据</span><br><span class="line">    //   this.form = &#123; &#x27;subject_id&#x27;: &#x27;&#x27;, &#x27;subject_code&#x27;: &#x27;&#x27;, &#x27;subject_name&#x27;: &#x27;&#x27;, &#x27;subject_discipline&#x27;: &#x27;&#x27; &#125;</span><br><span class="line">    // &#125;,</span><br><span class="line"></span><br><span class="line">    handleDelete(row) &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    //     async handleDelete(row) &#123;</span><br><span class="line">    //       this.$prompt(&#x27;请输入DELETE&#x27;, &#x27;确认删除本行数据？&#x27;, &#123;</span><br><span class="line">    //         confirmButtonText: &#x27;确定&#x27;,</span><br><span class="line">    //         cancelButtonText: &#x27;取消&#x27;,</span><br><span class="line">    //         inputValidator(value) &#123;</span><br><span class="line">    //           return value === &#x27;DELETE&#x27;</span><br><span class="line">    //         &#125;,</span><br><span class="line">    //         inputErrorMessage: &#x27;输入格式不正确，无法删除数据！&#x27;</span><br><span class="line">    //       &#125;).then(async() =&gt; &#123;</span><br><span class="line">    //         await delSubject(row.subject_code)</span><br><span class="line">    //         this.$message(&#123;</span><br><span class="line">    //           type: &#x27;success&#x27;,</span><br><span class="line">    //           message: &#x27;删除数据成功&#x27;</span><br><span class="line">    //         &#125;)</span><br><span class="line">    //         this.getSubjectsByPage() // 刷新数据</span><br><span class="line">    //       &#125;).catch(() =&gt; &#123;</span><br><span class="line">    //         this.$message(&#123;</span><br><span class="line">    //           type: &#x27;info&#x27;,</span><br><span class="line">    //           message: &#x27;取消删除操作&#x27;</span><br><span class="line">    //         &#125;)</span><br><span class="line">    //       &#125;)</span><br><span class="line">    //     &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style lang=&quot;scss&quot; scoped&gt;</span><br><span class="line">::v-deep .el-dialog &#123;</span><br><span class="line">  height: 360px;</span><br><span class="line">  .el-dialog__body &#123;</span><br><span class="line">    height: 260px;</span><br><span class="line">    overflow: hidden;</span><br><span class="line">    padding: 5px 20px 0px 20px;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/06/29/%E5%89%8D%E7%AB%AF%E7%BC%96%E7%A0%81%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Yang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yang's Blog">
-      <meta itemprop="description" content="Yang的博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Yang's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/29/%E5%89%8D%E7%AB%AF%E7%BC%96%E7%A0%81%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">前端编码日常记录</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-06-29 15:30:22" itemprop="dateCreated datePublished" datetime="2022-06-29T15:30:22+08:00">2022-06-29</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-28 10:45:29" itemprop="dateModified" datetime="2022-07-28T10:45:29+08:00">2022-07-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h3 id="前后端分离-跨域"><a href="#前后端分离-跨域" class="headerlink" title="前后端分离-跨域"></a>前后端分离-跨域</h3><p>比如后端的请求接口：<a target="_blank" rel="noopener" href="http://192.168.1.**):8080/user/login">http://192.168.1.**):8080/user/login</a></p>
-<p>由于前端与后端地址不同，不能够直接请求后端接口需要解决跨域问题，即用编写前端的电脑作为请求代理。</p>
-<ol>
-<li>vue,config.js 的proxy配置跨域代理</li>
-<li>设置请求的基地址为&#x2F;api</li>
-<li>api实例</li>
-</ol>
-<p>vue,config.js 的proxy配置</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">devServer</span>: &#123;</span><br><span class="line">  <span class="comment">// 代理配置 - 解决跨域问题（前端和后端接口不在同一域名下</span></span><br><span class="line">  <span class="attr">port</span>: port,</span><br><span class="line">  <span class="attr">open</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">overlay</span>: &#123;</span><br><span class="line">    <span class="attr">warnings</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">errors</span>: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">proxy</span>: &#123;</span><br><span class="line">    <span class="string">&#x27;/api&#x27;</span>: &#123; <span class="comment">// 前端访问基地址</span></span><br><span class="line">      <span class="attr">target</span>: <span class="string">&#x27;http://192.168.1.**:8080&#x27;</span>, <span class="comment">// 后端地接口地址</span></span><br><span class="line">      <span class="attr">changeOrigin</span>: <span class="literal">true</span>, <span class="comment">// 是否跨域</span></span><br><span class="line">      <span class="attr">pathRewrite</span>: &#123; <span class="comment">// 如果接口本身没有/api需要通过pathRewrite来重写了地址</span></span><br><span class="line">        <span class="string">&#x27;^/api&#x27;</span>: <span class="string">&#x27;&#x27;</span> <span class="comment">// 这里一定要重写为空（因为后端接口没有/api路径，直接才ip后接的接口）</span></span><br><span class="line">          <span class="comment">//这里理解成用‘/api’代替target里面的地址，组件中我们调接口时直接用/api代替</span></span><br><span class="line">        <span class="comment">// 比如我要调用&#x27;http://0.0:300/user/add&#x27;，直接写‘/api/user/add’即可</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<p>设置请求的基地址为&#x2F;api</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span></span><br><span class="line"><span class="comment">// 创建一个axios实例</span></span><br><span class="line"><span class="keyword">const</span> service = axios.<span class="title function_">create</span>(&#123;</span><br><span class="line">  <span class="attr">baseURL</span>: <span class="string">&#x27;/api&#x27;</span>, <span class="comment">// 设置axios请求的基础的基础地址(通过/api别名指定后端路由)</span></span><br><span class="line">  <span class="attr">timeout</span>: <span class="number">5000</span> <span class="comment">// 定义5秒超时</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>api请求实例</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">login</span>(<span class="params">data</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">request</span>(&#123;</span><br><span class="line">    <span class="attr">url</span>: <span class="string">&#x27;/user/login&#x27;</span>,</span><br><span class="line">    <span class="attr">method</span>: <span class="string">&#x27;post&#x27;</span>,</span><br><span class="line">    data</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>network显示的请求接口为</p>
-<img src="/2022/06/29/%E5%89%8D%E7%AB%AF%E7%BC%96%E7%A0%81%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/image-20220629162315846.png" class="" title="image-20220629162315846">
-
-<p>虽然显示请求 <a target="_blank" rel="noopener" href="http://localhost:8888/api/user/list%EF%BC%8C%E5%85%B6%E5%AE%9E%E6%9C%AC%E5%9C%B0%E4%BC%9A%E8%BD%AC%E5%8F%91http://192.168.1.**:8080/user/login">http://localhost:8888/api/user/list，其实本地会转发http://192.168.1.**:8080/user/login</a> 请求，即实现前端访问后端接口</p>
-<h3 id="父传子"><a href="#父传子" class="headerlink" title="父传子"></a>父传子</h3><h5 id="父组件点击编辑按钮，传递数据给子组件，子组件在表单内进行数据回显。"><a href="#父组件点击编辑按钮，传递数据给子组件，子组件在表单内进行数据回显。" class="headerlink" title="父组件点击编辑按钮，传递数据给子组件，子组件在表单内进行数据回显。"></a>父组件点击编辑按钮，传递数据给子组件，子组件在表单内进行数据回显。</h5><p>知识点：</p>
-<ol>
-<li>谁调用api获取数据？（父组件）</li>
-<li>父组件通过什么方式传数据给子组件？（:变量名&#x3D;“变量名”）</li>
-<li>子组件怎么接收？（props）</li>
-<li>子组件怎么使用数据进行回显？（el-input中使用v-model）</li>
-</ol>
-<p>父组件 el-table</p>
-<p>子组件 el-dialog</p>
-<p>触发：表格每一行都有一个用户编辑的操作，点击编辑按钮后，弹出子组件表单对话框，表单对话框进行该行数据回显。</p>
-<img src="/2022/06/29/%E5%89%8D%E7%AB%AF%E7%BC%96%E7%A0%81%E6%97%A5%E5%B8%B8%E8%AE%B0%E5%BD%95/image-20220629154002779.png" class="" title="image-20220629154002779">
-
-<p>假设：需求为全部用户信息表，每一行为一个用户的信息。父组件data中有一个form表示该行用户信息，子组件props中有一个form:{}用于接收父组件传来的用户的信息。</p>
-<p>操作步骤：</p>
-<ol>
-<li><p>父组件调有api接口，根据id查询该用户的所有信息</p>
-</li>
-<li><p>this.form &#x3D; userinfo &#x2F;&#x2F; 父组件保存用户信息</p>
-</li>
-<li><p>&lt;子组件 :form&#x3D;”form”&#x2F;&gt;  通过prop形式，将父组件得到的用户信息传递给子组件，子组件通过v-model绑定数据显示在el-input中</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">label</span>=<span class="string">&quot;密码&quot;</span> <span class="attr">prop</span>=<span class="string">&quot;password&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">el-input</span> <span class="attr">v-model</span>=<span class="string">&quot;form.password&quot;</span> <span class="attr">class</span>=<span class="string">&quot;input_box&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/06/28/el-table%E5%8A%A8%E6%80%81%E5%B1%95%E7%A4%BA%E6%95%B0%E6%8D%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Yang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yang's Blog">
-      <meta itemprop="description" content="Yang的博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Yang's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/28/el-table%E5%8A%A8%E6%80%81%E5%B1%95%E7%A4%BA%E6%95%B0%E6%8D%AE/" class="post-title-link" itemprop="url">el-table动态展示数据</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-06-28 14:25:19" itemprop="dateCreated datePublished" datetime="2022-06-28T14:25:19+08:00">2022-06-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-28 10:45:29" itemprop="dateModified" datetime="2022-07-28T10:45:29+08:00">2022-07-28</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/06/27/elementui-form%E8%A1%A8%E5%8D%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Yang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yang's Blog">
-      <meta itemprop="description" content="Yang的博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Yang's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/27/elementui-form%E8%A1%A8%E5%8D%95/" class="post-title-link" itemprop="url">elementui - form表单</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-06-27 16:29:16" itemprop="dateCreated datePublished" datetime="2022-06-27T16:29:16+08:00">2022-06-27</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-28 10:45:29" itemprop="dateModified" datetime="2022-07-28T10:45:29+08:00">2022-07-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/elementui/" itemprop="url" rel="index"><span itemprop="name">elementui</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>[TOC]</p>
-<h2 id="表单元素"><a href="#表单元素" class="headerlink" title="表单元素"></a>表单元素</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;el-form&gt;</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="数据form对象"><a href="#数据form对象" class="headerlink" title="数据form对象"></a>数据form对象</h4><p>form: {}</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    <span class="comment">// 表单数据结构</span></span><br><span class="line">    <span class="attr">form</span>: &#123;</span><br><span class="line">      <span class="attr">school_code</span>: <span class="string">&#x27;&#x27;</span>, <span class="comment">// 学校编号</span></span><br><span class="line">      <span class="attr">school_id</span>: <span class="string">&#x27;&#x27;</span>, <span class="comment">// 学校id</span></span><br><span class="line">      <span class="attr">school_name</span>: <span class="string">&#x27;&#x27;</span>, <span class="comment">// 学校名</span></span><br><span class="line">    &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="model-用于表单第一层验证，显示红色-警告语"><a href="#model-用于表单第一层验证，显示红色-警告语" class="headerlink" title=":model 用于表单第一层验证，显示红色 警告语"></a>:model 用于表单第一层验证，显示红色 警告语</h4><p>如果想做表单验证是必须要写的！</p>
-<p>目前el-form的<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=model&spm=1001.2101.3001.7020">model</a>属性主要用表单验证的，也就是配合el-form的rules和el-form-item的prop来使用的，如果不写model，然后验证的话，会提示缺少model，导致无法验证成功。</p>
-<p><strong>:model的作用：主要是为了配合表单验证。</strong></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-form</span></span></span><br><span class="line"><span class="tag">  <span class="attr">style</span>=<span class="string">&quot;overflow-y: auto; height: 485px; margin-top: 10px&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">label-width</span>=<span class="string">&quot;150px&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">:model</span>=<span class="string">&quot;form&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="表单数据绑定"><a href="#表单数据绑定" class="headerlink" title="表单数据绑定"></a>表单数据绑定</h2><p>v-model ： el-form-item内部的每个表单项.即使关闭表单，再次打开时，上次输入的内容仍在。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;el-form-item label=&quot;学校名称&quot;&gt;</span><br><span class="line">  &lt;el-input v-model=&quot;form.school_name&quot; class=&quot;input_box&quot; /&gt;</span><br><span class="line">&lt;/el-form-item&gt;</span><br><span class="line">&lt;el-form-item label=&quot;学校等级&quot;&gt;</span><br><span class="line">  &lt;el-input v-model=&quot;form.school_type&quot; class=&quot;input_box&quot; /&gt;</span><br><span class="line">&lt;/el-form-item&gt;</span><br></pre></td></tr></table></figure>
-
-
-
-<h2 id="表单校验第一步（三剑客）"><a href="#表单校验第一步（三剑客）" class="headerlink" title="表单校验第一步（三剑客）"></a>表单校验第一步（三剑客）</h2><p>:model : el-form     配合表单校验</p>
-<p>:rules: el-form      指定表单对象和校验规则{}</p>
-<p>props: el-form-item      指定输入框对应哪一个校验规则</p>
-<h4 id="html"><a href="#html" class="headerlink" title="html"></a>html</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;el-form</span><br><span class="line">  style=&quot;overflow-y: auto; height: 485px; margin-top: 10px&quot;</span><br><span class="line">  label-width=&quot;150px&quot;</span><br><span class="line">  :rules=&quot;rules&quot;</span><br><span class="line">  :model=&quot;form&quot;</span><br><span class="line">&gt;</span><br><span class="line">  &lt;el-form-item label=&quot;学校编号&quot; prop=&quot;school_code&quot;&gt;</span><br><span class="line">    &lt;el-input v-model=&quot;form.school_code&quot; class=&quot;input_box&quot; /&gt;</span><br><span class="line">  &lt;/el-form-item&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="js"><a href="#js" class="headerlink" title="js"></a>js</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 表单验证</span></span><br><span class="line"><span class="attr">rules</span>: &#123;</span><br><span class="line">  <span class="attr">school_code</span>: [</span><br><span class="line">    &#123; <span class="attr">required</span>: <span class="literal">true</span>, <span class="attr">message</span>: <span class="string">&#x27;请输入学校编号&#x27;</span>, <span class="attr">trigger</span>: <span class="string">&#x27;blur&#x27;</span> &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>问题：只使用验证三剑客是无法对未验证通过的内容进行提交拦截的。也就是说，验证三剑客只不过是在为满足表单验证要求时，在页面显示红色警示语，只要点击了提交按钮，仍然会进行提交表单。并没有实现完整的表单验证过程。</p>
-<p>解决：验证不通过拒绝提交请求。</p>
-<h2 id="表单校验第二步-validate"><a href="#表单校验第二步-validate" class="headerlink" title="表单校验第二步 validate()"></a>表单校验第二步 validate()</h2><p>ref获取el-form对象，调用el-form对象的validate方法进行拦截，如果验证成功则执行后面的提交请求代码，验证失败则不提交请求，并且弹出警告信息。即验证失败后代码不会往下执行。</p>
-<p>1 定义el-form对象的ref名称</p>
-<p>获得dom对象，此处用于获得表单el-form对象，为了调用el-form的validate验证方法</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;el-form</span><br><span class="line">  ref=&quot;form&quot;</span><br><span class="line">  style=&quot;overflow-y: auto; height: 485px; margin-top: 10px&quot;</span><br><span class="line">  label-width=&quot;150px&quot;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
-
-<p>2 通过ref获取对象</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.$refs.form</span><br></pre></td></tr></table></figure>
-
-<p>3 调用el-form的validate方法</p>
-<p>有两种使用validate的方法</p>
-<p>方法一：官网（传入回调函数）</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">onSave</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">$refs</span>.<span class="property">form</span>.<span class="title function_">validate</span>(<span class="function">(<span class="params">valid</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (valid) &#123;</span><br><span class="line">      <span class="title function_">alert</span>(<span class="string">&#x27;submit&#x27;</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="title function_">alert</span>(<span class="string">&#x27;submit error&#x27;</span>)</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span> <span class="comment">// 表单校验不通过，不继续往下执行</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">form</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>方法二：</p>
-<img src="/2022/06/27/elementui-form%E8%A1%A8%E5%8D%95/image-20220627193812361.png" class="" title="image-20220627193812361">
-
-<p>针对”若不传入回调函数，则会返回一个 promise”，使用async await</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="title function_">onSave</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="keyword">await</span> <span class="variable language_">this</span>.<span class="property">$refs</span>.<span class="property">form</span>.<span class="title function_">validate</span>()</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    <span class="title function_">alert</span>(error)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/06/27/1-%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9Acookie%E3%80%81session%E3%80%81tokenz%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8C%E5%8C%BA%E5%88%AB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Yang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yang's Blog">
-      <meta itemprop="description" content="Yang的博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Yang's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/06/27/1-%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9Acookie%E3%80%81session%E3%80%81tokenz%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8C%E5%8C%BA%E5%88%AB/" class="post-title-link" itemprop="url">1 面试题：cookie、session、tokenz的作用和区别</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-06-27 10:24:54" itemprop="dateCreated datePublished" datetime="2022-06-27T10:24:54+08:00">2022-06-27</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-28 10:45:29" itemprop="dateModified" datetime="2022-07-28T10:45:29+08:00">2022-07-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">前端面试题</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>下面这位博主的视频讲解通俗易懂，本文内容也是在该视频的基础上进行梳理，可供参考：</p>
-<p>Cookie、Session、Token究竟区别在哪？如何进行身份认证，保持用户登录状态？</p>
-<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1ob4y1Y7Ep?spm_id_from=333.1007.top_right_bar_window_history.content.click&amp;vd_source=bb5470bf26d0ba6f7869d61cafcf5a24">https://www.bilibili.com/video/BV1ob4y1Y7Ep?spm_id_from=333.1007.top_right_bar_window_history.content.click&amp;vd_source=bb5470bf26d0ba6f7869d61cafcf5a24</a></p>
-<p>以bilibili登录为例</p>
-<p>进入登录界面，输入用户名和密码后，很长一段时间都不用再重新到登陆页面输入账号密码。这种保存登录状态的方式是如何实现的呢？</p>
-<p>众所周知，http是无状态的，即这次访问服务器，关闭网页后，再次访问服务器，服务器是没有意识到又是你来访问的。</p>
-<p>cookie可以实现每次请求自动带数据传递给浏览器。即下次登录无需再输入用户名和密码，而是通过将cookie放入请求头，自动在请求时由cookie携带用户信息，实现保存登录状态。</p>
-<h3 id="cookie的流程"><a href="#cookie的流程" class="headerlink" title="cookie的流程"></a>cookie的流程</h3><img src="/2022/06/27/1-%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9Acookie%E3%80%81session%E3%80%81tokenz%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8C%E5%8C%BA%E5%88%AB/image-20220627103513030.png" class="" title="image-20220627103513030">
-
-<p>简要来说，cookie是保存在浏览器的数据，它存储了用户名和密码，以实现记录登录状态。同时cookie具有有效时常，超过时长后清除原来的cookie，下次登录时需要重新输入用户名密码，新建cookie保存信息，以记录登录状态。</p>
-<p>cookie的核心：每个请求都会携带cookie发送给服务器。（cookie放在请求头)</p>
-<h4 id="浏览器中可以查看cookie"><a href="#浏览器中可以查看cookie" class="headerlink" title="浏览器中可以查看cookie"></a>浏览器中可以查看cookie</h4><img src="/2022/06/27/1-%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9Acookie%E3%80%81session%E3%80%81tokenz%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8C%E5%8C%BA%E5%88%AB/image-20220627103920584.png" class="" title="image-20220627103920584">
-
-<p>缺陷：由于cookie直接把用户信息存储在浏览器，只要电脑被黑，用户信息就会泄露，因此出现session技术。</p>
-<h3 id="Session会话-基于cookie的session"><a href="#Session会话-基于cookie的session" class="headerlink" title="Session会话(基于cookie的session)"></a>Session会话(基于cookie的session)</h3><p>相当于把原来cookie浏览器端保存的用户名和密码换成服务器端数据库中的sessionId（由服务器产生的没有规律的字符串）。即cookie中不保存用户名密码，而是sessionId和会话结束事件Max-age。</p>
-<img src="/2022/06/27/1-%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9Acookie%E3%80%81session%E3%80%81tokenz%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8C%E5%8C%BA%E5%88%AB/image-20220627104827309.png" class="" title="image-20220627104827309">
-
-<p>缺陷：由于用户群体迅速扩张，在特定时间有大量用户访问服务器的时候，服务器需要保存的sessionId数量迅速增长，会造成服务器超载</p>
-<p>JWT（Json Web Token）</p>
-<p>服务器生成JWT，存储对JWT签名的密文，不存储JWT。JWT传递给浏览器存储（cookie或storage的形式存储）</p>
-<img src="/2022/06/27/1-%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9Acookie%E3%80%81session%E3%80%81tokenz%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8C%E5%8C%BA%E5%88%AB/image-20220627105421281.png" class="" title="image-20220627105421281">
-
-<h4 id="JWT的组成"><a href="#JWT的组成" class="headerlink" title="JWT的组成"></a>JWT的组成</h4><img src="/2022/06/27/1-%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9Acookie%E3%80%81session%E3%80%81tokenz%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8C%E5%8C%BA%E5%88%AB/image-20220627105536380.png" class="" title="image-20220627105536380">
-
-<p>header：声明用什么算法来生成签名</p>
-<p>payload：存储有效期等数据</p>
-<p>signature：签名的信息</p>
-<img src="/2022/06/27/1-%E9%9D%A2%E8%AF%95%E9%A2%98%EF%BC%9Acookie%E3%80%81session%E3%80%81tokenz%E7%9A%84%E4%BD%9C%E7%94%A8%E5%92%8C%E5%8C%BA%E5%88%AB/image-20220627105711878.png" class="" title="image-20220627105711878">
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>
