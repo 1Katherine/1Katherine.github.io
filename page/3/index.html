@@ -152,7 +152,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">45</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -163,7 +163,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">54</span>
+        <span class="site-state-item-count">55</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -193,6 +193,226 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/07/31/JavaScript%E5%9F%BA%E7%A1%80%E4%B8%8E%E8%BF%9B%E9%98%B6%E7%9F%A5%E8%AF%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yang's Blog">
+      <meta itemprop="description" content="Yang的博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Yang's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/07/31/JavaScript%E5%9F%BA%E7%A1%80%E4%B8%8E%E8%BF%9B%E9%98%B6%E7%9F%A5%E8%AF%86/" class="post-title-link" itemprop="url">JavaScript基础与进阶知识：变量提升、函数、箭头函数、this指向、解构赋值</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-07-31 10:25:54 / 修改时间：15:35:49" itemprop="dateCreated datePublished" datetime="2022-07-31T10:25:54+08:00">2022-07-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">前端面试</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="JS进阶"><a href="#JS进阶" class="headerlink" title="JS进阶"></a>JS进阶</h2><h3 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h3><p>[它允许在变量声明之前即被访问]</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="comment">// 访问变量 str</span></span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(str + <span class="string">&#x27;world!&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 声明变量 str</span></span><br><span class="line">  <span class="keyword">var</span> str = <span class="string">&#x27;hello &#x27;</span>;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span>和<span class="keyword">var</span>都有提升，但是<span class="keyword">let</span>定义的变量没有赋值之前是不可以使用、<span class="keyword">var</span>可以使用是<span class="literal">undefined</span></span><br></pre></td></tr></table></figure>
+
+<p>总结：</p>
+<ol>
+<li>变量在未声明即被访问时会报语法错误</li>
+<li>变量在声明之前即被访问，变量的值为 <code>undefined</code></li>
+<li><code>let</code> 声明的变量不存在变量提升，推荐使用 <code>let</code>【也有人认为具有提升但是不赋值不能使用】</li>
+<li>变量提升出现在相同作用域当中</li>
+<li>实际开发中推荐先声明再访问变量</li>
+</ol>
+<h3 id="函数提升"><a href="#函数提升" class="headerlink" title="函数提升"></a>函数提升</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="comment">// 调用函数</span></span><br><span class="line">  <span class="title function_">foo</span>();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 声明函数</span></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;声明之前即被调用...&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 不存在提升现象</span></span><br><span class="line">  <span class="title function_">bar</span>();</span><br><span class="line">  <span class="keyword">var</span> bar = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;函数表达式不存在提升现象...&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>总结：</p>
+<ol>
+<li>函数提升能够使函数的声明调用更灵活</li>
+<li>函数表达式不存在提升的现象</li>
+<li>函数提升出现在相同作用域当中</li>
+</ol>
+<h3 id="函数参数【默认值、动态参数、剩余参数】"><a href="#函数参数【默认值、动态参数、剩余参数】" class="headerlink" title="函数参数【默认值、动态参数、剩余参数】"></a>函数参数【默认值、动态参数、剩余参数】</h3><h4 id="默认值"><a href="#默认值" class="headerlink" title="默认值"></a>默认值</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="comment">// 设置参数默认值</span></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">sayHi</span>(<span class="params">name=<span class="string">&quot;小明&quot;</span>, age=<span class="number">18</span></span>) &#123;</span><br><span class="line">    <span class="variable language_">document</span>.<span class="title function_">write</span>(<span class="string">`&lt;p&gt;大家好，我叫<span class="subst">$&#123;name&#125;</span>，我今年<span class="subst">$&#123;age&#125;</span>岁了。&lt;/p&gt;`</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 调用函数</span></span><br><span class="line">  <span class="title function_">sayHi</span>();</span><br><span class="line">  <span class="title function_">sayHi</span>(<span class="string">&#x27;小红&#x27;</span>);</span><br><span class="line">  <span class="title function_">sayHi</span>(<span class="string">&#x27;小刚&#x27;</span>, <span class="number">21</span>);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>总结：</p>
+<ol>
+<li>声明函数时为形参赋值即为参数的默认值</li>
+<li>如果参数未自定义默认值时，参数的默认值为 <code>undefined</code></li>
+<li>调用函数时没有传入对应实参时，参数的默认值被当做实参传入</li>
+</ol>
+<h4 id="动态参数"><a href="#动态参数" class="headerlink" title="动态参数"></a>动态参数</h4><p><code>arguments</code> 是函数内部内置的伪数组变量，它包含了调用函数时传入的所有实参。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="comment">// 求生函数，计算所有参数的和</span></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">sum</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// console.log(arguments);</span></span><br><span class="line">    <span class="keyword">let</span> s = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="variable language_">arguments</span>.<span class="property">length</span>; i++) &#123;</span><br><span class="line">      s += <span class="variable language_">arguments</span>[i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(s);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 调用求和函数</span></span><br><span class="line">  <span class="title function_">sum</span>(<span class="number">5</span>, <span class="number">10</span>); <span class="comment">// 两个参数</span></span><br><span class="line">  <span class="title function_">sum</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>); <span class="comment">// 两个参数</span></span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>总结：</p>
+<ol>
+<li><code>arguments</code> 是一个伪数组</li>
+<li><code>arguments</code> 的作用是动态获取函数的实参</li>
+</ol>
+<h4 id="剩余参数"><a href="#剩余参数" class="headerlink" title="剩余参数"></a>剩余参数</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">config</span>(<span class="params">baseURL, ...other</span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(baseURL);</span><br><span class="line">    <span class="comment">// other 是真数组，动态获取实参</span></span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(other);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 调用函数</span></span><br><span class="line">  <span class="title function_">config</span>(<span class="string">&#x27;http://baidu.com&#x27;</span>, <span class="string">&#x27;get&#x27;</span>, <span class="string">&#x27;json&#x27;</span>);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>总结：</p>
+<ol>
+<li><p><code>...</code> 是语法符号，置于最末函数形参之前，用于获取多余的实参</p>
+</li>
+<li><p>借助 <code>...</code> 获取的剩余实参</p>
+</li>
+</ol>
+<h3 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h3><p>箭头函数是一种声明函数的简洁语法，它与普通函数并无本质的区别，差异性更多体现在语法格式上。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  // 箭头函数</span><br><span class="line">  let foo = () =&gt; &#123;</span><br><span class="line">    console.log(&#x27;^_^ 长相奇怪的函数...&#x27;);</span><br><span class="line">  &#125;</span><br><span class="line">  // 调用函数</span><br><span class="line">  foo();</span><br><span class="line">  </span><br><span class="line">  // 更简洁的语法</span><br><span class="line">  let form = document.querySelector(&#x27;form&#x27;);</span><br><span class="line">  form.addEventListener(&#x27;click&#x27;, ev =&gt; ev.preventDefault());</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>总结：</p>
+<ol>
+<li>箭头函数属于表达式函数，因此不存在函数提升</li>
+<li>箭头函数只有一个参数时可以省略圆括号 <code>()</code></li>
+<li>箭头函数函数体只有一行代码时可以省略花括号 <code>&#123;&#125;</code>，并自动做为返回值被返回</li>
+<li>箭头函数中没有 <code>arguments</code>，只能使用 <code>...</code> 动态获取实参</li>
+<li>涉及到this的使用，不建议用箭头函数</li>
+</ol>
+<h3 id="箭头函数与普通函数的this指向问题"><a href="#箭头函数与普通函数的this指向问题" class="headerlink" title="箭头函数与普通函数的this指向问题"></a>箭头函数与普通函数的this指向问题</h3><h4 id="this-默认值"><a href="#this-默认值" class="headerlink" title="this - 默认值"></a>this - 默认值</h4><h5 id="普通函数"><a href="#普通函数" class="headerlink" title="普通函数"></a>普通函数</h5><p><strong>普通函数</strong>的调用方式决定了 <code>this</code> 的值，即【谁调用 <code>this</code> 的值指向谁】，如下代码所示：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="comment">// 普通函数</span></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">sayHi</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 函数表达式</span></span><br><span class="line">  <span class="keyword">let</span> sayHello = <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">	</span><br><span class="line">  <span class="comment">// 函数的调用方式决定了 this 的值</span></span><br><span class="line">  <span class="title function_">sayHi</span>(); <span class="comment">// window</span></span><br><span class="line">  <span class="variable language_">window</span>.<span class="title function_">sayHi</span>();</span><br><span class="line">	</span><br><span class="line"> 	<span class="comment">// 普通对象</span></span><br><span class="line">  <span class="keyword">let</span> user = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;小明&#x27;</span>,</span><br><span class="line">    <span class="attr">walk</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// 动态为 user 添加方法</span></span><br><span class="line">  user.<span class="property">sayHi</span> = sayHi;</span><br><span class="line">  uesr.<span class="property">sayHello</span> = sayHello;</span><br><span class="line">	</span><br><span class="line">  <span class="comment">// 函数调用方式，决定了 this 的值</span></span><br><span class="line">  user.<span class="title function_">sayHi</span>();</span><br><span class="line">  user.<span class="title function_">sayHello</span>();</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>注： 普通函数没有明确调用者时 <code>this</code> 值为 <code>window</code>，严格模式下没有调用者时 <code>this</code> 的值为 <code>undefined</code>。</p>
+<h5 id="箭头函数-1"><a href="#箭头函数-1" class="headerlink" title="箭头函数"></a>箭头函数</h5><p><strong>箭头函数</strong>中的 <code>this</code> 与普通函数完全不同，也不受调用方式的影响，事实上箭头函数中并不存在 <code>this</code> ！箭头函数中访问的 <code>this</code> 不过是箭头函数所在作用域的 <code>this</code> 变量。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>); <span class="comment">// 此处为 window</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> sayHi = <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>); </span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 普通对象</span></span><br><span class="line">  <span class="keyword">let</span> user = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;小明&#x27;</span>,</span><br><span class="line">    <span class="comment">// 该箭头函数中的 this 为函数声明环境中 this 一致</span></span><br><span class="line">    <span class="attr">walk</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="attr">sleep</span>: <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">      <span class="keyword">let</span> str = <span class="string">&#x27;hello&#x27;</span>;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);</span><br><span class="line">      <span class="keyword">let</span> <span class="title function_">fn</span> = (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(str);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>); <span class="comment">// 该箭头函数中的 this 与 sleep 中的 this 一致</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// 调用箭头函数</span></span><br><span class="line">      <span class="title function_">fn</span>();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 动态添加方法</span></span><br><span class="line">  user.<span class="property">sayHi</span> = sayHi;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 函数调用</span></span><br><span class="line">  user.<span class="title function_">sayHi</span>();</span><br><span class="line">  user.<span class="title function_">sleep</span>();</span><br><span class="line">  user.<span class="title function_">walk</span>();</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在开发中【使用箭头函数前需要考虑函数中 <code>this</code> 的值】，<strong>事件回调函数</strong>使用箭头函数时，<code>this</code> 为全局的 <code>window</code>，因此DOM事件回调函数不推荐使用箭头函数，如下代码所示：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="comment">// DOM 节点</span></span><br><span class="line">  <span class="keyword">let</span> btn = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.btn&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 箭头函数 此时 this 指向了 window</span></span><br><span class="line">  btn.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 普通函数 此时 this 指向了 DOM 对象</span></span><br><span class="line">  btn.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>, <span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);</span><br><span class="line">  &#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>同样由于箭头函数 <code>this</code> 的原因，<strong>基于原型的面向对象也不推荐采用箭头函数</strong>，如下代码所示：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">Person</span>(<span class="params"></span>) &#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 原型对像上添加了箭头函数</span></span><br><span class="line">  <span class="title class_">Person</span>.<span class="property"><span class="keyword">prototype</span></span>.<span class="property">walk</span> = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;人都要走路...&#x27;</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>); <span class="comment">// widow</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> p1 = <span class="keyword">new</span> <span class="title class_">Person</span>();</span><br><span class="line">  p1.<span class="title function_">walk</span>();</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="this-定义值"><a href="#this-定义值" class="headerlink" title="this - 定义值"></a>this - 定义值</h4><p>JavaScript 中还允许指定函数中 <code>this</code> 的指向，有 3 个方法可以动态指定普通函数中 <code>this</code> 的指向：</p>
+<h5 id="call"><a href="#call" class="headerlink" title="call"></a>call</h5><p>使用 <code>call</code> 方法调用函数，同时指定函数中 <code>this</code> 的值，使用方法如下代码所示：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="comment">// 普通函数</span></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">sayHi</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> user = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;小明&#x27;</span>,</span><br><span class="line">    <span class="attr">age</span>: <span class="number">18</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> student = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;小红&#x27;</span>,</span><br><span class="line">    <span class="attr">age</span>: <span class="number">16</span>，</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 调用函数并指定 this 的值</span></span><br><span class="line">  sayHi.<span class="title function_">call</span>(user); <span class="comment">// this 值为 user</span></span><br><span class="line">  sayHi.<span class="title function_">call</span>(student); <span class="comment">// this 值为 student</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 求和函数</span></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">counter</span>(<span class="params">x, y</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> x + y;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 调用 counter 函数，并传入参数</span></span><br><span class="line">  <span class="keyword">let</span> result = counter.<span class="title function_">call</span>(<span class="literal">null</span>, <span class="number">5</span>, <span class="number">10</span>);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(result);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>总结：</p>
+<ol>
+<li><code>call</code> 方法能够在调用函数的同时指定 <code>this</code> 的值</li>
+<li>使用 <code>call</code> 方法调用函数时，第1个参数为 <code>this</code> 指定的值</li>
+<li><code>call</code> 方法的其余参数会依次自动传入函数做为函数的参数</li>
+</ol>
+<h5 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h5><p>使用 <code>call</code> 方法<strong>调用函数</strong>，同时指定函数中 <code>this</code> 的值，使用方法如下代码所示：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="comment">// 普通函数</span></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">sayHi</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> user = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;小明&#x27;</span>,</span><br><span class="line">    <span class="attr">age</span>: <span class="number">18</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> student = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;小红&#x27;</span>,</span><br><span class="line">    <span class="attr">age</span>: <span class="number">16</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 调用函数并指定 this 的值</span></span><br><span class="line">  sayHi.<span class="title function_">apply</span>(user); <span class="comment">// this 值为 user</span></span><br><span class="line">  sayHi.<span class="title function_">apply</span>(student); <span class="comment">// this 值为 student</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 求和函数</span></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">counter</span>(<span class="params">x, y</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> x + y;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 调用 counter 函数，并传入参数</span></span><br><span class="line">  <span class="keyword">let</span> result = counter.<span class="title function_">apply</span>(<span class="literal">null</span>, [<span class="number">5</span>, <span class="number">10</span>]);</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(result);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>总结：</p>
+<ol>
+<li><code>apply</code> 方法能够在调用函数的同时指定 <code>this</code> 的值</li>
+<li>使用 <code>apply</code> 方法调用函数时，第1个参数为 <code>this</code> 指定的值</li>
+<li><code>apply</code> 方法第2个参数为数组，数组的单元值依次自动传入函数做为函数的参数</li>
+</ol>
+<h5 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h5><p><code>bind</code> 方法并<strong>不会调用函数</strong>，而是创建一个指定了 <code>this</code> 值的新函数，使用方法如下代码所示：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="comment">// 普通函数</span></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">sayHi</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> user = &#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="string">&#x27;小明&#x27;</span>,</span><br><span class="line">    <span class="attr">age</span>: <span class="number">18</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 调用 bind 指定 this 的值</span></span><br><span class="line">  <span class="keyword">let</span> sayHello = sayHi.<span class="title function_">bind</span>(user);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 调用使用 bind 创建的新函数</span></span><br><span class="line">  <span class="title function_">sayHello</span>();</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>注：<code>bind</code> 方法创建新的函数，与原函数的唯一的变化是改变了 <code>this</code> 的值。</p>
+<p><strong>改变this三个方法总结：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">call：fun.call(this，arg1, arg2,......)</span><br><span class="line">apply：fun.apply(this, [arg1, arg2,......])</span><br><span class="line">bind：fun.bind(this, arg1, arg2,......)</span><br><span class="line"></span><br><span class="line">相同点：</span><br><span class="line">	都可以用来改变this指向，第一个参数都是this指向的对象</span><br><span class="line">区别：</span><br><span class="line">	call和apply：都会使函数执行，但是参数不同</span><br><span class="line">	bind：不会使函数执行，参数同call</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h2><blockquote>
+<p>知道解构的语法及分类，使用解构简洁语法快速为变量赋值。</p>
+</blockquote>
+<p>解构赋值是一种快速为变量赋值的简洁语法，本质上仍然是为变量赋值，分为数组解构、对象解构两大类型。</p>
+<h3 id="数组解构"><a href="#数组解构" class="headerlink" title="数组解构"></a>数组解构</h3><p>数组解构是将数组的单元值快速批量赋值给一系列变量的简洁语法，如下代码所示：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// 普通的数组</span></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">let</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// 批量声明变量 a b c </span></span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// 同时将数组单元值 1 2 3 依次赋值给变量 a b c</span></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">let</span> [a, b, c] = arr;</span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">console</span>.<span class="title function_">log</span>(a); <span class="comment">// 1</span></span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">console</span>.<span class="title function_">log</span>(b); <span class="comment">// 2</span></span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">console</span>.<span class="title function_">log</span>(c); <span class="comment">// 3</span></span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>总结：</p>
+<ol>
+<li>赋值运算符 <code>=</code> 左侧的 <code>[]</code> 用于批量声明变量，右侧数组的单元值将被赋值给左侧的变量</li>
+<li>变量的顺序对应数组单元值的位置依次进行赋值操作</li>
+<li>变量的数量大于单元值数量时，多余的变量将被赋值为  <code>undefined</code></li>
+<li>变量的数量小于单元值数量时，可以通过 <code>...</code> 获取剩余单元值，但只能置于最末位</li>
+<li>允许初始化变量的默认值，且只有单元值为 <code>undefined</code> 时默认值才会生效</li>
+</ol>
+<p>注：支持多维解构赋值，比较复杂后续有应用需求时再进一步分析</p>
+<h3 id="对象解构"><a href="#对象解构" class="headerlink" title="对象解构"></a>对象解构</h3><p>对象解构是将对象属性和方法快速批量赋值给一系列变量的简洁语法，如下代码所示：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// 普通对象</span></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">let</span> user = &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">name</span>: <span class="string">&#x27;小明&#x27;</span>,</span></span><br><span class="line"><span class="language-javascript">    <span class="attr">age</span>: <span class="number">18</span></span></span><br><span class="line"><span class="language-javascript">  &#125;;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// 批量声明变量 name age</span></span></span><br><span class="line"><span class="language-javascript">  <span class="comment">// 同时将数组单元值 1 2 3 依次赋值给变量 a b c</span></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">let</span> &#123;name, age&#125; = user;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">console</span>.<span class="title function_">log</span>(name); <span class="comment">// 小明</span></span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">console</span>.<span class="title function_">log</span>(age); <span class="comment">// 18</span></span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>总结：</p>
+<ol>
+<li>赋值运算符 <code>=</code> 左侧的 <code>&#123;&#125;</code> 用于批量声明变量，右侧对象的属性值将被赋值给左侧的变量</li>
+<li>对象属性的值将被赋值给与属性名<strong>相同</strong>的变量</li>
+<li>对象中<strong>找不到</strong>与变量名一致的属性时变量值为 <code>undefined</code></li>
+<li>允许初始化变量的默认值，属性不存在或单元值为 <code>undefined</code> 时默认值才会生效</li>
+</ol>
+<p>注：支持多维解构赋值，比较复杂后续有应用需求时再进一步分析</p>
+<h2 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h2><h3 id="抛出异常-throw"><a href="#抛出异常-throw" class="headerlink" title="抛出异常 throw"></a>抛出异常 throw</h3><p>异常处理是指预估代码执行过程中可能发生的错误，然后最大程度的避免错误的发生导致整个程序无法继续运行。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">function</span> <span class="title function_">counter</span>(<span class="params">x, y</span>) &#123;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">if</span>(!x || !y) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// throw &#x27;参数不能为空!&#x27;;</span></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&#x27;参数不能为空!&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">return</span> x + y;</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="title function_">counter</span>();</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>总结：</p>
+<ol>
+<li><code>throw</code> 抛出异常信息，程序也会终止执行</li>
+<li><code>throw</code> 后面跟的是错误提示信息</li>
+<li><code>Error</code> 对象配合 <code>throw</code> 使用，能够设置更详细的错误信息</li>
+</ol>
+<h3 id="捕捉异常-try-…-catch"><a href="#捕捉异常-try-…-catch" class="headerlink" title="捕捉异常  try … catch"></a>捕捉异常  try … catch</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">function</span> <span class="title function_">foo</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">try</span> &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 查找 DOM 节点</span></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">var</span> p = docunent.<span class="title function_">querySelector</span>(<span class="string">&#x27;p&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    &#125; <span class="keyword">catch</span>(error) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// try 代码段中执行有错误时，会执行 catch 代码段</span></span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 查看错误信息</span></span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">console</span>.<span class="title function_">log</span>(error.<span class="property">message</span>);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 终止代码继续执行</span></span></span><br><span class="line"><span class="language-javascript">      <span class="keyword">return</span>;</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 改变文本样式</span></span></span><br><span class="line"><span class="language-javascript">    p.<span class="property">style</span>.<span class="property">color</span> = <span class="string">&#x27;red&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="title function_">foo</span>();</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>总结：</p>
+<ol>
+<li><code>try...catch</code> 用于捕获错误信息</li>
+<li>将预估可能发生错误的代码写在 <code>try</code> 代码段中</li>
+<li>如果 <code>try</code> 代码段中出现错误后，会执行 <code>catch</code> 代码段，并截获到错误信息</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1154,130 +1374,6 @@
 <h3 id="2-4-路由实例方法go"><a href="#2-4-路由实例方法go" class="headerlink" title="2.4  路由实例方法go"></a>2.4  路由实例方法go</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 页面路由跳转 前进或者后退</span></span><br><span class="line"><span class="keyword">this</span>.$router.go(-<span class="number">1</span>) <span class="comment">// 后退</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="2-5-路由实例方法replace"><a href="#2-5-路由实例方法replace" class="headerlink" title="2.5 路由实例方法replace"></a>2.5 路由实例方法replace</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//push方法会向 history 栈添加一个新的记录，而replace方法是替换当前的页面，</span></span><br><span class="line">不会向 history 栈添加一个新的记录</span><br><span class="line"></span><br><span class="line">&lt;router-link to=<span class="string">&quot;/05&quot;</span> replace&gt;<span class="number">05</span>&lt;/router-link&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 一般使用replace来做404页面</span></span><br><span class="line"><span class="keyword">this</span>.$router.replace(<span class="string">&#x27;/&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/07/14/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A01-%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B7%A8%E5%9F%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Yang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yang's Blog">
-      <meta itemprop="description" content="Yang的博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Yang's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/14/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A01-%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B7%A8%E5%9F%9F/" class="post-title-link" itemprop="url">前端面试学习1 - 浏览器跨域</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-07-14 15:04:57" itemprop="dateCreated datePublished" datetime="2022-07-14T15:04:57+08:00">2022-07-14</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-07-28 10:45:29" itemprop="dateModified" datetime="2022-07-28T10:45:29+08:00">2022-07-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">前端面试题</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="浏览器跨域"><a href="#浏览器跨域" class="headerlink" title="浏览器跨域"></a>浏览器跨域</h1><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
-<li><a target="_blank" rel="noopener" href="https://febook.hzfe.org/awesome-interview/book1/browser-cross-origin">剑指前端Offer</a></li>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/hdchangchang/article/details/80112593">webpack之devServer配置</a></li>
-</ol>
-<h2 id="相关问题"><a href="#相关问题" class="headerlink" title="相关问题"></a>相关问题</h2><ol>
-<li>什么是跨域？</li>
-<li>为什么会跨域？</li>
-<li>为什么有跨域限制？</li>
-</ol>
-<h2 id="回答关键点"><a href="#回答关键点" class="headerlink" title="回答关键点"></a>回答关键点</h2><ol>
-<li>浏览器有跨域限制，服务端没有跨域</li>
-<li><strong>浏览器</strong>为了<strong>请求安全</strong>而引入的<strong>基于同源策略</strong>的安全特性</li>
-</ol>
-<h2 id="判定跨域"><a href="#判定跨域" class="headerlink" title="判定跨域"></a>判定跨域</h2><p>当页面和请求的协议（https）、主机（localhost）或端口（8080）不同时，浏览器判定两者不同源，从而产生跨域。</p>
-<img src="/2022/07/14/%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E5%AD%A6%E4%B9%A01-%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B7%A8%E5%9F%9F/image-20220714151119753.png" class="" title="image-20220714151119753">
-
-
-
-<h3 id="跨域的解决方案"><a href="#跨域的解决方案" class="headerlink" title="跨域的解决方案"></a>跨域的解决方案</h3><h4 id="1-CORS-Cross-Origin-Resource-Sharing"><a href="#1-CORS-Cross-Origin-Resource-Sharing" class="headerlink" title="1.CORS (Cross-Origin Resource Sharing)"></a>1.CORS (Cross-Origin Resource Sharing)</h4><p>CORS 是目前最为广泛的解决跨域问题的方案。方案依赖<strong>服务端&#x2F;后端在响应头中添加</strong> <code>Access-Control-Allow-*</code> 头，告知浏览器端通过此请求。</p>
-<h4 id="2-反向代理"><a href="#2-反向代理" class="headerlink" title="2.反向代理"></a>2.反向代理</h4><p>反向代理解决跨域问题的方案依赖<code>同源的服务端对请求做一个转发处理</code>，将请求从跨域请求转换成同源请求。</p>
-<h5 id="vue实现反向代理的具体实现方式"><a href="#vue实现反向代理的具体实现方式" class="headerlink" title="vue实现反向代理的具体实现方式"></a>vue实现反向代理的具体实现方式</h5><p>vue.config.js</p>
-<blockquote>
-<p>DevServer 是webpack开发服务器</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">devServer</span>: &#123;</span><br><span class="line">  <span class="comment">// 代理配置 - 解决跨域问题（前端和后端接口不在同一域名下</span></span><br><span class="line">  <span class="attr">host</span>: <span class="string">&#x27;0.0.0.0&#x27;</span>,</span><br><span class="line">  <span class="attr">port</span>: port,</span><br><span class="line">  <span class="attr">open</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">overlay</span>: &#123;</span><br><span class="line">    <span class="attr">warnings</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">errors</span>: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">proxy</span>: &#123;</span><br><span class="line">    <span class="string">&#x27;/api&#x27;</span>: &#123;</span><br><span class="line">      <span class="attr">target</span>: <span class="string">&#x27;http://192.168.1.13:8080&#x27;</span>, <span class="comment">// 后端接口</span></span><br><span class="line">      <span class="attr">changeOrigin</span>: <span class="literal">true</span>, <span class="comment">// 是否跨域</span></span><br><span class="line">      <span class="attr">pathRewrite</span>: &#123;</span><br><span class="line">        <span class="string">&#x27;^/api&#x27;</span>: <span class="string">&#x27;&#x27;</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
-
-<p>理解</p>
-<blockquote>
-<p>使用本地服务端代理跨域的API后端开发服务器。</p>
-</blockquote>
-<ul>
-<li>假设你主机名为 localhost:8080 , 请求 API 的 url 是 <code>http://192.168.1.13:8080/user/list</code></li>
-<li>‘&#x2F;api：如果点击某个按钮，触发请求 <em>API</em> 事件，这时请求 <em>url</em> 是<code>http://localhost:8080/api/user/list</code></li>
-<li>changeOrigin：如果 true ，那么 <code>http://localhost:8080/api/user/list</code>变为 <code>http://192.168.1.13:8080/api/user/list</code> 。但还不是我们要的 url</li>
-<li>pathRewrite：重写路径。匹配 &#x2F;api ，然后变为’’ ，那么 url 最终为 <code>http://192.168.1.13:8080/user/list </code>。</li>
-</ul>
-<p>总结：本地浏览器请求同源的服务端 <code>http://localhost:8080/api/user/list</code>,本地服务端请求API后端开发服务器，并且根据重写路径，用空字段代替&#x2F;api字段，最终请求到实际的后端开发服务器 <code>http://192.168.1.13:8080/user/list </code></p>
-<p>创建axois实例</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个axios实例</span></span><br><span class="line"><span class="keyword">const</span> service = axios.<span class="title function_">create</span>(&#123;</span><br><span class="line">  <span class="attr">baseURL</span>: <span class="string">&#x27;/api&#x27;</span>, <span class="comment">// 设置axios请求的基础的基础地址(通过/api别名指定后端路由)</span></span><br><span class="line">  <span class="attr">timeout</span>: <span class="number">5000</span> <span class="comment">// 定义5秒超时</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
 
       
     </div>
