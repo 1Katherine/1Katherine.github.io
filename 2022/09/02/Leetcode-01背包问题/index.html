@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"1katherine.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.12.2","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":true,"style":"flat"},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.json","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="相关资料：动态规划：关于01背包问题，你该了解这些！ From《代码随想录》 状态：  可选择的物品    i  背包的容量        j  dp数组含义：  dp[i][j]: 从前 0~i 个物品中任意选择，达到背包重量为 j 的时候，可以装下的最大价值 dp[i][j] 选择： 对于第  i 个物品，有两种选择。  把第 i 个物品装入背包后，最大价值达到 dp[i][j]      —">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Leetcode 01背包问题">
+<meta property="og:url" content="https://1katherine.github.io/2022/09/02/Leetcode-01%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="Yang&#39;s Blog">
+<meta property="og:description" content="相关资料：动态规划：关于01背包问题，你该了解这些！ From《代码随想录》 状态：  可选择的物品    i  背包的容量        j  dp数组含义：  dp[i][j]: 从前 0~i 个物品中任意选择，达到背包重量为 j 的时候，可以装下的最大价值 dp[i][j] 选择： 对于第  i 个物品，有两种选择。  把第 i 个物品装入背包后，最大价值达到 dp[i][j]      —">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://1katherine.github.io/2022/09/02/Leetcode-01%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/image-20220902101138716.png">
+<meta property="og:image" content="https://1katherine.github.io/2022/09/02/Leetcode-01%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/image-20220902101328358.png">
+<meta property="article:published_time" content="2022-09-02T01:59:40.000Z">
+<meta property="article:modified_time" content="2022-09-02T04:17:58.011Z">
+<meta property="article:author" content="Yang">
+<meta property="article:tag" content="动态规划">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://1katherine.github.io/2022/09/02/Leetcode-01%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/image-20220902101138716.png">
+
+
+<link rel="canonical" href="https://1katherine.github.io/2022/09/02/Leetcode-01%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://1katherine.github.io/2022/09/02/Leetcode-01%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/","path":"2022/09/02/Leetcode-01背包问题/","title":"Leetcode 01背包问题"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Leetcode 01背包问题 | Yang's Blog</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Yang's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-guestbook"><a href="/guestbook/" rel="section"><i class="fa fa-book fa-fw"></i>guestbook</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%8A%B6%E6%80%81%E5%8E%8B%E7%BC%A9%E7%89%88%E6%9C%AC"><span class="nav-number">1.</span> <span class="nav-text">状态压缩版本</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Yang</p>
+  <div class="site-description" itemprop="description">Yang的博客</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">58</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/09/02/Leetcode-01%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yang's Blog">
+      <meta itemprop="description" content="Yang的博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Leetcode 01背包问题 | Yang's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Leetcode 01背包问题
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-09-02 09:59:40 / 修改时间：12:17:58" itemprop="dateCreated datePublished" datetime="2022-09-02T09:59:40+08:00">2022-09-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>相关资料：<a target="_blank" rel="noopener" href="https://programmercarl.com/%E8%83%8C%E5%8C%85%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%8001%E8%83%8C%E5%8C%85-1.html">动态规划：关于01背包问题，你该了解这些！ From《代码随想录》</a></p>
+<p>状态：</p>
+<ol>
+<li>可选择的物品    i </li>
+<li>背包的容量        j</li>
+</ol>
+<p>dp数组含义： </p>
+<p><code>dp[i][j]</code>: 从前 0~i 个物品中任意选择，达到背包重量为 j 的时候，可以装下的最大价值 <code>dp[i][j]</code></p>
+<p>选择：</p>
+<p>对于第  i 个物品，有两种选择。</p>
+<ol>
+<li>把第 i 个物品装入背包后，最大价值达到 <code>dp[i][j]</code>      —》 <code>dp[i][j] = dp[i - 1][j]</code></li>
+<li>没有把第 i 个物品装入背包，此时最大价值为 <code>dp[i][j]</code>    —-》<code>dp[i][j] = dp[i][j - weight[i]] + val[i]</code></li>
+</ol>
+<p>最终的状态转移方程 ： <code>dp[i][j] = max &#123;dp[i - 1][j], dp[i][j - weight[i]] + val[i] &#125;</code></p>
+<p>初始化：</p>
+<p>二维矩阵最左边一列：<code>dp[0...i][0] = 0</code> (在 0-i 个物品任意选择，重量为0时，最大价值为0)</p>
+<p>二维矩阵最上边一行：<code>dp[0][0...j] = 0 || val[0]</code> (当第0个物品的重量超过背包重量时，无法装进去，为0 || 当第0个物品的重量没有超过背包重量时，可以装入，背包的最大价值为第0个物品的价格)</p>
+<p>其他位置初始化任何数字都可以，默认初始化为0</p>
+<p>注意观察：</p>
+<p><code>dp[i][j] = max &#123;dp[i - 1][j], dp[i][j - weight[i]] + val[i] &#125;</code></p>
+<p><code>dp[i][j] </code>的状态是由<code>dp[i - 1][j]和dp[i][j - weight[i]] </code>推导出来的，因此只和左边区域有关（包括正上方），所以先遍历物品个数，或先遍历背包重量都可以。</p>
+<p>先遍历物品个数 👇 （图源自代码随想录） </p>
+<p>P.S.  </p>
+<p>题目给了三个物品，因此<code>i</code>的取值为 0 - 2</p>
+<p>题目给了背包的最大重量为4kg，因此<code>j</code>的取值为0-4</p>
+<img src="/2022/09/02/Leetcode-01%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/image-20220902101138716.png" class="" title="image-20220902101138716">
+
+<p>先遍历背包重量👇 （图源自代码随想录）</p>
+<img src="/2022/09/02/Leetcode-01%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/image-20220902101328358.png" class="" title="image-20220902101328358">
+
+
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">testWeightBagProblem</span>(<span class="params">weight, value, size</span>) &#123;</span><br><span class="line">  <span class="comment">// 1. 定义 dp 数组</span></span><br><span class="line">  <span class="keyword">let</span> dp = <span class="keyword">new</span> <span class="title class_">Array</span>(weight.<span class="property">length</span>)</span><br><span class="line">    .<span class="title function_">fill</span>()</span><br><span class="line">    .<span class="title function_">map</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> (item = <span class="keyword">new</span> <span class="title class_">Array</span>(size).<span class="title function_">fill</span>(<span class="number">0</span>)))</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 2 初始化 ---- 当背包重量为0时，再多物品也放不进去</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; weight.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    dp[i][<span class="number">0</span>] = <span class="number">0</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 2 初始化 ----- 当放第一个物品时，能不能把第一个物品放进去，取决于背包的容量 j</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; size; j++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (j &gt;= weight[<span class="number">0</span>]) dp[<span class="number">0</span>][j] = value[<span class="number">0</span>]</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 3 状态转移</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; weight.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">1</span>; j &lt; size; j++) &#123;</span><br><span class="line">      <span class="comment">// 如果当前背包容量小于物品重量, 则第 i 个物品是绝对不可能装入背包后达到重量 j 的</span></span><br><span class="line">      <span class="comment">// 解决：dp[i - 1][j - weight[i]] 中 j - weight[i] 越界问题</span></span><br><span class="line">      <span class="keyword">if</span> (j &lt; weight[i])</span><br><span class="line">        <span class="comment">// 背包物品的价值等于背包不放置当前物品时的价值</span></span><br><span class="line">        dp[i][j] = dp[i - <span class="number">1</span>][j]</span><br><span class="line">      <span class="comment">// 若背包当前重量可以放置物品</span></span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">        dp[i][j] = <span class="title class_">Math</span>.<span class="title function_">max</span>(dp[i - <span class="number">1</span>][j], dp[i - <span class="number">1</span>][j - weight[i]] + value[i])</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(dp)</span><br><span class="line">  <span class="comment">// return dp[weight.length - 1][size - 1]</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">testWeightBagProblem</span>([<span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>], [<span class="number">15</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">55</span>], <span class="number">6</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">test</span>()</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h4 id="状态压缩版本"><a href="#状态压缩版本" class="headerlink" title="状态压缩版本"></a>状态压缩版本</h4><p>注意：遍历背包容量的时候一定要从后往前遍历</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 状态压缩</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">*</span>&#125; <span class="variable">wight</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">*</span>&#125; <span class="variable">value</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">*</span>&#125; <span class="variable">size</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">testWeightBagProblem2</span>(<span class="params">wight, value, size</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> len = wight.<span class="property">length</span>,</span><br><span class="line">    dp = <span class="title class_">Array</span>(size + <span class="number">1</span>).<span class="title function_">fill</span>(<span class="number">0</span>) <span class="comment">// 初始化为0</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt;= len; i++) &#123; <span class="comment">// 遍历物品</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = size; j &gt;= wight[i - <span class="number">1</span>]; j--) &#123;  <span class="comment">// 遍历背包容量</span></span><br><span class="line">      dp[j] = <span class="title class_">Math</span>.<span class="title function_">max</span>(dp[j], value[i - <span class="number">1</span>] + dp[j - wight[i - <span class="number">1</span>]])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(dp)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> dp[size]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">test2</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">testWeightBagProblem2</span>([<span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>], [<span class="number">15</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">55</span>], <span class="number">6</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">test2</span>()</span><br><span class="line"><span class="comment">// 每轮 dp  --- 物品个数共4个，因此遍历 4 轮，每轮这一轮的物品 i 要不要放入 容量为 j 的背包中</span></span><br><span class="line"><span class="comment">// dp 从后往前进行填充！！！</span></span><br><span class="line">第 <span class="number">1</span> 轮 = [<span class="number">0</span>, <span class="number">15</span>, <span class="number">15</span>, <span class="number">15</span>, <span class="number">15</span>, <span class="number">15</span>, <span class="number">15</span>]</span><br><span class="line">第 <span class="number">2</span> 轮 = [<span class="number">0</span>, <span class="number">15</span>, <span class="number">15</span>, <span class="number">20</span>, <span class="number">35</span>, <span class="number">35</span>, <span class="number">35</span>]</span><br><span class="line">第 <span class="number">3</span> 轮 = [<span class="number">0</span>, <span class="number">15</span>, <span class="number">15</span>, <span class="number">20</span>, <span class="number">35</span>, <span class="number">45</span>, <span class="number">45</span>]</span><br><span class="line">第 <span class="number">4</span> 轮 = [<span class="number">0</span>, <span class="number">15</span>, <span class="number">15</span>, <span class="number">20</span>, <span class="number">35</span>, <span class="number">55</span>, <span class="number">70</span>]</span><br></pre></td></tr></table></figure>
+
+<p>相关资料：<a target="_blank" rel="noopener" href="https://programmercarl.com/%E8%83%8C%E5%8C%85%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%8001%E8%83%8C%E5%8C%85-2.html#%E5%85%B6%E4%BB%96%E8%AF%AD%E8%A8%80%E7%89%88%E6%9C%AC">https://programmercarl.com/%E8%83%8C%E5%8C%85%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%8001%E8%83%8C%E5%8C%85-2.html#%E5%85%B6%E4%BB%96%E8%AF%AD%E8%A8%80%E7%89%88%E6%9C%AC</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"># 动态规划</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/08/31/Leetcode969-%E7%85%8E%E9%A5%BC%E6%8E%92%E5%BA%8F/" rel="prev" title="Leetcode969 煎饼排序">
+                  <i class="fa fa-chevron-left"></i> Leetcode969 煎饼排序
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/09/02/Leetcode-%E8%BF%B7%E5%AE%AB%E9%97%AE%E9%A2%98/" rel="next" title="Leetcode 迷宫问题">
+                  Leetcode 迷宫问题 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yang</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hexo-generator-searchdb/1.4.0/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

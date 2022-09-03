@@ -152,7 +152,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -163,7 +163,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-count">58</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -193,6 +193,252 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/08/31/Leetcode202-%E5%BF%AB%E4%B9%90%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yang's Blog">
+      <meta itemprop="description" content="Yang的博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Yang's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/08/31/Leetcode202-%E5%BF%AB%E4%B9%90%E6%95%B0/" class="post-title-link" itemprop="url">Leetcode202 快乐数</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-08-31 10:48:48 / 修改时间：10:51:00" itemprop="dateCreated datePublished" datetime="2022-08-31T10:48:48+08:00">2022-08-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>链接🔗：</p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/happy-number/">https://leetcode.cn/problems/happy-number/</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> intersection = <span class="keyword">function</span> (<span class="params">nums1, nums2</span>) &#123;</span><br><span class="line">    <span class="comment">// 1. 当其中一个数组长度为0时，无交集</span></span><br><span class="line">    <span class="keyword">if</span> (nums1.<span class="property">length</span> === <span class="number">0</span> || nums2.<span class="property">length</span> === <span class="number">0</span>) <span class="keyword">return</span> []</span><br><span class="line">    <span class="comment">// 2. 根据数组长度交换，使num1始终是长度较长的数组</span></span><br><span class="line">    <span class="keyword">if</span> (nums1.<span class="property">length</span> &lt; nums2.<span class="property">length</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> temp = nums2</span><br><span class="line">        nums2 = nums1</span><br><span class="line">        nums1 = temp</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3. 使用set去重</span></span><br><span class="line">    <span class="keyword">let</span> nums1Set = <span class="keyword">new</span> <span class="title class_">Set</span>(nums1)</span><br><span class="line">    <span class="comment">// 4. 声明结果set</span></span><br><span class="line">    <span class="keyword">let</span> retSet = <span class="keyword">new</span> <span class="title class_">Set</span>()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 5. 遍历num2</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> item <span class="keyword">of</span> nums2) &#123;</span><br><span class="line">        <span class="comment">// 只有当 nums1Set 中有 item 时，才会执行 add 操作</span></span><br><span class="line">        <span class="comment">// console.log(item, nums1Set.has(item));</span></span><br><span class="line">        <span class="keyword">if</span> (nums1Set.<span class="title function_">has</span>(item)) &#123;</span><br><span class="line">            retSet.<span class="title function_">add</span>(item)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 6. 将Set对象转换成数组</span></span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Array</span>.<span class="title function_">from</span>(retSet)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> nums1 = [<span class="number">4</span>,<span class="number">9</span>,<span class="number">5</span>]</span><br><span class="line"><span class="keyword">let</span> nums2 = [<span class="number">9</span>,<span class="number">4</span>,<span class="number">9</span>,<span class="number">8</span>,<span class="number">4</span>]</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">intersection</span>(nums1, nums2));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/08/31/Leetcode1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yang's Blog">
+      <meta itemprop="description" content="Yang的博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Yang's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/08/31/Leetcode1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" class="post-title-link" itemprop="url">Leetcode1 两数之和</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-08-31 10:43:59 / 修改时间：10:48:34" itemprop="dateCreated datePublished" datetime="2022-08-31T10:43:59+08:00">2022-08-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>链接🔗</p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/two-sum/">https://leetcode.cn/problems/two-sum/</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  注意：Map()也不可以放重复的项目 </span></span><br><span class="line">     <span class="keyword">var</span> twoSum = <span class="keyword">function</span> (<span class="params">nums, target</span>) &#123;</span><br><span class="line">         <span class="keyword">let</span> hash = &#123;&#125;</span><br><span class="line">         <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; nums.<span class="property">length</span>; i++) &#123;</span><br><span class="line">             <span class="keyword">if</span> (hash[target - nums[i]] === <span class="literal">undefined</span>) &#123;</span><br><span class="line">                 hash[nums[i]] = i</span><br><span class="line">             &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                 <span class="keyword">return</span> [i, hash[target - nums[i]]]</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">return</span> []</span><br><span class="line">     &#125;;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">let</span> nums = [<span class="number">3</span>, <span class="number">3</span>]</span><br><span class="line">     <span class="keyword">let</span> target = <span class="number">6</span></span><br><span class="line">     <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;twoSum(nums, target)&#x27;</span>, <span class="title function_">twoSum</span>(nums, target));</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/08/31/Leetcode98-%E5%A4%8D%E5%8E%9FIP%E5%9C%B0%E5%9D%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yang's Blog">
+      <meta itemprop="description" content="Yang的博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Yang's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/08/31/Leetcode98-%E5%A4%8D%E5%8E%9FIP%E5%9C%B0%E5%9D%80/" class="post-title-link" itemprop="url">Leetcode98 复原IP地址</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-08-31 10:30:12 / 修改时间：10:40:01" itemprop="dateCreated datePublished" datetime="2022-08-31T10:30:12+08:00">2022-08-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>链接🔗</p>
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/restore-ip-addresses/">https://leetcode.cn/problems/restore-ip-addresses/</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">string</span>&#125; <span class="variable">s</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">string[]</span>&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> result = []</span><br><span class="line"><span class="keyword">let</span> path = []</span><br><span class="line"><span class="keyword">var</span> restoreIpAddresses = <span class="keyword">function</span> (<span class="params">s</span>) &#123;</span><br><span class="line">    result = []</span><br><span class="line">    <span class="title function_">backTracing</span>(s, <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="title function_">backTracing</span> = (<span class="params">s, startIndex</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (startIndex === s.<span class="property">length</span>) &#123;</span><br><span class="line">        result.<span class="title function_">push</span>(path.<span class="title function_">join</span>(<span class="string">&#x27;.&#x27;</span>))</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//  只能是 1-3 位数字</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = startIndex; i - startIndex &lt; <span class="number">3</span> &amp;&amp; i &lt; s.<span class="property">length</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">let</span> temp = s.<span class="title function_">slice</span>(startIndex, i + <span class="number">1</span>) <span class="comment">// 左闭右开</span></span><br><span class="line">        <span class="comment">// 不能以0开头 || 不能超过255 || IP 长度只能是 4 位数字 =&gt; 不用往下继续进行了</span></span><br><span class="line">        <span class="keyword">if</span> ((temp.<span class="property">length</span> &gt; <span class="number">1</span> &amp;&amp; <span class="built_in">parseInt</span>(temp[<span class="number">0</span>]) === <span class="number">0</span>) || <span class="built_in">parseInt</span>(temp) &gt; <span class="number">255</span> || path.<span class="property">length</span> === <span class="number">4</span>) <span class="keyword">break</span></span><br><span class="line">        <span class="comment">// 做选择</span></span><br><span class="line">        path.<span class="title function_">push</span>(temp)</span><br><span class="line">        <span class="comment">// 递归</span></span><br><span class="line">        <span class="title function_">backTracing</span>(s, i + <span class="number">1</span>)</span><br><span class="line">        <span class="comment">// 撤销选择</span></span><br><span class="line">        path.<span class="title function_">pop</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> s = <span class="string">&quot;25525511135&quot;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">restoreIpAddresses</span>(s));</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1593,360 +1839,6 @@
 
 
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/ShIcily/article/details/109447445">Element UI 表格 show-overflow-tooltip 设置宽度以及内容换行</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/08/22/OJ%E5%9C%A8%E7%BA%BF%E7%BC%96%E7%A8%8B%E5%B8%B8%E8%A7%81%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA-JavaScript-Node/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Yang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yang's Blog">
-      <meta itemprop="description" content="Yang的博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Yang's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/08/22/OJ%E5%9C%A8%E7%BA%BF%E7%BC%96%E7%A8%8B%E5%B8%B8%E8%A7%81%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA-JavaScript-Node/" class="post-title-link" itemprop="url">OJ在线编程常见输入输出 - JavaScript Node</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2022-08-22 21:20:46 / 修改时间：22:19:02" itemprop="dateCreated datePublished" datetime="2022-08-22T21:20:46+08:00">2022-08-22</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%AE%97%E6%B3%95%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">算法题</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>最近秋招面临找工作的事情，基本上都在忙折刷算法题、背八股文。之前学习 Java、Python 居多。但是工作目标还是前端，因此重新捡起来 JavaScript ，开始了漫漫的刷题路…</p>
-<p>在网上找了很多输入输出的资料，有关 JavaScript Node 版本的少之又少，内容又参差不齐。因此，决定自己整理一个文档，用于日后的复习，提供刷题参考。</p>
-<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>每一行输入都会调用一次 <code>rl.on(&#39;line&#39;,...）</code>，因此，如果每一行输入逻辑一样，则可以统一处理。如果每一行的输入逻辑不一样，比如第一行是测试组数，第二行开始才是测试数据，需要在 on 函数中判断当前是否是第一行，还是测试数据行。</p>
-<h3 id="多行输入-不知道行数"><a href="#多行输入-不知道行数" class="headerlink" title="多行输入 - 不知道行数"></a>多行输入 - 不知道行数</h3><p>链接：<a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/5652/A">https://ac.nowcoder.com/acm/contest/5652/A</a><br>来源：牛客网</p>
-<h4 id="输入描述"><a href="#输入描述" class="headerlink" title="输入描述:"></a>输入描述:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输入包括两个正整数a,b(1 &lt;= a, b &lt;= 1000),输入数据包括多组。</span><br></pre></td></tr></table></figure>
-
-<h4 id="输出描述"><a href="#输出描述" class="headerlink" title="输出描述:"></a>输出描述:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输出a+b的结果               </span><br></pre></td></tr></table></figure>
-
-<h4 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 5</span><br><span class="line">10 20</span><br></pre></td></tr></table></figure>
-
-<h4 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">6</span><br><span class="line">30</span><br></pre></td></tr></table></figure>
-
-<h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> readline = <span class="built_in">require</span>(<span class="string">&#x27;readline&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> rl = readline.<span class="title function_">createInterface</span>(&#123;</span><br><span class="line">    <span class="attr">input</span>: process.<span class="property">stdin</span>,</span><br><span class="line">    <span class="attr">output</span>: process.<span class="property">stdout</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 每行执行一次</span></span><br><span class="line">rl.<span class="title function_">on</span>(<span class="string">&#x27;line&#x27;</span>, <span class="keyword">function</span>(<span class="params">line</span>) &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> a = <span class="title class_">Number</span>.<span class="built_in">parseInt</span>(line.<span class="title function_">split</span>(<span class="string">&#x27; &#x27;</span>)[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">let</span> b = <span class="title class_">Number</span>.<span class="built_in">parseInt</span>(line.<span class="title function_">split</span>(<span class="string">&#x27; &#x27;</span>)[<span class="number">1</span>])</span><br><span class="line">    </span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(a+b)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="多行输入-知道行数"><a href="#多行输入-知道行数" class="headerlink" title="多行输入 - 知道行数"></a>多行输入 - 知道行数</h3><p>链接：<a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/5652/B">https://ac.nowcoder.com/acm/contest/5652/B</a><br>来源：牛客网</p>
-<h4 id="输入描述-1"><a href="#输入描述-1" class="headerlink" title="输入描述:"></a>输入描述:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入第一行包括一个数据组数t(1 &lt;= t &lt;= 100)</span><br><span class="line">接下来每行包括两个正整数a,b(1 &lt;= a, b &lt;= 1000)</span><br></pre></td></tr></table></figure>
-
-<h4 id="输出描述-1"><a href="#输出描述-1" class="headerlink" title="输出描述:"></a>输出描述:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输出a+b的结果           </span><br></pre></td></tr></table></figure>
-
-<h4 id="输入-1"><a href="#输入-1" class="headerlink" title="输入"></a>输入</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">1 5</span><br><span class="line">10 20</span><br></pre></td></tr></table></figure>
-
-<h4 id="输出-1"><a href="#输出-1" class="headerlink" title="输出"></a>输出</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">6</span><br><span class="line">30</span><br></pre></td></tr></table></figure>
-
-<h4 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> readline = <span class="built_in">require</span>(<span class="string">&#x27;readline&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> rl = readline.<span class="title function_">createInterface</span>(&#123;</span><br><span class="line">    <span class="attr">input</span>: process.<span class="property">stdin</span>,</span><br><span class="line">    <span class="attr">output</span>:process.<span class="property">stdout</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> num = <span class="number">0</span> <span class="comment">// 记录组数</span></span><br><span class="line">rl.<span class="title function_">on</span>(<span class="string">&#x27;line&#x27;</span>, <span class="keyword">function</span>(<span class="params">line</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (num === <span class="number">0</span>) &#123;</span><br><span class="line">        num = <span class="title class_">Number</span>.<span class="built_in">parseInt</span>(line)</span><br><span class="line">        <span class="keyword">return</span> </span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">let</span> a = <span class="title class_">Number</span>.<span class="built_in">parseInt</span>(line.<span class="title function_">split</span>(<span class="string">&#x27; &#x27;</span>)[<span class="number">0</span>])</span><br><span class="line">    <span class="keyword">let</span> b = <span class="title class_">Number</span>.<span class="built_in">parseInt</span>(line.<span class="title function_">split</span>(<span class="string">&#x27; &#x27;</span>)[<span class="number">1</span>])</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(a+b)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="多组输入、结束标准"><a href="#多组输入、结束标准" class="headerlink" title="多组输入、结束标准"></a>多组输入、结束标准</h3><h4 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h4><p>  计算a+b </p>
-<h4 id="输入描述-2"><a href="#输入描述-2" class="headerlink" title="输入描述:"></a>输入描述:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输入包括两个正整数a,b(1 &lt;= a, b &lt;= 10^9),输入数据有多组, 如果输入为0 0则结束输入</span><br></pre></td></tr></table></figure>
-
-<h4 id="输出描述-2"><a href="#输出描述-2" class="headerlink" title="输出描述:"></a>输出描述:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输出a+b的结果             </span><br></pre></td></tr></table></figure>
-
-<h4 id="输入-2"><a href="#输入-2" class="headerlink" title="输入"></a>输入</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 5</span><br><span class="line">10 20</span><br><span class="line">0 0</span><br></pre></td></tr></table></figure>
-
-<h4 id="输出-2"><a href="#输出-2" class="headerlink" title="输出"></a>输出</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">6</span><br><span class="line">30</span><br></pre></td></tr></table></figure>
-
-<h4 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> readline = <span class="built_in">require</span>(<span class="string">&#x27;readline&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> rl = readline.<span class="title function_">createInterface</span>(&#123;</span><br><span class="line">  <span class="attr">input</span>: process.<span class="property">stdin</span>,</span><br><span class="line">  <span class="attr">output</span>: process.<span class="property">stdout</span>,</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">rl.<span class="title function_">on</span>(<span class="string">&#x27;line&#x27;</span>, <span class="keyword">function</span> (<span class="params">line</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> a = <span class="title class_">Number</span>.<span class="built_in">parseInt</span>(line.<span class="title function_">split</span>(<span class="string">&#x27; &#x27;</span>)[<span class="number">0</span>])</span><br><span class="line">  <span class="keyword">let</span> b = <span class="title class_">Number</span>.<span class="built_in">parseInt</span>(line.<span class="title function_">split</span>(<span class="string">&#x27; &#x27;</span>)[<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   *  方法一：关闭输入- 完成本次剩余逻辑后，关闭输入</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">if</span> (a === b &amp;&amp; a === <span class="number">0</span>) &#123;</span><br><span class="line">    rl.<span class="title function_">close</span>()</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(a + b)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   *  方法二: 关闭输入 结合 return ，不用 else 判断了</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">if</span> (a === b &amp;&amp; a === <span class="number">0</span>) &#123;</span><br><span class="line">    rl.<span class="title function_">close</span>()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(a + b)</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 方法三：return 本行 - 不继续剩余逻辑</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">if</span> (a === b &amp;&amp; a === <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(a + b)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="多组输入、结束标准2"><a href="#多组输入、结束标准2" class="headerlink" title="多组输入、结束标准2"></a>多组输入、结束标准2</h3><p>链接：<a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/5652/D">https://ac.nowcoder.com/acm/contest/5652/D</a><br>来源：牛客网</p>
-<h4 id="输入描述-3"><a href="#输入描述-3" class="headerlink" title="输入描述:"></a>输入描述:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入数据包括多组。</span><br><span class="line">每组数据一行,每行的第一个整数为整数的个数n(1 &lt;= n &lt;= 100), n为0的时候结束输入。</span><br><span class="line">接下来n个正整数,即需要求和的每个正整数。</span><br></pre></td></tr></table></figure>
-
-<h4 id="输出描述-3"><a href="#输出描述-3" class="headerlink" title="输出描述:"></a>输出描述:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">每组数据输出求和的结果             </span><br></pre></td></tr></table></figure>
-
-<h4 id="输入-3"><a href="#输入-3" class="headerlink" title="输入"></a>输入</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">4 1 2 3 4</span><br><span class="line">5 1 2 3 4 5</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
-
-<h4 id="输出-3"><a href="#输出-3" class="headerlink" title="输出"></a>输出</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">10</span><br><span class="line">15</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> readline = <span class="built_in">require</span>(<span class="string">&#x27;readline&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> rl = readline.<span class="title function_">createInterface</span>(&#123;</span><br><span class="line">    <span class="attr">input</span>: process.<span class="property">stdin</span>,</span><br><span class="line">    <span class="attr">outpu</span>: process.<span class="property">stdout</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 每一行 都会重新调用这个方法</span></span><br><span class="line">rl.<span class="title function_">on</span>(<span class="string">&#x27;line&#x27;</span>, <span class="keyword">function</span>(<span class="params">line</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> arr = line.<span class="title function_">split</span>(<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">    <span class="keyword">const</span> n =  <span class="title class_">Number</span>.<span class="built_in">parseInt</span>(line.<span class="title function_">split</span>(<span class="string">&#x27; &#x27;</span>)[<span class="number">0</span>]) <span class="comment">// 记录每一行数组元素的个数</span></span><br><span class="line">        <span class="keyword">if</span> (n === <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// 关闭输入 return</span></span><br><span class="line">        rl.<span class="title function_">close</span>()</span><br><span class="line">        <span class="keyword">return</span> </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> sum = <span class="number">0</span></span><br><span class="line">    <span class="comment">// 每组数据输出求和的结果</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; arr.<span class="property">length</span>; i++) &#123;</span><br><span class="line">        sum += <span class="title class_">Number</span>.<span class="built_in">parseInt</span>(arr[i])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(sum)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="多组输入"><a href="#多组输入" class="headerlink" title="多组输入"></a>多组输入</h3><p>链接：<a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/5652/E">https://ac.nowcoder.com/acm/contest/5652/E</a><br>来源：牛客网</p>
-<h4 id="输入描述-4"><a href="#输入描述-4" class="headerlink" title="输入描述:"></a>输入描述:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入的第一行包括一个正整数t(1 &lt;= t &lt;= 100), 表示数据组数。</span><br><span class="line">接下来t行, 每行一组数据。</span><br><span class="line">每行的第一个整数为整数的个数n(1 &lt;= n &lt;= 100)。</span><br><span class="line">接下来n个正整数, 即需要求和的每个正整数。</span><br></pre></td></tr></table></figure>
-
-<h4 id="输出描述-4"><a href="#输出描述-4" class="headerlink" title="输出描述:"></a>输出描述:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">每组数据输出求和的结果</span><br></pre></td></tr></table></figure>
-
-<p>​                            示例1                        </p>
-<h4 id="输入-4"><a href="#输入-4" class="headerlink" title="输入"></a>输入</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">4 1 2 3 4</span><br><span class="line">5 1 2 3 4 5</span><br></pre></td></tr></table></figure>
-
-<h4 id="输出-4"><a href="#输出-4" class="headerlink" title="输出"></a>输出</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">10</span><br><span class="line">15</span><br></pre></td></tr></table></figure>
-
-<h4 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> readline = <span class="built_in">require</span>(<span class="string">&#x27;readline&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> rl = readline.<span class="title function_">createInterface</span>(&#123;</span><br><span class="line">    <span class="attr">input</span>: process.<span class="property">stdin</span>,</span><br><span class="line">    <span class="attr">outpu</span>: process.<span class="property">stdout</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> num = <span class="number">0</span> <span class="comment">// 计算 数据的组数</span></span><br><span class="line"><span class="comment">// 每一行 都会重新调用这个方法</span></span><br><span class="line">rl.<span class="title function_">on</span>(<span class="string">&#x27;line&#x27;</span>, <span class="keyword">function</span>(<span class="params">line</span>) &#123;</span><br><span class="line"><span class="comment">//     第一行逻辑</span></span><br><span class="line">    <span class="keyword">if</span> (num === <span class="number">0</span>) &#123;</span><br><span class="line">        num = <span class="title class_">Number</span>.<span class="built_in">parseInt</span>(line) </span><br><span class="line">        <span class="keyword">return</span> </span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">//     其他行逻辑(不加 else 也可以，因为第一行 return 了；如果第一行没有 return，则必须加 else，不然会在第一行时继续往下执行)</span></span><br><span class="line">    <span class="keyword">const</span> arr = line.<span class="title function_">split</span>(<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">    <span class="keyword">let</span> sum = <span class="number">0</span></span><br><span class="line">    <span class="comment">// 每组数据输出求和的结果</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; arr.<span class="property">length</span>; i++) &#123;</span><br><span class="line">        sum += <span class="title class_">Number</span>.<span class="built_in">parseInt</span>(arr[i])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(sum)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="字符串排序后输出"><a href="#字符串排序后输出" class="headerlink" title="字符串排序后输出"></a>字符串排序后输出</h3><p>链接：<a target="_blank" rel="noopener" href="https://ac.nowcoder.com/acm/contest/5652/H">https://ac.nowcoder.com/acm/contest/5652/H</a><br>来源：牛客网</p>
-<h4 id="输入描述-5"><a href="#输入描述-5" class="headerlink" title="输入描述:"></a>输入描述:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入有两行，第一行n</span><br><span class="line"></span><br><span class="line">第二行是n个字符串，字符串之间用空格隔开</span><br></pre></td></tr></table></figure>
-
-<h4 id="输出描述-5"><a href="#输出描述-5" class="headerlink" title="输出描述:"></a>输出描述:</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输出一行排序后的字符串，空格隔开，无结尾空格</span><br></pre></td></tr></table></figure>
-
-<p>​                            示例1                        </p>
-<h4 id="输入-5"><a href="#输入-5" class="headerlink" title="输入"></a>输入</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">5</span><br><span class="line">c d a bb e</span><br></pre></td></tr></table></figure>
-
-<h4 id="输出-5"><a href="#输出-5" class="headerlink" title="输出"></a>输出</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a bb c d e</span><br></pre></td></tr></table></figure>
-
-<h4 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> readline = <span class="built_in">require</span>(<span class="string">&#x27;readline&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> rl = readline.<span class="title function_">createInterface</span>(&#123;</span><br><span class="line">    <span class="attr">input</span>: process.<span class="property">stdin</span>,</span><br><span class="line">    <span class="attr">outpu</span>: process.<span class="property">stdout</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 排序字符串数组</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">let</span> <span class="title function_">sort</span> = (<span class="params">arr</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> arr.<span class="title function_">sort</span>().<span class="title function_">join</span>(<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> num = <span class="number">0</span></span><br><span class="line"><span class="comment">// 每一行 都会重新调用这个方法</span></span><br><span class="line">rl.<span class="title function_">on</span>(<span class="string">&#x27;line&#x27;</span>, <span class="keyword">function</span>(<span class="params">line</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (num === <span class="number">0</span>) &#123;</span><br><span class="line">        num = <span class="title class_">Number</span>.<span class="built_in">parseInt</span>(line)</span><br><span class="line">        <span class="keyword">return</span> </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> arr = line.<span class="title function_">split</span>(<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">    <span class="keyword">const</span> res = <span class="title function_">sort</span>(arr)</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(res)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/08/16/nginx%E9%83%A8%E7%BD%B2vue%E9%A1%B9%E7%9B%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Yang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yang's Blog">
-      <meta itemprop="description" content="Yang的博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Yang's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/08/16/nginx%E9%83%A8%E7%BD%B2vue%E9%A1%B9%E7%9B%AE/" class="post-title-link" itemprop="url">nginx部署vue项目</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-08-16 23:26:27" itemprop="dateCreated datePublished" datetime="2022-08-16T23:26:27+08:00">2022-08-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-08-17 16:07:25" itemprop="dateModified" datetime="2022-08-17T16:07:25+08:00">2022-08-17</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E9%A1%B9%E7%9B%AE/" itemprop="url" rel="index"><span itemprop="name">项目</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Nginx 部署前端 vue 项目 + 实现反向代理</p>
-<p>&#x2F;etc&#x2F;nginx&#x2F;nginx.conf</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">      listen 9061;</span><br><span class="line">      server_name 59.110.70.138;</span><br><span class="line"></span><br><span class="line">      # 前端目录</span><br><span class="line">      location / &#123;</span><br><span class="line">              root /root/Gaokao_Data_Analysis_System/dist;</span><br><span class="line">              #index  index.html index.htm;</span><br><span class="line">              index index.html;</span><br><span class="line">              try_files  $uri $uri/ /index.html;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">		# 反向代理到后端工程</span><br><span class="line">        location /api &#123;  </span><br><span class="line">            proxy_set_header Host $http_host;</span><br><span class="line">            proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">            proxy_set_header REMOTE-HOST $remote_addr;</span><br><span class="line">            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">            proxy_pass http://127.0.0.1:8080;  # 代理到同服务器下的 8080 端口</span><br><span class="line">            rewrite &quot;^/api/(.*)$&quot; /$1 break;  # /api/* 重写为 /*</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>修改完后，重新加载nginx配置文件  nginx -s reload</p>
-<p>重新加载报错时，删除所有 ngnix 服务，重新启动</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">root@iZ2zecl0gtu0ylfl829uudZ:~# ps aux | grep nginx</span><br><span class="line">root       17120  0.0  0.0  55964  1660 ?        Ss   Jul28   0:00 nginx: master process nginx -c /etc/nginx/nginx.conf</span><br><span class="line">root       17122  0.0  0.0  56204  5292 ?        S    Jul28   0:00 nginx: worker process</span><br><span class="line">root       17123  0.0  0.0  56204  6160 ?        S    Jul28   0:00 nginx: worker process</span><br><span class="line">root      104079  0.0  0.0   9032   660 pts/6    S+   23:11   0:00 grep --color=auto nginx</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">1. 删除</span><br><span class="line">kill -9 17120 17122 17123</span><br><span class="line"></span><br><span class="line">2. 重新启动</span><br><span class="line">nginx -c /etc/nginx/nginx.conf</span><br><span class="line"></span><br><span class="line">3. 检查是否启动</span><br><span class="line">ps aux | grep nginx</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<p>查看 nginx 报错信息</p>
-<p> cat &#x2F;var&#x2F;log&#x2F;nginx&#x2F;error.log</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/08/02/%E9%A1%B9%E7%9B%AE%E7%9F%A5%E8%AF%86-%E8%A7%A3%E5%86%B3element-ui-el-table%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0%E6%97%B6%E7%9A%84%E9%94%99%E4%BD%8D%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Yang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yang's Blog">
-      <meta itemprop="description" content="Yang的博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Yang's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/08/02/%E9%A1%B9%E7%9B%AE%E7%9F%A5%E8%AF%86-%E8%A7%A3%E5%86%B3element-ui-el-table%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0%E6%97%B6%E7%9A%84%E9%94%99%E4%BD%8D%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">项目知识 - 解决element-ui el-table数据更新时的错位问题</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2022-08-02 08:49:33 / 修改时间：08:54:44" itemprop="dateCreated datePublished" datetime="2022-08-02T08:49:33+08:00">2022-08-02</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E9%A1%B9%E7%9B%AE%E7%9F%A5%E8%AF%86/" itemprop="url" rel="index"><span itemprop="name">项目知识</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_39998026/article/details/124862604">解决Element-ui的el-table出现的表格错位问题</a></p>
-<p>在使用element-ui中的el-table时，我们经常会用到fiexd属性，而使用了fixed属性之后，就会容易在各种场景出现表格错位的问题。</p>
-<p>查阅element-ui官网，发现官网提供了doLayout方法来解决这个问题</p>
-<p>总结容易出现错位问题的几种场景及解决办法</p>
-<p>1、数据更新后出现的错位问题</p>
-<p>1.1 直接在数据赋值后执行doLayout方法</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">this.data = data;</span><br><span class="line">// 在数据更新后执行</span><br><span class="line">this.$nextTick(() =&gt; &#123;</span><br><span class="line">      // myTable是表格的ref属性值</span><br><span class="line">      if (this.$refs.myTable &amp;&amp; this.$refs.myTable.doLayout) &#123;</span><br><span class="line">        this.$refs.myTable.doLayout();</span><br><span class="line">      &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-
-<p>1.2在生命周期updated里执行doLayout方法</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">updated() &#123;</span><br><span class="line">    // myTable是表格的ref属性值</span><br><span class="line">    if (this.$refs.myTable &amp;&amp; this.$refs.myTable.doLayout) &#123;</span><br><span class="line">      this.$refs.myTable.doLayout();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>注：参考链接中有三种方法解决错位问题。分为是</p>
-<ol>
-<li><strong>数据更新后出现的错位问题</strong></li>
-<li><strong>浏览器窗口大小变化时出现的错位问题</strong></li>
-<li><strong>当有多个Tab标签时，切换标签出现的错位问题</strong></li>
-</ol>
-<p>本文中仅参考第一种 [数据更新错位问题] 就解决了刷新时el-table有一瞬间的错位问题</p>
 
       
     </div>

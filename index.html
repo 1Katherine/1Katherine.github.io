@@ -152,7 +152,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -163,7 +163,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">56</span>
+        <span class="site-state-item-count">58</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -193,6 +193,321 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/09/03/Leetcode20-%E6%9C%89%E6%95%88%E6%8B%AC%E5%8F%B7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yang's Blog">
+      <meta itemprop="description" content="Yang的博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Yang's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/09/03/Leetcode20-%E6%9C%89%E6%95%88%E6%8B%AC%E5%8F%B7/" class="post-title-link" itemprop="url">Leetcode20 有效括号</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-09-03 15:46:13 / 修改时间：20:05:04" itemprop="dateCreated datePublished" datetime="2022-09-03T15:46:13+08:00">2022-09-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/check-if-there-is-a-valid-parentheses-string-path/">题目</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">string</span>&#125; <span class="variable">s</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">boolean</span>&#125;</span></span><br><span class="line"><span class="comment"> * 思路：</span></span><br><span class="line"><span class="comment"> * 1. 用一个 left 栈保存所有左括号</span></span><br><span class="line"><span class="comment"> * 2。每次遇见左括号入栈，遇见右括号时，将栈顶弹出，判断弹出的左括号是否匹配当前右括号</span></span><br><span class="line"><span class="comment"> * 3. 匹配则继续，不匹配则立马返回false</span></span><br><span class="line"><span class="comment"> * 4. 当遇见右括号时，栈为空也直接返回false</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> isValid = <span class="keyword">function</span> (<span class="params">s</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> leftStack = []</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; s.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">let</span> ch = s.<span class="title function_">charAt</span>(i)</span><br><span class="line">    <span class="comment">// 如果是左括号：入栈</span></span><br><span class="line">    <span class="keyword">if</span> (ch === <span class="string">&#x27;(&#x27;</span> || ch === <span class="string">&#x27;[&#x27;</span> || ch === <span class="string">&#x27;&#123;&#x27;</span>) leftStack.<span class="title function_">push</span>(ch)</span><br><span class="line">    <span class="comment">// 如果是右括号，出栈并匹配</span></span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">if</span> (leftStack.<span class="property">length</span> &gt; <span class="number">0</span> &amp;&amp; leftStack.<span class="title function_">pop</span>() === <span class="title function_">leftOf</span>(ch)) <span class="keyword">continue</span></span><br><span class="line">      <span class="keyword">else</span> <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 如果最后栈不为空，则表示还有剩余的左括号没有匹配</span></span><br><span class="line">  <span class="keyword">return</span> leftStack.<span class="property">length</span> === <span class="number">0</span> ? <span class="literal">true</span> : <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回右括号对应的左括号</span></span><br><span class="line"><span class="keyword">let</span> leftOf = <span class="keyword">function</span> (<span class="params">right</span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (right === <span class="string">&#x27;)&#x27;</span>) <span class="keyword">return</span> <span class="string">&#x27;(&#x27;</span></span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (right === <span class="string">&#x27;]&#x27;</span>) <span class="keyword">return</span> <span class="string">&#x27;[&#x27;</span></span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> (right === <span class="string">&#x27;&#125;&#x27;</span>) <span class="keyword">return</span> <span class="string">&#x27;&#123;&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> s = <span class="string">&#x27;()[]&#123;]&#x27;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">isValid</span>(s))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/check-if-there-is-a-valid-parentheses-string-path/">检查是否有合法括号字符串路径</a>     —- 困难题</p>
+<p>递归 + 记忆化搜索</p>
+<blockquote>
+<p>仅提供递归的思路，实际使用递归会超时，只能通过 16&#x2F;81 个测试用例，需要用3维DP来做</p>
+<p>一种是分别在向右方向和向下方向递归和回溯</p>
+<p>另一种是定义两个方向的数组，用 for 循环来统一递归的流程</p>
+<p>两种方法都是先计算递归的下一步坐标，如果这个坐标越界或不符合（已经访问过）则continue，否则朝着下一个坐标的方向递归下去，对下一坐标做操作 + 递归下一坐标 + 撤销下一坐标的操作</p>
+</blockquote>
+<p>做法一：分别在两个方向递归和回溯</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">character[][]</span>&#125; <span class="variable">grid</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">boolean</span>&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">var</span> hasValidPath = <span class="keyword">function</span> (<span class="params">grid</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> path = []</span><br><span class="line">  <span class="keyword">let</span> ret = []</span><br><span class="line">  <span class="keyword">let</span> visited = <span class="keyword">new</span> <span class="title class_">Array</span>(grid.<span class="property">length</span>)</span><br><span class="line">    .<span class="title function_">fill</span>()</span><br><span class="line">    .<span class="title function_">map</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> (item = <span class="keyword">new</span> <span class="title class_">Array</span>(grid[<span class="number">0</span>].<span class="property">length</span>).<span class="title function_">fill</span>(<span class="number">0</span>)))</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> &#123;<span class="type">*</span>&#125; <span class="variable">grid</span></span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> &#123;<span class="type">*</span>&#125; <span class="variable">i</span></span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> &#123;<span class="type">*</span>&#125; <span class="variable">j</span></span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">let</span> <span class="title function_">dfs</span> = (<span class="params">grid, i, j</span>) =&gt; &#123;</span><br><span class="line">    <span class="comment">// 走到终点</span></span><br><span class="line">    <span class="keyword">if</span> (i === grid.<span class="property">length</span> - <span class="number">1</span> &amp;&amp; j === grid[<span class="number">0</span>].<span class="property">length</span> - <span class="number">1</span>) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(path)</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(ret)</span><br><span class="line">      <span class="keyword">return</span> <span class="title function_">isValid</span>(path)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 往右走</span></span><br><span class="line">    <span class="keyword">if</span> (j + <span class="number">1</span> &lt;= grid[<span class="number">0</span>].<span class="property">length</span> - <span class="number">1</span> &amp;&amp; visited[i][j + <span class="number">1</span>] === <span class="number">0</span>) &#123;</span><br><span class="line">      path.<span class="title function_">push</span>(grid[i][j + <span class="number">1</span>])</span><br><span class="line">      ret.<span class="title function_">push</span>([i, j + <span class="number">1</span>])</span><br><span class="line">      visited[i][j + <span class="number">1</span>] = <span class="number">1</span></span><br><span class="line">      <span class="keyword">if</span> (<span class="title function_">dfs</span>(grid, i, j + <span class="number">1</span>)) <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">      visited[i][j + <span class="number">1</span>] = <span class="number">0</span></span><br><span class="line">      path.<span class="title function_">pop</span>()</span><br><span class="line">      ret.<span class="title function_">pop</span>()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 往下走</span></span><br><span class="line">    <span class="keyword">if</span> (i + <span class="number">1</span> &lt;= grid.<span class="property">length</span> - <span class="number">1</span> &amp;&amp; visited[i + <span class="number">1</span>][j] === <span class="number">0</span>) &#123;</span><br><span class="line">      path.<span class="title function_">push</span>(grid[i + <span class="number">1</span>][j])</span><br><span class="line">      ret.<span class="title function_">push</span>([i + <span class="number">1</span>, j])</span><br><span class="line">      visited[i + <span class="number">1</span>][j] = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (<span class="title function_">dfs</span>(grid, i + <span class="number">1</span>, j)) <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">      visited[i + <span class="number">1</span>][j] = <span class="number">0</span></span><br><span class="line">      path.<span class="title function_">pop</span>()</span><br><span class="line">      ret.<span class="title function_">pop</span>()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 先把起点加入path中</span></span><br><span class="line">  path.<span class="title function_">push</span>(grid[<span class="number">0</span>][<span class="number">0</span>])</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">dfs</span>(grid, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 判断路径 path 是否是合法的括号</span></span><br><span class="line"><span class="keyword">var</span> isValid = <span class="keyword">function</span> (<span class="params">path</span>) &#123;</span><br><span class="line">  <span class="comment">// left 记录未匹配到右括号的左括号数量</span></span><br><span class="line">  <span class="keyword">let</span> left = <span class="number">0</span></span><br><span class="line">  <span class="comment">// 每遇到一个右括号就把左括号数量--</span></span><br><span class="line">  path.<span class="title function_">forEach</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (item === <span class="string">&#x27;(&#x27;</span>) left++</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (item === <span class="string">&#x27;)&#x27;</span>) left--</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">return</span> left === <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> grid = [</span><br><span class="line">  [<span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;(&#x27;</span>],</span><br><span class="line">  [<span class="string">&#x27;)&#x27;</span>, <span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;)&#x27;</span>],</span><br><span class="line">  [<span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;)&#x27;</span>],</span><br><span class="line">  [<span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;)&#x27;</span>],</span><br><span class="line">]</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">hasValidPath</span>(grid))</span><br></pre></td></tr></table></figure>
+
+
+
+<p>做法二： 先声明方向数组，使用 for 循环统一递归流程</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">character[][]</span>&#125; <span class="variable">grid</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">boolean</span>&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">// 定义向右和向下的方向</span></span><br><span class="line"><span class="keyword">let</span> directionX = [<span class="number">0</span>, <span class="number">1</span>]</span><br><span class="line"><span class="keyword">let</span> directionY = [<span class="number">1</span>, <span class="number">0</span>]</span><br><span class="line"><span class="keyword">var</span> hasValidPath = <span class="keyword">function</span> (<span class="params">grid</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> path = []</span><br><span class="line">  <span class="keyword">let</span> visited = <span class="keyword">new</span> <span class="title class_">Array</span>(grid.<span class="property">length</span>)</span><br><span class="line">    .<span class="title function_">fill</span>()</span><br><span class="line">    .<span class="title function_">map</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> (item = <span class="keyword">new</span> <span class="title class_">Array</span>(grid[<span class="number">0</span>].<span class="property">length</span>).<span class="title function_">fill</span>(<span class="number">0</span>)))</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> &#123;<span class="type">*</span>&#125; <span class="variable">grid</span></span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> &#123;<span class="type">*</span>&#125; <span class="variable">i</span></span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> &#123;<span class="type">*</span>&#125; <span class="variable">j</span></span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">let</span> <span class="title function_">dfs</span> = (<span class="params">grid, i, j</span>) =&gt; &#123;</span><br><span class="line">    <span class="comment">// 走到终点</span></span><br><span class="line">    <span class="keyword">if</span> (i === grid.<span class="property">length</span> - <span class="number">1</span> &amp;&amp; j === grid[<span class="number">0</span>].<span class="property">length</span> - <span class="number">1</span>) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(path)</span><br><span class="line">      <span class="keyword">return</span> <span class="title function_">isValid</span>(path)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> k = <span class="number">0</span>; k &lt; <span class="number">2</span>; k++) &#123;</span><br><span class="line">      <span class="keyword">let</span> next_i = i + directionX[k]</span><br><span class="line">      <span class="keyword">let</span> next_j = j + directionY[k]</span><br><span class="line">      <span class="comment">// 如果下一步越界，不递归 continue</span></span><br><span class="line">      <span class="keyword">if</span> (</span><br><span class="line">        next_i &lt; <span class="number">0</span> ||</span><br><span class="line">        next_i &gt; grid.<span class="property">length</span> - <span class="number">1</span> ||</span><br><span class="line">        next_j &lt; <span class="number">0</span> ||</span><br><span class="line">        next_j &gt; grid[<span class="number">0</span>].<span class="property">length</span> - <span class="number">1</span> ||</span><br><span class="line">        visited[next_i][next_j] === <span class="number">1</span></span><br><span class="line">      )</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">      <span class="keyword">else</span> &#123;</span><br><span class="line">        path.<span class="title function_">push</span>(grid[next_i][next_j]) <span class="comment">// 做选择</span></span><br><span class="line">        visited[next_i][next_j] = <span class="number">1</span> <span class="comment">// 标记走过（记忆化搜索）</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="title function_">dfs</span>(grid, next_i, next_j)) <span class="keyword">return</span> <span class="literal">true</span> <span class="comment">// 如果找到一条路径返回true，整体返回true，不用再往下搜索</span></span><br><span class="line">        path.<span class="title function_">pop</span>() <span class="comment">// 撤销选择</span></span><br><span class="line">        visited[next_i][next_j] = <span class="number">0</span> <span class="comment">// 标记没走过</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 先把起点加入path中</span></span><br><span class="line">  path.<span class="title function_">push</span>(grid[<span class="number">0</span>][<span class="number">0</span>])</span><br><span class="line">  <span class="keyword">return</span> <span class="title function_">dfs</span>(grid, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 判断路径 path 是否是合法的括号</span></span><br><span class="line"><span class="keyword">var</span> isValid = <span class="keyword">function</span> (<span class="params">path</span>) &#123;</span><br><span class="line">  <span class="comment">// left 记录未匹配到右括号的左括号数量</span></span><br><span class="line">  <span class="keyword">let</span> left = <span class="number">0</span></span><br><span class="line">  <span class="comment">// 每遇到一个右括号就把左括号数量--</span></span><br><span class="line">  path.<span class="title function_">forEach</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (item === <span class="string">&#x27;(&#x27;</span>) left++</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (item === <span class="string">&#x27;)&#x27;</span>) left--</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">return</span> left === <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> grid = [</span><br><span class="line">  [<span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;(&#x27;</span>],</span><br><span class="line">  [<span class="string">&#x27;)&#x27;</span>, <span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;)&#x27;</span>],</span><br><span class="line">  [<span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;)&#x27;</span>],</span><br><span class="line">  [<span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;(&#x27;</span>, <span class="string">&#x27;)&#x27;</span>],</span><br><span class="line">]</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">hasValidPath</span>(grid))</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/09/02/Leetcode-%E8%BF%B7%E5%AE%AB%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yang's Blog">
+      <meta itemprop="description" content="Yang的博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Yang's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/09/02/Leetcode-%E8%BF%B7%E5%AE%AB%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">Leetcode 迷宫问题</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-09-02 23:21:30 / 修改时间：23:28:12" itemprop="dateCreated datePublished" datetime="2022-09-02T23:21:30+08:00">2022-09-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>知识点：四个方向的深度优先遍历 、 回溯、 记忆遍历</p>
+<ol>
+<li>固定遍历的探索方向 （顺时针 - 右下左上）</li>
+<li>在符合条件的时候才递归下去，否则不递归，continue其他方向</li>
+<li>记忆，使用 visited 数组保存节点是否访问过，避免重复搜索</li>
+<li>回溯：递归前做选择，递归后撤销选择。一定要明确做选择的对象是当前的节点，还是递归的下一个节点，因为选择+递归+撤销是一个组合，不要分开。</li>
+</ol>
+</blockquote>
+<p>解法一：分别在四个方向深度递归 + 回溯</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 深度优先遍历</span></span><br><span class="line"><span class="comment"> * 1. 一开始设置好遍历的方法，顺时针（右下左上）</span></span><br><span class="line"><span class="comment"> * 2，从起点开始递归，直到找到终点（此时得到这条路径的距离） --- 递归的过程中将已经递归过的点设置为已经访问</span></span><br><span class="line"><span class="comment"> * 3. 回溯，从终点往前回溯，看看前面的点还有没有其他方向探寻 --- 回溯的时候把当前位置设置为未访问</span></span><br><span class="line"><span class="comment"> * 4. 不断通过递归、回溯，找到多条路径，并更新最短路径</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> min = <span class="title class_">Infinity</span></span><br><span class="line"><span class="comment">// 2 是起点，3是终点</span></span><br><span class="line"><span class="keyword">let</span> arr = [</span><br><span class="line">  [<span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>],</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> visited = <span class="keyword">new</span> <span class="title class_">Array</span>(arr.<span class="property">length</span>)</span><br><span class="line">  .<span class="title function_">fill</span>()</span><br><span class="line">  .<span class="title function_">map</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> (item = <span class="keyword">new</span> <span class="title class_">Array</span>(arr[<span class="number">0</span>].<span class="property">length</span>)).<span class="title function_">fill</span>(<span class="number">0</span>))</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> ret = []</span><br><span class="line"><span class="keyword">let</span> <span class="title function_">dfs</span> = (<span class="params">row, col, dis</span>) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 找到终点</span></span><br><span class="line">  <span class="keyword">if</span> (arr[row][col] === <span class="number">3</span>) &#123;</span><br><span class="line">    min = <span class="title class_">Math</span>.<span class="title function_">min</span>(min, dis)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//  四个方向探索</span></span><br><span class="line">  <span class="comment">// 右 (不是墙，并且没有访问过)</span></span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    col + <span class="number">1</span> &lt; arr[<span class="number">0</span>].<span class="property">length</span> &amp;&amp;</span><br><span class="line">    arr[row][col + <span class="number">1</span>] !== <span class="number">1</span> &amp;&amp;</span><br><span class="line">    visited[row][col + <span class="number">1</span>] === <span class="number">0</span></span><br><span class="line">  ) &#123;</span><br><span class="line">    visited[row][col + <span class="number">1</span>] = <span class="number">1</span> <span class="comment">//  标记访问</span></span><br><span class="line">    <span class="title function_">dfs</span>(row, col + <span class="number">1</span>, dis + <span class="number">1</span>) <span class="comment">// 递归</span></span><br><span class="line">    visited[row][col + <span class="number">1</span>] = <span class="number">0</span> <span class="comment">// 回溯-撤销访问</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 下</span></span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    row + <span class="number">1</span> &lt; arr.<span class="property">length</span> &amp;&amp;</span><br><span class="line">    arr[row + <span class="number">1</span>][col] !== <span class="number">1</span> &amp;&amp;</span><br><span class="line">    visited[row + <span class="number">1</span>][col] === <span class="number">0</span></span><br><span class="line">  ) &#123;</span><br><span class="line">    visited[row + <span class="number">1</span>][col] = <span class="number">1</span> <span class="comment">//  标记访问</span></span><br><span class="line">    <span class="title function_">dfs</span>(row + <span class="number">1</span>, col, dis + <span class="number">1</span>) <span class="comment">// 递归</span></span><br><span class="line">    visited[row + <span class="number">1</span>][col] = <span class="number">0</span> <span class="comment">// 回溯-撤销访问</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 左</span></span><br><span class="line">  <span class="keyword">if</span> (col - <span class="number">1</span> &gt;= <span class="number">0</span> &amp;&amp; arr[row][col - <span class="number">1</span>] !== <span class="number">1</span> &amp;&amp; visited[row][col - <span class="number">1</span>] === <span class="number">0</span>) &#123;</span><br><span class="line">    visited[row][col - <span class="number">1</span>] = <span class="number">1</span> <span class="comment">//  标记访问</span></span><br><span class="line">    <span class="title function_">dfs</span>(row, col - <span class="number">1</span>, dis + <span class="number">1</span>) <span class="comment">// 递归</span></span><br><span class="line">    visited[row][col - <span class="number">1</span>] = <span class="number">0</span> <span class="comment">// 回溯-撤销访问</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 上</span></span><br><span class="line">  <span class="keyword">if</span> (row - <span class="number">1</span> &gt;= <span class="number">0</span> &amp;&amp; arr[row - <span class="number">1</span>][col] !== <span class="number">1</span> &amp;&amp; visited[row - <span class="number">1</span>][col] === <span class="number">0</span>) &#123;</span><br><span class="line">    visited[row - <span class="number">1</span>][col] = <span class="number">1</span> <span class="comment">//  标记访问</span></span><br><span class="line">    <span class="title function_">dfs</span>(row - <span class="number">1</span>, col, dis + <span class="number">1</span>) <span class="comment">// 递归</span></span><br><span class="line">    visited[row - <span class="number">1</span>][col] = <span class="number">0</span> <span class="comment">// 回溯-撤销访问</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">dfs</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>) <span class="comment">// 假设已知起点坐标为 0，0</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(min)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>解法二：针对当前节点做选择</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 深度优先遍历</span></span><br><span class="line"><span class="comment"> * 1. 一开始设置好遍历的方法，顺时针（右下左上）</span></span><br><span class="line"><span class="comment"> * 2，从起点开始递归，直到找到终点（此时得到这条路径的距离） --- 递归的过程中将已经递归过的点设置为已经访问</span></span><br><span class="line"><span class="comment"> * 3. 回溯，从终点往前回溯，看看前面的点还有没有其他方向探寻 --- 回溯的时候把当前位置设置为未访问</span></span><br><span class="line"><span class="comment"> * 4. 不断通过递归、回溯，找到多条路径，并更新最短路径</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> min = <span class="title class_">Infinity</span></span><br><span class="line"><span class="keyword">let</span> directionX = [<span class="number">0</span>, +<span class="number">1</span>, <span class="number">0</span>, -<span class="number">1</span>]</span><br><span class="line"><span class="keyword">let</span> directionY = [+<span class="number">1</span>, <span class="number">0</span>, -<span class="number">1</span>, <span class="number">0</span>]</span><br><span class="line"><span class="keyword">let</span> path = []</span><br><span class="line"><span class="keyword">let</span> <span class="title function_">dfs</span> = (<span class="params">arr, row, col</span>) =&gt; &#123;</span><br><span class="line">  <span class="comment">// 找到终点</span></span><br><span class="line">  <span class="keyword">if</span> (arr[row][col] === <span class="number">3</span>) &#123;</span><br><span class="line">    min = <span class="title class_">Math</span>.<span class="title function_">min</span>(min, path.<span class="property">length</span>)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 1 做选择</span></span><br><span class="line">  path.<span class="title function_">push</span>([row, col])</span><br><span class="line">  <span class="comment">// 标记已经访问</span></span><br><span class="line">  arr[row][col] = <span class="number">1</span></span><br><span class="line">  <span class="comment">// 顺时针试探</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">let</span> new_row = row + directionX[i]</span><br><span class="line">    <span class="keyword">let</span> new_col = col + directionY[i]</span><br><span class="line">    <span class="keyword">if</span> (</span><br><span class="line">      new_row &lt; <span class="number">0</span> ||</span><br><span class="line">      new_row &gt;= arr.<span class="property">length</span> ||</span><br><span class="line">      new_col &lt; <span class="number">0</span> ||</span><br><span class="line">      new_col &gt;= arr[<span class="number">0</span>].<span class="property">length</span> ||</span><br><span class="line">      arr[new_row][new_col] === <span class="number">1</span></span><br><span class="line">    )</span><br><span class="line">      <span class="keyword">continue</span></span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="title function_">dfs</span>(arr, row + directionX[i], col + directionY[i])</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 撤销选择</span></span><br><span class="line">  arr[row][col] = <span class="number">0</span></span><br><span class="line">  path.<span class="title function_">pop</span>()</span><br><span class="line">  <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2 是起点，3是终点</span></span><br><span class="line"><span class="keyword">let</span> arr = [</span><br><span class="line">  [<span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">0</span>],</span><br><span class="line">  [<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span>],</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="title function_">dfs</span>(arr, <span class="number">0</span>, <span class="number">0</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(min)</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/09/02/Leetcode-01%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Yang">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Yang's Blog">
+      <meta itemprop="description" content="Yang的博客">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | Yang's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/09/02/Leetcode-01%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">Leetcode 01背包问题</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-09-02 09:59:40 / 修改时间：12:17:58" itemprop="dateCreated datePublished" datetime="2022-09-02T09:59:40+08:00">2022-09-02</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>相关资料：<a target="_blank" rel="noopener" href="https://programmercarl.com/%E8%83%8C%E5%8C%85%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%8001%E8%83%8C%E5%8C%85-1.html">动态规划：关于01背包问题，你该了解这些！ From《代码随想录》</a></p>
+<p>状态：</p>
+<ol>
+<li>可选择的物品    i </li>
+<li>背包的容量        j</li>
+</ol>
+<p>dp数组含义： </p>
+<p><code>dp[i][j]</code>: 从前 0~i 个物品中任意选择，达到背包重量为 j 的时候，可以装下的最大价值 <code>dp[i][j]</code></p>
+<p>选择：</p>
+<p>对于第  i 个物品，有两种选择。</p>
+<ol>
+<li>把第 i 个物品装入背包后，最大价值达到 <code>dp[i][j]</code>      —》 <code>dp[i][j] = dp[i - 1][j]</code></li>
+<li>没有把第 i 个物品装入背包，此时最大价值为 <code>dp[i][j]</code>    —-》<code>dp[i][j] = dp[i][j - weight[i]] + val[i]</code></li>
+</ol>
+<p>最终的状态转移方程 ： <code>dp[i][j] = max &#123;dp[i - 1][j], dp[i][j - weight[i]] + val[i] &#125;</code></p>
+<p>初始化：</p>
+<p>二维矩阵最左边一列：<code>dp[0...i][0] = 0</code> (在 0-i 个物品任意选择，重量为0时，最大价值为0)</p>
+<p>二维矩阵最上边一行：<code>dp[0][0...j] = 0 || val[0]</code> (当第0个物品的重量超过背包重量时，无法装进去，为0 || 当第0个物品的重量没有超过背包重量时，可以装入，背包的最大价值为第0个物品的价格)</p>
+<p>其他位置初始化任何数字都可以，默认初始化为0</p>
+<p>注意观察：</p>
+<p><code>dp[i][j] = max &#123;dp[i - 1][j], dp[i][j - weight[i]] + val[i] &#125;</code></p>
+<p><code>dp[i][j] </code>的状态是由<code>dp[i - 1][j]和dp[i][j - weight[i]] </code>推导出来的，因此只和左边区域有关（包括正上方），所以先遍历物品个数，或先遍历背包重量都可以。</p>
+<p>先遍历物品个数 👇 （图源自代码随想录） </p>
+<p>P.S.  </p>
+<p>题目给了三个物品，因此<code>i</code>的取值为 0 - 2</p>
+<p>题目给了背包的最大重量为4kg，因此<code>j</code>的取值为0-4</p>
+<img src="/2022/09/02/Leetcode-01%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/image-20220902101138716.png" class="" title="image-20220902101138716">
+
+<p>先遍历背包重量👇 （图源自代码随想录）</p>
+<img src="/2022/09/02/Leetcode-01%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98/image-20220902101328358.png" class="" title="image-20220902101328358">
+
+
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">testWeightBagProblem</span>(<span class="params">weight, value, size</span>) &#123;</span><br><span class="line">  <span class="comment">// 1. 定义 dp 数组</span></span><br><span class="line">  <span class="keyword">let</span> dp = <span class="keyword">new</span> <span class="title class_">Array</span>(weight.<span class="property">length</span>)</span><br><span class="line">    .<span class="title function_">fill</span>()</span><br><span class="line">    .<span class="title function_">map</span>(<span class="function">(<span class="params">item</span>) =&gt;</span> (item = <span class="keyword">new</span> <span class="title class_">Array</span>(size).<span class="title function_">fill</span>(<span class="number">0</span>)))</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 2 初始化 ---- 当背包重量为0时，再多物品也放不进去</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; weight.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    dp[i][<span class="number">0</span>] = <span class="number">0</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 2 初始化 ----- 当放第一个物品时，能不能把第一个物品放进去，取决于背包的容量 j</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; size; j++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (j &gt;= weight[<span class="number">0</span>]) dp[<span class="number">0</span>][j] = value[<span class="number">0</span>]</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 3 状态转移</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt; weight.<span class="property">length</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">1</span>; j &lt; size; j++) &#123;</span><br><span class="line">      <span class="comment">// 如果当前背包容量小于物品重量, 则第 i 个物品是绝对不可能装入背包后达到重量 j 的</span></span><br><span class="line">      <span class="comment">// 解决：dp[i - 1][j - weight[i]] 中 j - weight[i] 越界问题</span></span><br><span class="line">      <span class="keyword">if</span> (j &lt; weight[i])</span><br><span class="line">        <span class="comment">// 背包物品的价值等于背包不放置当前物品时的价值</span></span><br><span class="line">        dp[i][j] = dp[i - <span class="number">1</span>][j]</span><br><span class="line">      <span class="comment">// 若背包当前重量可以放置物品</span></span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">        dp[i][j] = <span class="title class_">Math</span>.<span class="title function_">max</span>(dp[i - <span class="number">1</span>][j], dp[i - <span class="number">1</span>][j - weight[i]] + value[i])</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(dp)</span><br><span class="line">  <span class="comment">// return dp[weight.length - 1][size - 1]</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">test</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">testWeightBagProblem</span>([<span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>], [<span class="number">15</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">55</span>], <span class="number">6</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">test</span>()</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h4 id="状态压缩版本"><a href="#状态压缩版本" class="headerlink" title="状态压缩版本"></a>状态压缩版本</h4><p>注意：遍历背包容量的时候一定要从后往前遍历</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 状态压缩</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">*</span>&#125; <span class="variable">wight</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">*</span>&#125; <span class="variable">value</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">*</span>&#125; <span class="variable">size</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">testWeightBagProblem2</span>(<span class="params">wight, value, size</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> len = wight.<span class="property">length</span>,</span><br><span class="line">    dp = <span class="title class_">Array</span>(size + <span class="number">1</span>).<span class="title function_">fill</span>(<span class="number">0</span>) <span class="comment">// 初始化为0</span></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">1</span>; i &lt;= len; i++) &#123; <span class="comment">// 遍历物品</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j = size; j &gt;= wight[i - <span class="number">1</span>]; j--) &#123;  <span class="comment">// 遍历背包容量</span></span><br><span class="line">      dp[j] = <span class="title class_">Math</span>.<span class="title function_">max</span>(dp[j], value[i - <span class="number">1</span>] + dp[j - wight[i - <span class="number">1</span>]])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(dp)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> dp[size]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">test2</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">testWeightBagProblem2</span>([<span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>], [<span class="number">15</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">55</span>], <span class="number">6</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">test2</span>()</span><br><span class="line"><span class="comment">// 每轮 dp  --- 物品个数共4个，因此遍历 4 轮，每轮这一轮的物品 i 要不要放入 容量为 j 的背包中</span></span><br><span class="line"><span class="comment">// dp 从后往前进行填充！！！</span></span><br><span class="line">第 <span class="number">1</span> 轮 = [<span class="number">0</span>, <span class="number">15</span>, <span class="number">15</span>, <span class="number">15</span>, <span class="number">15</span>, <span class="number">15</span>, <span class="number">15</span>]</span><br><span class="line">第 <span class="number">2</span> 轮 = [<span class="number">0</span>, <span class="number">15</span>, <span class="number">15</span>, <span class="number">20</span>, <span class="number">35</span>, <span class="number">35</span>, <span class="number">35</span>]</span><br><span class="line">第 <span class="number">3</span> 轮 = [<span class="number">0</span>, <span class="number">15</span>, <span class="number">15</span>, <span class="number">20</span>, <span class="number">35</span>, <span class="number">45</span>, <span class="number">45</span>]</span><br><span class="line">第 <span class="number">4</span> 轮 = [<span class="number">0</span>, <span class="number">15</span>, <span class="number">15</span>, <span class="number">20</span>, <span class="number">35</span>, <span class="number">55</span>, <span class="number">70</span>]</span><br></pre></td></tr></table></figure>
+
+<p>相关资料：<a target="_blank" rel="noopener" href="https://programmercarl.com/%E8%83%8C%E5%8C%85%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%8001%E8%83%8C%E5%8C%85-2.html#%E5%85%B6%E4%BB%96%E8%AF%AD%E8%A8%80%E7%89%88%E6%9C%AC">https://programmercarl.com/%E8%83%8C%E5%8C%85%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%8001%E8%83%8C%E5%8C%85-2.html#%E5%85%B6%E4%BB%96%E8%AF%AD%E8%A8%80%E7%89%88%E6%9C%AC</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -771,252 +1086,6 @@
           <p>链接🔗</p>
 <p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/valid-anagram/">https://leetcode.cn/problems/valid-anagram/</a></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 数组就是一个简单的哈希表</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">let</span> isAnagram = <span class="keyword">function</span> (<span class="params">s, t</span>) &#123;</span><br><span class="line">    <span class="comment">// 1. 长度不等 ，肯定不是异位词</span></span><br><span class="line">    <span class="keyword">if</span> (s.<span class="property">length</span> !== t.<span class="property">length</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="comment">// 2. 声明一个数组，用于存放26位英文字母出现的次数</span></span><br><span class="line">    <span class="keyword">let</span> arr = <span class="keyword">new</span> <span class="title class_">Array</span>(<span class="number">26</span>).<span class="title function_">fill</span>(<span class="number">0</span>)</span><br><span class="line">    <span class="comment">// 3. 计算“a”的ascii (97) a存在数组0位置</span></span><br><span class="line">    <span class="keyword">const</span> base = <span class="string">&#x27;a&#x27;</span>.<span class="title function_">charCodeAt</span>()</span><br><span class="line">    <span class="comment">// 4. 遍历s, 计算每个字母的存放下标，记录字母出现次数</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">of</span> s) &#123;</span><br><span class="line">        arr[i.<span class="title function_">charCodeAt</span>() - base]++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 5. 遍历t, 删除对应字母的出现次数</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> j <span class="keyword">of</span> t) &#123;</span><br><span class="line">        arr[j.<span class="title function_">charCodeAt</span>() - base]--</span><br><span class="line">        <span class="comment">// 6. 如果出现次数小于0，必定不是异位词</span></span><br><span class="line">        <span class="keyword">if</span> (arr[j.<span class="title function_">charCodeAt</span>() - base] &lt; <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> s = <span class="string">&#x27;rat&#x27;</span></span><br><span class="line"><span class="keyword">let</span> t = <span class="string">&#x27;car&#x27;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">isAnagram</span>(s, t));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/08/31/Leetcode202-%E5%BF%AB%E4%B9%90%E6%95%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Yang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yang's Blog">
-      <meta itemprop="description" content="Yang的博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Yang's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/08/31/Leetcode202-%E5%BF%AB%E4%B9%90%E6%95%B0/" class="post-title-link" itemprop="url">Leetcode202 快乐数</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2022-08-31 10:48:48 / 修改时间：10:51:00" itemprop="dateCreated datePublished" datetime="2022-08-31T10:48:48+08:00">2022-08-31</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>链接🔗：</p>
-<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/happy-number/">https://leetcode.cn/problems/happy-number/</a></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> intersection = <span class="keyword">function</span> (<span class="params">nums1, nums2</span>) &#123;</span><br><span class="line">    <span class="comment">// 1. 当其中一个数组长度为0时，无交集</span></span><br><span class="line">    <span class="keyword">if</span> (nums1.<span class="property">length</span> === <span class="number">0</span> || nums2.<span class="property">length</span> === <span class="number">0</span>) <span class="keyword">return</span> []</span><br><span class="line">    <span class="comment">// 2. 根据数组长度交换，使num1始终是长度较长的数组</span></span><br><span class="line">    <span class="keyword">if</span> (nums1.<span class="property">length</span> &lt; nums2.<span class="property">length</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> temp = nums2</span><br><span class="line">        nums2 = nums1</span><br><span class="line">        nums1 = temp</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3. 使用set去重</span></span><br><span class="line">    <span class="keyword">let</span> nums1Set = <span class="keyword">new</span> <span class="title class_">Set</span>(nums1)</span><br><span class="line">    <span class="comment">// 4. 声明结果set</span></span><br><span class="line">    <span class="keyword">let</span> retSet = <span class="keyword">new</span> <span class="title class_">Set</span>()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 5. 遍历num2</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> item <span class="keyword">of</span> nums2) &#123;</span><br><span class="line">        <span class="comment">// 只有当 nums1Set 中有 item 时，才会执行 add 操作</span></span><br><span class="line">        <span class="comment">// console.log(item, nums1Set.has(item));</span></span><br><span class="line">        <span class="keyword">if</span> (nums1Set.<span class="title function_">has</span>(item)) &#123;</span><br><span class="line">            retSet.<span class="title function_">add</span>(item)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 6. 将Set对象转换成数组</span></span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Array</span>.<span class="title function_">from</span>(retSet)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> nums1 = [<span class="number">4</span>,<span class="number">9</span>,<span class="number">5</span>]</span><br><span class="line"><span class="keyword">let</span> nums2 = [<span class="number">9</span>,<span class="number">4</span>,<span class="number">9</span>,<span class="number">8</span>,<span class="number">4</span>]</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">intersection</span>(nums1, nums2));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/08/31/Leetcode1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Yang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yang's Blog">
-      <meta itemprop="description" content="Yang的博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Yang's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/08/31/Leetcode1-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" class="post-title-link" itemprop="url">Leetcode1 两数之和</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2022-08-31 10:43:59 / 修改时间：10:48:34" itemprop="dateCreated datePublished" datetime="2022-08-31T10:43:59+08:00">2022-08-31</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>链接🔗</p>
-<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/two-sum/">https://leetcode.cn/problems/two-sum/</a></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  注意：Map()也不可以放重复的项目 </span></span><br><span class="line">     <span class="keyword">var</span> twoSum = <span class="keyword">function</span> (<span class="params">nums, target</span>) &#123;</span><br><span class="line">         <span class="keyword">let</span> hash = &#123;&#125;</span><br><span class="line">         <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; nums.<span class="property">length</span>; i++) &#123;</span><br><span class="line">             <span class="keyword">if</span> (hash[target - nums[i]] === <span class="literal">undefined</span>) &#123;</span><br><span class="line">                 hash[nums[i]] = i</span><br><span class="line">             &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                 <span class="keyword">return</span> [i, hash[target - nums[i]]]</span><br><span class="line">             &#125;</span><br><span class="line">         &#125;</span><br><span class="line">         <span class="keyword">return</span> []</span><br><span class="line">     &#125;;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">let</span> nums = [<span class="number">3</span>, <span class="number">3</span>]</span><br><span class="line">     <span class="keyword">let</span> target = <span class="number">6</span></span><br><span class="line">     <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;twoSum(nums, target)&#x27;</span>, <span class="title function_">twoSum</span>(nums, target));</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://1katherine.github.io/2022/08/31/Leetcode98-%E5%A4%8D%E5%8E%9FIP%E5%9C%B0%E5%9D%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Yang">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Yang's Blog">
-      <meta itemprop="description" content="Yang的博客">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | Yang's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/08/31/Leetcode98-%E5%A4%8D%E5%8E%9FIP%E5%9C%B0%E5%9D%80/" class="post-title-link" itemprop="url">Leetcode98 复原IP地址</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2022-08-31 10:30:12 / 修改时间：10:40:01" itemprop="dateCreated datePublished" datetime="2022-08-31T10:30:12+08:00">2022-08-31</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a>
-        </span>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>链接🔗</p>
-<p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/restore-ip-addresses/">https://leetcode.cn/problems/restore-ip-addresses/</a></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> &#123;<span class="type">string</span>&#125; <span class="variable">s</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> &#123;<span class="type">string[]</span>&#125;</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> result = []</span><br><span class="line"><span class="keyword">let</span> path = []</span><br><span class="line"><span class="keyword">var</span> restoreIpAddresses = <span class="keyword">function</span> (<span class="params">s</span>) &#123;</span><br><span class="line">    result = []</span><br><span class="line">    <span class="title function_">backTracing</span>(s, <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> <span class="title function_">backTracing</span> = (<span class="params">s, startIndex</span>) =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (startIndex === s.<span class="property">length</span>) &#123;</span><br><span class="line">        result.<span class="title function_">push</span>(path.<span class="title function_">join</span>(<span class="string">&#x27;.&#x27;</span>))</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//  只能是 1-3 位数字</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = startIndex; i - startIndex &lt; <span class="number">3</span> &amp;&amp; i &lt; s.<span class="property">length</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">let</span> temp = s.<span class="title function_">slice</span>(startIndex, i + <span class="number">1</span>) <span class="comment">// 左闭右开</span></span><br><span class="line">        <span class="comment">// 不能以0开头 || 不能超过255 || IP 长度只能是 4 位数字 =&gt; 不用往下继续进行了</span></span><br><span class="line">        <span class="keyword">if</span> ((temp.<span class="property">length</span> &gt; <span class="number">1</span> &amp;&amp; <span class="built_in">parseInt</span>(temp[<span class="number">0</span>]) === <span class="number">0</span>) || <span class="built_in">parseInt</span>(temp) &gt; <span class="number">255</span> || path.<span class="property">length</span> === <span class="number">4</span>) <span class="keyword">break</span></span><br><span class="line">        <span class="comment">// 做选择</span></span><br><span class="line">        path.<span class="title function_">push</span>(temp)</span><br><span class="line">        <span class="comment">// 递归</span></span><br><span class="line">        <span class="title function_">backTracing</span>(s, i + <span class="number">1</span>)</span><br><span class="line">        <span class="comment">// 撤销选择</span></span><br><span class="line">        path.<span class="title function_">pop</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> s = <span class="string">&quot;25525511135&quot;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">restoreIpAddresses</span>(s));</span><br></pre></td></tr></table></figure>
 
 
       
