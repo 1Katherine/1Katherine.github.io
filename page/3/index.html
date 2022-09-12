@@ -163,7 +163,7 @@
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">59</span>
+        <span class="site-state-item-count">60</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -2356,9 +2356,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2022-07-30 20:51:18 / 修改时间：22:11:05" itemprop="dateCreated datePublished" datetime="2022-07-30T20:51:18+08:00">2022-07-30</time>
+      <time title="创建时间：2022-07-30 20:51:18" itemprop="dateCreated datePublished" datetime="2022-07-30T20:51:18+08:00">2022-07-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-09-13 00:23:45" itemprop="dateModified" datetime="2022-09-13T00:23:45+08:00">2022-09-13</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -2392,6 +2398,29 @@
 
 
 <h4 id="接收事件组件"><a href="#接收事件组件" class="headerlink" title="接收事件组件"></a>接收事件组件</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import &#123; EventBus &#125; from &#x27;@/utils/bus&#x27;</span><br><span class="line"></span><br><span class="line">  mounted() &#123;</span><br><span class="line">    EventBus.$on(&#x27;refreshSchoolSubjects&#x27;, () =&gt; &#123;</span><br><span class="line">      this.getSchoolSubjectsByPageByConditions()</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="vue3-中使用事件总线"><a href="#vue3-中使用事件总线" class="headerlink" title="vue3 中使用事件总线"></a>vue3 中使用事件总线</h2><p>安装插件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save mitt</span><br></pre></td></tr></table></figure>
+
+<p>在 utils&#x2F;bus,.js 中使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建事件总线</span></span><br><span class="line"><span class="keyword">import</span> mitt <span class="keyword">from</span> <span class="string">&#x27;mitt&#x27;</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">mitt</span>();</span><br></pre></td></tr></table></figure>
+
+<p>在组件中使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> bus <span class="keyword">from</span> <span class="string">&#x27;@/utils/bus.js&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="title function_">mounted</span>(<span class="params"></span>) &#123;</span><br><span class="line">    bus.<span class="title function_">on</span>(<span class="string">&#x27;refreshApplystatusIndex&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">init</span>()</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">beforeUnmount</span>(<span class="params"></span>) &#123;</span><br><span class="line">    bus.<span class="title function_">off</span>(<span class="string">&#x27;refreshApplystatusIndex&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="title function_">init</span>()</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> bus <span class="keyword">from</span> <span class="string">&#x27;@/utils/bus.js&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 通知其他页面刷新</span></span><br><span class="line">bus.<span class="title function_">emit</span>(<span class="string">&#x27;refreshApplystatusIndex&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+
 
 
       
